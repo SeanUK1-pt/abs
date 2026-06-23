@@ -36,8 +36,10 @@
 }
 
 .sectionTitle {
-  font-size: 1.25rem;
-  font-weight: 700;
+  font-family: var(--font-heading);
+  font-size: 1.45rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
   color: var(--navy);
   margin-bottom: 1.25rem;
 }
@@ -47,7 +49,7 @@
   grid-template-columns: 1fr 1fr;
   gap: 0;
   border: 1px solid var(--gray-200);
-  border-radius: 6px;
+  border-radius: var(--radius);
   overflow: hidden;
 }
 
@@ -88,7 +90,7 @@
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.08em;
-  color: var(--gold);
+  color: var(--gold-dark);
   margin-bottom: 0.75rem;
 }
 
@@ -123,8 +125,14 @@
 
 .optionCard {
   border: 1px solid var(--gray-200);
-  border-radius: 6px;
+  border-radius: var(--radius);
   padding: 1rem;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.optionCard:hover {
+  border-color: var(--gold);
+  box-shadow: var(--shadow-sm);
 }
 
 .optionName {
@@ -137,7 +145,7 @@
 
 .optionPrice {
   font-weight: 700;
-  color: var(--gold);
+  color: var(--gold-dark);
   font-size: 0.9rem;
 }
 
@@ -159,8 +167,10 @@
 .priceCard {
   background: var(--white);
   border: 1px solid var(--gray-200);
-  border-radius: 8px;
-  padding: 1.5rem;
+  border-top: 4px solid var(--gold);
+  border-radius: var(--radius-lg);
+  padding: 1.75rem;
+  box-shadow: var(--shadow-md);
 }
 
 .titleRow {
@@ -172,10 +182,12 @@
 }
 
 .boatTitle {
-  font-size: 1.2rem;
-  font-weight: 700;
+  font-family: var(--font-heading);
+  font-size: 1.3rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
   color: var(--navy);
-  line-height: 1.3;
+  line-height: 1.25;
 }
 
 .makeModelLine {
@@ -192,8 +204,10 @@
 }
 
 .price {
-  font-size: 2rem;
+  font-family: var(--font-heading);
+  font-size: 2.1rem;
   font-weight: 800;
+  letter-spacing: -0.02em;
   color: var(--navy);
 }
 
@@ -222,15 +236,18 @@
 }
 
 .enquiryCard {
-  background: var(--navy);
-  border-radius: 8px;
-  padding: 1.5rem;
+  background: var(--ocean-gradient);
+  border-radius: var(--radius-lg);
+  padding: 1.75rem;
   color: var(--white);
+  box-shadow: var(--shadow-md);
 }
 
 .enquiryCard h3 {
-  font-size: 1rem;
-  font-weight: 700;
+  font-family: var(--font-heading);
+  font-size: 1.15rem;
+  font-weight: 800;
+  letter-spacing: -0.01em;
   margin-bottom: 1rem;
   color: var(--white);
 }
