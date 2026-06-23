@@ -2,7 +2,7 @@
 .intro h2 { font-size: 1.75rem; font-weight: 700; color: var(--navy); margin-bottom: 1rem; }
 .intro p { color: var(--gray-700); line-height: 1.8; margin-bottom: 1rem; }
 
-.certBadge { background: var(--navy); color: white; border-radius: 10px; padding: 1.5rem; display: flex; gap: 1rem; align-items: flex-start; }
+.certBadge { background: var(--ocean-gradient); color: white; border-radius: var(--radius); padding: 1.5rem; display: flex; gap: 1rem; align-items: flex-start; }
 .certIcon { font-size: 1.5rem; color: var(--gold); flex-shrink: 0; }
 .certBadge strong { display: block; color: var(--gold); margin-bottom: 0.5rem; }
 .certBadge p { font-size: 0.85rem; color: rgba(255,255,255,0.8); line-height: 1.6; }
@@ -13,11 +13,11 @@
 
 .serviceCard {
   border: 1px solid var(--gray-200);
-  border-radius: 10px;
+  border-radius: var(--radius);
   padding: 1.75rem;
   transition: border-color 0.2s, box-shadow 0.2s;
 }
-.serviceCard:hover { border-color: var(--navy); box-shadow: 0 4px 16px rgba(0,0,0,0.06); }
+.serviceCard:hover { border-color: var(--navy); box-shadow: var(--shadow-md); }
 .serviceIndex {
   font-size: 0.85rem;
   font-weight: 800;
@@ -34,7 +34,7 @@
 .seasonal { padding: 3rem 0; border-bottom: 1px solid var(--gray-200); }
 .seasonal h2 { font-size: 1.75rem; font-weight: 700; color: var(--navy); margin-bottom: 2rem; }
 .seasonGrid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
-.season { background: var(--gray-100); border-radius: 10px; padding: 1.75rem; }
+.season { background: var(--gray-100); border-radius: var(--radius); padding: 1.75rem; }
 .season h3 { font-size: 1rem; font-weight: 700; color: var(--navy); margin-bottom: 0.75rem; }
 .season p { font-size: 0.9rem; color: var(--gray-700); line-height: 1.6; }
 

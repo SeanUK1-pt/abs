@@ -12,7 +12,7 @@
 .heroOverlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(to right, rgba(17,36,56,0.75) 0%, rgba(17,36,56,0.4) 100%);
+  background: linear-gradient(to right, rgba(15,43,70,0.75) 0%, rgba(15,43,70,0.4) 100%);
 }
 
 .heroContent {
@@ -101,7 +101,7 @@
 .mapWrap {
   position: relative;
   height: 280px;
-  border-radius: 10px;
+  border-radius: var(--radius);
   overflow: hidden;
   border: 1px solid var(--gray-200);
 }
@@ -112,8 +112,8 @@
 }
 
 .formCard {
-  background: var(--navy);
-  border-radius: 12px;
+  background: var(--ocean-gradient);
+  border-radius: var(--radius-lg);
   padding: 2rem;
   color: white;
 }
