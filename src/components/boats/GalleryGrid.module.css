@@ -1,0 +1,118 @@
+.gallery { width: 100%; }
+
+.main {
+  position: relative;
+  height: 460px;
+  background: var(--gray-200);
+  border-radius: 8px;
+  overflow: hidden;
+  cursor: zoom-in;
+}
+
+.mainImg { object-fit: cover; }
+
+.zoomHint {
+  position: absolute;
+  bottom: 0.75rem;
+  right: 0.75rem;
+  background: rgba(0,0,0,0.5);
+  color: white;
+  font-size: 0.75rem;
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+}
+
+.counter {
+  position: absolute;
+  bottom: 0.75rem;
+  left: 0.75rem;
+  background: rgba(0,0,0,0.5);
+  color: white;
+  font-size: 0.75rem;
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+}
+
+.thumbs {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 0.75rem;
+  overflow-x: auto;
+  padding-bottom: 0.25rem;
+}
+
+.thumb {
+  position: relative;
+  width: 90px;
+  height: 68px;
+  flex-shrink: 0;
+  border-radius: 4px;
+  overflow: hidden;
+  border: 2px solid transparent;
+  cursor: pointer;
+  background: var(--gray-200);
+  padding: 0;
+}
+
+.thumbActive { border-color: var(--navy); }
+
+.thumbImg { object-fit: cover; }
+
+/* Lightbox */
+.lightbox {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.92);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.lightboxImg {
+  position: relative;
+  width: 90vw;
+  height: 85vh;
+  max-width: 1200px;
+}
+
+.lightboxImgEl { object-fit: contain; }
+
+.close {
+  position: absolute;
+  top: 1rem;
+  right: 1.5rem;
+  background: none;
+  border: none;
+  color: white;
+  font-size: 2rem;
+  cursor: pointer;
+  z-index: 10;
+}
+
+.navBtn {
+  position: absolute;
+  background: rgba(255,255,255,0.15);
+  border: none;
+  color: white;
+  font-size: 3rem;
+  width: 60px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  border-radius: 50%;
+  z-index: 10;
+  transition: background 0.2s;
+}
+
+.navBtn:hover { background: rgba(255,255,255,0.25); }
+.navBtn:disabled { opacity: 0.3; cursor: default; }
+
+.prev { left: 1rem; }
+.next { right: 1rem; }
+
+@media (max-width: 768px) {
+  .main { height: 280px; }
+}

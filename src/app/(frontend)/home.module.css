@@ -1,0 +1,107 @@
+.hero {
+  position: relative;
+  min-height: 580px;
+  display: flex;
+  align-items: center;
+  background: linear-gradient(135deg, var(--navy-dark) 0%, var(--navy) 50%, #1a4a7a 100%);
+  overflow: hidden;
+}
+
+/* carousel handles the background now */
+
+.heroContent {
+  position: relative;
+  z-index: 1;
+  padding-top: 4rem;
+  padding-bottom: 4rem;
+}
+
+.heroTitle {
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  font-weight: 800;
+  color: var(--white);
+  line-height: 1.15;
+  margin-bottom: 1.25rem;
+}
+
+.heroAccent {
+  color: var(--gold);
+}
+
+.heroSub {
+  font-size: 1.2rem;
+  color: rgba(255,255,255,0.8);
+  max-width: 540px;
+  margin-bottom: 2rem;
+  line-height: 1.6;
+}
+
+.heroCtas {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.searchBar {
+  background: var(--white);
+  box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+  padding: 1.5rem 0;
+  position: relative;
+  z-index: 10;
+}
+
+.brandStrip {
+  border-bottom: 1px solid var(--gray-200);
+  padding: 1.5rem 0 0;
+  background: var(--white);
+}
+
+.brandStripLabel {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--gray-400);
+  text-align: center;
+  margin-bottom: -0.5rem;
+}
+
+.latestSection {
+  background: var(--gray-100);
+  padding: 4rem 0;
+}
+
+.ctaSection {
+  background: var(--navy);
+  padding: 4rem 0;
+}
+
+.ctaBox {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+
+.ctaBox h2 {
+  font-size: 1.75rem;
+  color: var(--white);
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+.ctaBox p {
+  color: rgba(255,255,255,0.7);
+}
+
+.ctaBtns {
+  display: flex;
+  gap: 1rem;
+  flex-shrink: 0;
+  flex-wrap: wrap;
+}
+
+@media (max-width: 768px) {
+  .hero { min-height: 480px; }
+  .ctaBox { flex-direction: column; align-items: flex-start; }
+}

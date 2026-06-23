@@ -1,0 +1,193 @@
+.hero {
+  position: relative;
+  padding: 5.5rem 0 4rem;
+  color: white;
+  overflow: hidden;
+  min-height: 320px;
+  display: flex;
+  align-items: center;
+}
+.heroImg { object-fit: cover; z-index: 0; }
+.heroOverlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(120deg, rgba(10, 22, 36, 0.95) 0%, rgba(17, 36, 56, 0.85) 55%, rgba(17, 36, 56, 0.55) 100%);
+  z-index: 1;
+}
+.heroContent { position: relative; z-index: 2; }
+.hero h1 {
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 800;
+  margin-bottom: 0.6rem;
+  color: #ffffff;
+  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.35);
+}
+.hero p { font-size: 1.1rem; color: rgba(255, 255, 255, 0.92); max-width: 560px; text-shadow: 0 1px 6px rgba(0, 0, 0, 0.3); }
+
+.intro { display: grid; grid-template-columns: 1fr 300px; gap: 3rem; padding: 3rem 0; align-items: start; }
+.lead { color: var(--gray-700); line-height: 1.8; margin-bottom: 1.5rem; font-size: 1.05rem; }
+.introText h2 { font-size: 1.3rem; font-weight: 700; color: var(--navy); margin: 1.75rem 0 1rem; }
+.introText h2:first-of-type { margin-top: 0; }
+.introText p { color: var(--gray-700); line-height: 1.8; margin-bottom: 1rem; }
+.noteText { font-size: 0.85rem; color: var(--gray-500); font-style: italic; }
+
+.introPhotos { display: flex; flex-direction: column; }
+.introPhoto { position: relative; width: 100%; height: 100%; min-height: 320px; border-radius: 8px; overflow: hidden; }
+.introPhoto img { object-fit: cover; }
+
+/* ── Promo strip ──────────────────────────────────────── */
+.promoStrip {
+  position: relative;
+  min-height: 220px;
+  border-radius: 8px;
+  overflow: hidden;
+  margin: 2.5rem 0 3rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.promoStripImg { object-fit: cover; z-index: 0; }
+.promoStrip::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(17, 36, 56, 0.4);
+  z-index: 1;
+}
+.promoStripCard {
+  position: relative;
+  z-index: 2;
+  background: rgba(255, 255, 255, 0.96);
+  border-radius: 6px;
+  padding: 2rem 2.5rem;
+  text-align: center;
+  max-width: 520px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.18);
+}
+.promoStripCard h2 {
+  font-size: 1.4rem;
+  font-weight: 800;
+  color: var(--navy);
+  margin-bottom: 1.25rem;
+  line-height: 1.3;
+}
+
+.packageIncludeGrid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem 2rem; }
+.packageList { list-style: none; display: flex; flex-direction: column; gap: 0.6rem; }
+.packageList li { display: flex; gap: 0.75rem; font-size: 0.92rem; color: var(--gray-700); align-items: flex-start; }
+.packageList li span { color: var(--gold); font-weight: 700; flex-shrink: 0; margin-top: 1px; }
+
+/* ── Pricing tables ─────────────────────────────────── */
+.pricing { padding: 3rem 0; border-bottom: 1px solid var(--gray-200); }
+.pricing h2 { font-size: 1.75rem; font-weight: 700; color: var(--navy); margin-bottom: 0.5rem; }
+.secondTableHeading { margin-top: 2.5rem; }
+.pricingNote { font-size: 0.85rem; color: var(--gray-500); margin-bottom: 1.5rem; }
+
+.tableWrap {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  border-radius: 8px;
+  border: 1px solid var(--gray-200);
+}
+
+.priceTable {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 560px;
+  font-size: 0.92rem;
+}
+
+.priceTable th {
+  background: var(--navy);
+  color: white;
+  text-align: left;
+  padding: 0.75rem 1rem;
+  font-weight: 600;
+  font-size: 0.82rem;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  white-space: nowrap;
+}
+
+.priceTable td {
+  padding: 0.7rem 1rem;
+  border-bottom: 1px solid var(--gray-200);
+  color: var(--gray-700);
+}
+
+.priceTable tbody tr:last-child td { border-bottom: none; }
+.priceTable tbody tr:nth-child(odd) { background: var(--gray-100); }
+
+.sizeCell { vertical-align: middle; }
+.sizeCell strong { display: block; color: var(--navy); font-size: 0.9rem; }
+.sizeCell small { color: var(--gray-500); font-size: 0.78rem; }
+
+.otherServices {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+.otherServices div {
+  flex: 1;
+  min-width: 220px;
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  background: var(--gray-100);
+  border-radius: 8px;
+  padding: 0.9rem 1.25rem;
+}
+
+.otherServices span { color: var(--gray-700); font-size: 0.9rem; }
+.otherServices strong { color: var(--navy); }
+
+/* ── Brand strip ─────────────────────────────────────── */
+.brandStrip { padding: 2.5rem 0; border-bottom: 1px solid var(--gray-200); }
+.brandBannerWrap {
+  max-width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  display: flex;
+  justify-content: center;
+}
+.brandBanner {
+  width: 480px;
+  max-width: 480px;
+  height: auto;
+  flex-shrink: 0;
+}
+
+.faq { padding: 3rem 0; border-bottom: 1px solid var(--gray-200); }
+.faq h2 { font-size: 1.75rem; font-weight: 700; color: var(--navy); margin-bottom: 2rem; }
+.faqGrid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem; }
+.faqItem { padding: 1.25rem; background: var(--gray-100); border-radius: 8px; }
+.faqItem h3 { font-size: 0.95rem; font-weight: 700; color: var(--navy); margin-bottom: 0.5rem; }
+.faqItem p { font-size: 0.88rem; color: var(--gray-700); line-height: 1.6; }
+
+.cta { text-align: center; padding: 4rem 0; }
+.cta h2 { font-size: 1.75rem; font-weight: 700; color: var(--navy); margin-bottom: 0.75rem; }
+.cta p { color: var(--gray-600); margin-bottom: 1.5rem; }
+
+@media (max-width: 768px) {
+  .hero { padding: 4rem 0 3rem; min-height: 260px; }
+  .intro { grid-template-columns: 1fr; }
+  .introPhoto { min-height: 220px; }
+  .packageIncludeGrid { grid-template-columns: 1fr; }
+  .faqGrid { grid-template-columns: 1fr; }
+  .otherServices div { min-width: 100%; }
+  .promoStrip { min-height: 200px; margin: 2rem 0; }
+  .promoStripCard { padding: 1.25rem 1.5rem; margin: 0 1rem; }
+}
+
+@media (max-width: 480px) {
+  .hero h1 { font-size: 1.6rem; }
+  .hero p { font-size: 0.95rem; }
+  .priceTable { font-size: 0.85rem; }
+  .priceTable th, .priceTable td { padding: 0.55rem 0.7rem; }
+  .promoStripCard p { font-size: 0.85rem; }
+  .brandStrip { padding: 1.75rem 0; }
+  .brandBannerWrap { justify-content: flex-start; padding: 0 1.25rem; }
+  .brandBanner { width: 380px; max-width: 380px; }
+}

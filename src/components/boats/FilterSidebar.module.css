@@ -1,0 +1,109 @@
+.sidebar {
+  background: var(--white);
+  border: 1px solid var(--gray-200);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 1.25rem;
+  border-bottom: 1px solid var(--gray-200);
+  background: var(--gray-100);
+}
+
+.header h3 {
+  font-size: 0.9rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--navy);
+}
+
+.clearBtn {
+  background: none;
+  border: none;
+  color: var(--gold);
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.group {
+  padding: 1rem 1.25rem;
+  border-bottom: 1px solid var(--gray-200);
+}
+
+.group:last-child {
+  border-bottom: none;
+}
+
+.groupTitle {
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--gray-600);
+  margin-bottom: 0.75rem;
+}
+
+.checkLabel {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+  font-size: 0.9rem;
+  color: var(--gray-700);
+  padding: 0.25rem 0;
+}
+
+.checkLabel input {
+  accent-color: var(--navy);
+  width: 16px;
+  height: 16px;
+}
+
+.select {
+  width: 100%;
+  padding: 0.6rem 0.75rem;
+  border: 1px solid var(--gray-300);
+  border-radius: 4px;
+  font-size: 0.88rem;
+  background: var(--white);
+  color: var(--gray-700);
+  cursor: pointer;
+}
+
+.select:focus {
+  outline: none;
+  border-color: var(--navy);
+}
+
+.rangeRow {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.rangeRow span {
+  color: var(--gray-500);
+  flex-shrink: 0;
+}
+
+.rangeInput {
+  flex: 1;
+  padding: 0.5rem 0.6rem;
+  border: 1px solid var(--gray-300);
+  border-radius: 4px;
+  font-size: 0.85rem;
+  background: var(--white);
+  min-width: 0;
+}
+
+.rangeInput:focus {
+  outline: none;
+  border-color: var(--navy);
+}

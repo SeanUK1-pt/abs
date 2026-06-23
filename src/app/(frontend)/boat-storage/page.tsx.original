@@ -1,0 +1,135 @@
+import Link from 'next/link'
+import styles from './storage.module.css'
+import { getLocale } from '@/lib/locale'
+import { getPageData } from '@/lib/getPage'
+import { RichText } from '@/components/ui/RichText'
+
+
+
+const WINTER_PACKAGE = [
+  'Recovering the boat to the trailer',
+  'Towing to our storage facility',
+  'Jet-washing the hull',
+  'Cleaning and drying to prepare for storage',
+  'Engines prepared for storage by a certified engineer',
+  'Storage at our secure facility',
+]
+
+const SPRING_PACKAGE = [
+  'Engines prepared for service by a certified engineer',
+  'Anode replacement (parts excluded)',
+  'Deep pre-season cleaning',
+  'Polishing and waxing',
+  'Launch and delivery to the marina',
+]
+
+export async function generateMetadata() {
+  const locale = await getLocale()
+  const page = await getPageData('boat-storage', locale)
+  return {
+    title: page?.title ? `${page.title} | Algarve Boat Sales` : 'Indoor Boat Storage | Algarve Boat Sales',
+    description: page?.meta_description || 'Winter and year-round indoor boat storage in Lagos, Algarve.',
+  }
+}
+
+export default async function BoatStoragePage() {
+  const locale = await (await import('@/lib/locale')).getLocale()
+  const page = await getPageData('boat-storage', locale)
+
+  return (
+    <>
+      <section className={styles.hero}>
+        <div className="container">
+          <h1>Indoor Boat Storage</h1>
+          <p>Secure, covered storage for boats up to 10m — with full winter and spring packages</p>
+        </div>
+      </section>
+
+      <div className="container">
+        <section className={styles.intro}>
+          <div className={styles.introText}>
+            <h2>Safe Storage, All Year Round</h2>
+            <p>
+              We offer complete winter storage packages that include everything you need to put your boat
+              away safely for the winter and bring it back out ready for the season. Available for boats
+              up to 10m / 30ft.
+            </p>
+            <p>
+              Our facility is secure, covered, and monitored — giving you peace of mind that your
+              investment is protected throughout the off-season.
+            </p>
+          </div>
+          <div className={styles.introStats}>
+            <div className={styles.stat}><span>10m</span><small>Max boat length</small></div>
+            <div className={styles.stat}><span>🔒</span><small>Secure & covered</small></div>
+            <div className={styles.stat}><span>✓</span><small>Certified engineers</small></div>
+          </div>
+        </section>
+
+        <section className={styles.packages}>
+          <div className={styles.package}>
+            <div className={styles.packageHeader}>
+              <span className={styles.packageIcon}>❄️</span>
+              <div>
+                <h2>Winter Storage Package</h2>
+                <p>Everything included to store your boat safely for the winter</p>
+              </div>
+            </div>
+            <ul className={styles.packageList}>
+              {WINTER_PACKAGE.map(item => (
+                <li key={item}><span>✓</span>{item}</li>
+              ))}
+            </ul>
+          </div>
+
+          <div className={styles.package}>
+            <div className={styles.packageHeader}>
+              <span className={styles.packageIcon}>☀️</span>
+              <div>
+                <h2>Spring Handback Package</h2>
+                <p>Full pre-season preparation to get you back on the water</p>
+              </div>
+            </div>
+            <ul className={styles.packageList}>
+              {SPRING_PACKAGE.map(item => (
+                <li key={item}><span>✓</span>{item}</li>
+              ))}
+            </ul>
+          </div>
+        </section>
+
+        <section className={styles.faq}>
+          <h2>Common Questions</h2>
+          <div className={styles.faqGrid}>
+            {[
+              { q: 'What size boats do you accept?', a: 'We accept boats up to 10 metres / 30 feet in length. Please contact us to discuss larger vessels.' },
+              { q: 'Is the facility covered?', a: 'Yes — all boats are stored indoors in our covered, secure facility in the Lagos area.' },
+              { q: 'Do I need to bring my own trailer?', a: 'We can collect and return your boat on our trailer. You\'re also welcome to store on your own trailer.' },
+              { q: 'What does the engine preparation include?', a: 'Our certified engineers flush the cooling system, fog the engine, change the impeller if due, and prepare the engine for inactivity over winter.' },
+              { q: 'Can I access my boat during storage?', a: 'Yes, by appointment. Please contact us in advance to arrange access.' },
+              { q: 'When should I book?', a: 'We recommend booking before October to guarantee a space. Contact us early to avoid disappointment.' },
+            ].map(({ q, a }) => (
+              <div key={q} className={styles.faqItem}>
+                <h3>{q}</h3>
+                <p>{a}</p>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        <section className={styles.cta}>
+          <h2>Ready to book winter storage?</h2>
+          <p>Contact us for availability and pricing. Spaces are limited — book early.</p>
+          <Link href="/contact" className="btn btn-gold">Get a Quote</Link>
+        </section>
+      </div>
+
+      {/* CMS additional content from Payload Pages editor */}
+      {page?.content && (
+        <div className="container" style={{ paddingBottom: '3rem' }}>
+          <RichText content={page.content} className="richtext-content" />
+        </div>
+      )}
+    </>
+  )
+}

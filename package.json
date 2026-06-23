@@ -1,0 +1,35 @@
+{
+  "name": "abs-website",
+  "version": "1.0.0",
+  "description": "Algarve Boat Sales - Payload CMS + Next.js",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "generate:types": "payload generate:types",
+    "migrate": "npx tsx src/migrations/wordpress-import.ts"
+  },
+  "license": "ISC",
+  "dependencies": {
+    "@payloadcms/db-mongodb": "^3.85.1",
+    "@payloadcms/next": "^3.85.1",
+    "@payloadcms/richtext-lexical": "^3.85.1",
+    "@types/node": "^25.9.3",
+    "@types/nodemailer": "^8.0.1",
+    "@types/react": "^19.2.17",
+    "@types/react-dom": "^19.2.3",
+    "graphql": "^16.14.2",
+    "next": "^16.2.9",
+    "nodemailer": "^9.0.0",
+    "payload": "^3.85.1",
+    "react": "^19.2.7",
+    "react-dom": "^19.2.7",
+    "sharp": "^0.35.1",
+    "tunnel-ssh": "^5.2.0",
+    "typescript": "^6.0.3"
+  },
+  "devDependencies": {
+    "mysql2": "^3.22.5",
+    "tsx": "^4.22.4"
+  }
+}

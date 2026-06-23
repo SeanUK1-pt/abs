@@ -1,0 +1,38 @@
+.intro { display: grid; grid-template-columns: 1fr 320px; gap: 3rem; padding: 4rem 0; border-bottom: 1px solid var(--gray-200); align-items: start; }
+.intro h2 { font-size: 1.75rem; font-weight: 700; color: var(--navy); margin-bottom: 1rem; }
+.intro p { color: var(--gray-700); line-height: 1.8; margin-bottom: 1rem; }
+
+.whyUs { background: var(--navy); color: white; border-radius: 10px; padding: 1.75rem; }
+.whyUs h3 { font-size: 1rem; font-weight: 700; color: var(--gold); margin-bottom: 1rem; text-transform: uppercase; letter-spacing: 0.06em; }
+.whyUs ul { list-style: none; display: flex; flex-direction: column; gap: 0.6rem; }
+.whyUs li { display: flex; gap: 0.6rem; font-size: 0.9rem; color: rgba(255,255,255,0.9); }
+.whyUs li span { color: var(--gold); font-weight: 700; flex-shrink: 0; }
+
+.process { padding: 4rem 0; border-bottom: 1px solid var(--gray-200); }
+.process h2 { font-size: 1.75rem; font-weight: 700; color: var(--navy); margin-bottom: 2rem; }
+
+.steps { display: flex; flex-direction: column; gap: 1.5rem; }
+.step { display: flex; gap: 1.5rem; align-items: flex-start; }
+
+.stepNum { width: 56px; height: 56px; background: var(--gold); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1rem; font-weight: 800; flex-shrink: 0; }
+
+.step h3 { font-size: 1.05rem; font-weight: 700; color: var(--navy); margin-bottom: 0.25rem; }
+.step p { font-size: 0.9rem; color: var(--gray-700); line-height: 1.6; }
+
+.formSection { display: grid; grid-template-columns: 1fr 420px; gap: 4rem; padding: 4rem 0 5rem; align-items: start; }
+.formIntro h2 { font-size: 1.75rem; font-weight: 700; color: var(--navy); margin-bottom: 1rem; }
+.formIntro p { color: var(--gray-700); line-height: 1.8; }
+
+.formWrap { background: var(--navy); border-radius: 12px; padding: 2rem; }
+
+@media (max-width: 900px) {
+  .intro { grid-template-columns: 1fr; }
+  .formSection { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 480px) {
+  .step { gap: 1rem; }
+  .stepNum { width: 44px; height: 44px; font-size: 0.85rem; }
+  .formWrap { padding: 1.5rem; }
+  .whyUs { padding: 1.25rem; }
+}

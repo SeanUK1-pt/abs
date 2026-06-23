@@ -1,0 +1,50 @@
+.page {
+  max-width: 780px;
+  padding: 4rem 0 6rem;
+}
+
+.page h1 {
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: var(--navy);
+  margin-bottom: 0.5rem;
+}
+
+.updated {
+  font-size: 0.85rem;
+  color: var(--gray-500);
+  margin-bottom: 2.5rem;
+}
+
+.page h2 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--navy);
+  margin-top: 2rem;
+  margin-bottom: 0.75rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--gray-200);
+}
+
+.page p {
+  color: var(--gray-700);
+  line-height: 1.8;
+  margin-bottom: 1rem;
+}
+
+.page ul {
+  color: var(--gray-700);
+  line-height: 1.8;
+  padding-left: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.page li { margin-bottom: 0.3rem; }
+
+.page a { color: var(--navy); text-decoration: underline; }
+
+@media (max-width: 600px) {
+  .page { padding: 2.5rem 0 4rem; }
+  .page h1 { font-size: 1.85rem; }
+  .page h2 { font-size: 1.1rem; margin-top: 1.5rem; }
+}

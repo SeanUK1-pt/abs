@@ -1,0 +1,50 @@
+.strip {
+  padding: 2.5rem 0;
+  border-bottom: 1px solid var(--gray-200);
+  text-align: center;
+}
+
+.label {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--gray-500);
+  margin-bottom: 1.25rem;
+}
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem 2.5rem;
+}
+
+.logo {
+  height: 42px;
+  min-width: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.pending {
+  height: 42px;
+  min-width: 120px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 1.1rem;
+  border: 1.5px dashed var(--gray-300);
+  border-radius: 6px;
+  color: var(--gray-600);
+  font-size: 0.8rem;
+  font-weight: 600;
+  background: var(--gray-100);
+  white-space: nowrap;
+}
+
+@media (max-width: 480px) {
+  .row { gap: 1.25rem 1.5rem; }
+  .logo, .pending { height: 36px; }
+}

@@ -1,0 +1,144 @@
+.hero {
+  position: relative;
+  height: 380px;
+  overflow: hidden;
+}
+
+.heroImg {
+  object-fit: cover;
+  object-position: center 60%;
+}
+
+.heroOverlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to right, rgba(17,36,56,0.75) 0%, rgba(17,36,56,0.4) 100%);
+}
+
+.heroContent {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  color: white;
+}
+
+.heroContent h1 {
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 800;
+  margin-bottom: 0.5rem;
+}
+
+.heroContent p {
+  font-size: 1.1rem;
+  color: rgba(255,255,255,0.8);
+}
+
+.page {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  align-items: start;
+}
+
+.info h2 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--navy);
+  margin-bottom: 0.75rem;
+}
+
+.intro {
+  color: var(--gray-600);
+  font-size: 1rem;
+  margin-bottom: 2rem;
+  line-height: 1.6;
+}
+
+.details {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  margin-bottom: 2rem;
+}
+
+.detailItem {
+  display: flex;
+  flex-direction: column;
+}
+
+.detailItem strong {
+  display: block;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--gray-500);
+  margin-bottom: 0.2rem;
+}
+
+.detailItem p {
+  color: var(--gray-800);
+  font-size: 0.92rem;
+  line-height: 1.5;
+}
+
+.detailItem a {
+  display: block;
+  color: var(--navy);
+  font-size: 0.92rem;
+  text-decoration: underline;
+  margin-bottom: 0.1rem;
+}
+
+.hint {
+  font-size: 0.78rem !important;
+  color: var(--gray-500) !important;
+  font-style: italic;
+  margin-top: 0.2rem;
+}
+
+.mapWrap {
+  position: relative;
+  height: 280px;
+  border-radius: 10px;
+  overflow: hidden;
+  border: 1px solid var(--gray-200);
+}
+
+.formWrap {
+  position: sticky;
+  top: 90px;
+}
+
+.formCard {
+  background: var(--navy);
+  border-radius: 12px;
+  padding: 2rem;
+  color: white;
+}
+
+.formCard h2 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  color: white;
+}
+
+.formCard p {
+  font-size: 0.9rem;
+  color: rgba(255,255,255,0.7);
+  margin-bottom: 1.5rem;
+}
+
+@media (max-width: 768px) {
+  .page { grid-template-columns: 1fr; gap: 2rem; }
+  .hero { height: 260px; }
+  .mapWrap { height: 240px; }
+  .formWrap { position: static; }
+}
+
+@media (max-width: 480px) {
+  .formCard { padding: 1.5rem; }
+  .detailItem strong { font-size: 0.75rem; }
+}

@@ -1,0 +1,54 @@
+.hero {
+  position: relative;
+  padding: 5.5rem 0 4rem;
+  color: white;
+  overflow: hidden;
+  min-height: 320px;
+  display: flex;
+  align-items: center;
+}
+
+.heroImg {
+  object-fit: cover;
+  z-index: 0;
+}
+
+.heroOverlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(120deg, rgba(10, 22, 36, 0.95) 0%, rgba(17, 36, 56, 0.85) 55%, rgba(17, 36, 56, 0.55) 100%);
+  z-index: 1;
+}
+
+/* Applied directly to the container div — NOT via a `.hero > .container` combinator.
+   CSS Modules scopes every class written in this file, including a global class like
+   `.container` if referenced via combinator, producing a selector that can never match
+   the real DOM. Always apply hero-specific positioning via a dedicated class like this one. */
+.heroContent {
+  position: relative;
+  z-index: 2;
+}
+
+.heroContent h1 {
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 800;
+  margin-bottom: 0.6rem;
+  color: #ffffff;
+  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.35);
+}
+
+.heroContent p {
+  font-size: 1.1rem;
+  color: rgba(255, 255, 255, 0.92);
+  max-width: 560px;
+  text-shadow: 0 1px 6px rgba(0, 0, 0, 0.3);
+}
+
+@media (max-width: 768px) {
+  .hero { padding: 4rem 0 3rem; min-height: 260px; }
+}
+
+@media (max-width: 480px) {
+  .heroContent h1 { font-size: 1.6rem; }
+  .heroContent p { font-size: 0.95rem; }
+}

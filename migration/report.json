@@ -1,0 +1,301 @@
+{
+  "succeeded": [
+    {
+      "id": 2639,
+      "title": "GRAND Golden Line 650",
+      "makeId": null,
+      "modelId": null,
+      "images": 8
+    },
+    {
+      "id": 4013,
+      "title": "Grand Golden Line 680",
+      "makeId": "6a319343ea96ed0aba988b93",
+      "modelId": "6a319343ea96ed0aba988b97",
+      "images": 11
+    },
+    {
+      "id": 4169,
+      "title": "BWA 34",
+      "makeId": "6a319343ea96ed0aba988bcc",
+      "modelId": "6a319343ea96ed0aba988bd0",
+      "images": 21
+    },
+    {
+      "id": 4360,
+      "title": "Chaparral 275 SSI",
+      "makeId": "6a319343ea96ed0aba988c23",
+      "modelId": "6a319343ea96ed0aba988c27",
+      "images": 21
+    },
+    {
+      "id": 4435,
+      "title": "Bryant Potenza",
+      "makeId": "6a319343ea96ed0aba988c7a",
+      "modelId": "6a319343ea96ed0aba988c7e",
+      "images": 23
+    },
+    {
+      "id": 4691,
+      "title": "GRAND Golden Line 750",
+      "makeId": "6a319343ea96ed0aba988b93",
+      "modelId": "6a319344ea96ed0aba988cd7",
+      "images": 10
+    },
+    {
+      "id": 4743,
+      "title": "SPX RIB 24 Dinette",
+      "makeId": "6a319344ea96ed0aba988d09",
+      "modelId": "6a319344ea96ed0aba988d0d",
+      "images": 10
+    },
+    {
+      "id": 4876,
+      "title": "Bayliner VR6",
+      "makeId": "6a319344ea96ed0aba988d3f",
+      "modelId": "6a319344ea96ed0aba988d43",
+      "images": 9
+    },
+    {
+      "id": 4922,
+      "title": "Regal 1900",
+      "makeId": "6a319344ea96ed0aba988d72",
+      "modelId": "6a319344ea96ed0aba988d76",
+      "images": 13
+    },
+    {
+      "id": 4958,
+      "title": "Nordkapp Avant 705",
+      "makeId": "6a319344ea96ed0aba988db1",
+      "modelId": "6a319344ea96ed0aba988db5",
+      "images": 37
+    },
+    {
+      "id": 4999,
+      "title": "Jeanneau Cap Camarat 12.5 WA",
+      "makeId": "6a319344ea96ed0aba988e38",
+      "modelId": "6a319344ea96ed0aba988e3c",
+      "images": 75
+    },
+    {
+      "id": 5609,
+      "title": "Yamarin 63 BR",
+      "makeId": "6a319345ea96ed0aba988f31",
+      "modelId": "6a319345ea96ed0aba988f35",
+      "images": 12
+    },
+    {
+      "id": 5693,
+      "title": "Yamarin 63 BR",
+      "makeId": "6a319345ea96ed0aba988f31",
+      "modelId": "6a319345ea96ed0aba988f35",
+      "images": 0
+    },
+    {
+      "id": 5696,
+      "title": "Jeanneau Cap Camarat 12.5 WA",
+      "makeId": "6a319344ea96ed0aba988e38",
+      "modelId": "6a319344ea96ed0aba988e3c",
+      "images": 0
+    },
+    {
+      "id": 5706,
+      "title": "Vanclaes Rib Marine Wave 1800",
+      "makeId": "6a319345ea96ed0aba988f87",
+      "modelId": "6a319345ea96ed0aba988f8b",
+      "images": 0
+    },
+    {
+      "id": 5711,
+      "title": "Buster XXL",
+      "makeId": "6a319345ea96ed0aba988f9d",
+      "modelId": "6a319345ea96ed0aba988fa1",
+      "images": 1
+    },
+    {
+      "id": 5717,
+      "title": "Vanclaes Rib Marine Wave 1350",
+      "makeId": "6a319345ea96ed0aba988f87",
+      "modelId": "6a319345ea96ed0aba988fb8",
+      "images": 0
+    },
+    {
+      "id": 5720,
+      "title": "Yamarin 63BR - encomenda da fábrica",
+      "makeId": "6a319345ea96ed0aba988fca",
+      "modelId": "6a319345ea96ed0aba988fce",
+      "images": 1
+    },
+    {
+      "id": 5722,
+      "title": "BWA 34",
+      "makeId": "6a319343ea96ed0aba988bcc",
+      "modelId": "6a319343ea96ed0aba988bd0",
+      "images": 0
+    },
+    {
+      "id": 5724,
+      "title": "Yamarin 88 DC Premium - encomenda da fábrica",
+      "makeId": "6a319345ea96ed0aba988f31",
+      "modelId": "6a319345ea96ed0aba988ff2",
+      "images": 1
+    },
+    {
+      "id": 5725,
+      "title": "YAMARIN 80DC - encomenda da fábrica",
+      "makeId": null,
+      "modelId": null,
+      "images": 1
+    },
+    {
+      "id": 5729,
+      "title": "Grand Silverline 300 - encomenda diretamente da fábrica",
+      "makeId": "6a319343ea96ed0aba988b93",
+      "modelId": "6a319345ea96ed0aba989015",
+      "images": 1
+    },
+    {
+      "id": 5730,
+      "title": "Grand Silverline 330 - encomenda da fábrica",
+      "makeId": "6a319343ea96ed0aba988b93",
+      "modelId": "6a319345ea96ed0aba989015",
+      "images": 1
+    },
+    {
+      "id": 5735,
+      "title": "Chaparral 275 SSI",
+      "makeId": "6a319343ea96ed0aba988c23",
+      "modelId": "6a319343ea96ed0aba988c27",
+      "images": 0
+    },
+    {
+      "id": 5736,
+      "title": "Yamarin 67 DC - encomenda da fábrica",
+      "makeId": "6a319345ea96ed0aba988f31",
+      "modelId": "6a319345ea96ed0aba98904b",
+      "images": 1
+    },
+    {
+      "id": 5741,
+      "title": "Bryant Potenza",
+      "makeId": "6a319343ea96ed0aba988c7a",
+      "modelId": "6a319343ea96ed0aba988c7e",
+      "images": 0
+    },
+    {
+      "id": 5744,
+      "title": "GRAND Golden Line 850 - encomenda da fábrica",
+      "makeId": "6a319343ea96ed0aba988b93",
+      "modelId": "6a319345ea96ed0aba98906f",
+      "images": 1
+    },
+    {
+      "id": 5746,
+      "title": "GRAND Golden Line 750",
+      "makeId": "6a319343ea96ed0aba988b93",
+      "modelId": "6a319344ea96ed0aba988cd7",
+      "images": 0
+    },
+    {
+      "id": 5751,
+      "title": "GRAND Golden Line 650",
+      "makeId": null,
+      "modelId": null,
+      "images": 0
+    },
+    {
+      "id": 5753,
+      "title": "Beneteau Oceanis 31",
+      "makeId": "6a319345ea96ed0aba98909a",
+      "modelId": "6a319345ea96ed0aba98909e",
+      "images": 1
+    },
+    {
+      "id": 5754,
+      "title": "Grand Golden Line 680",
+      "makeId": "6a319343ea96ed0aba988b93",
+      "modelId": "6a319343ea96ed0aba988b97",
+      "images": 0
+    },
+    {
+      "id": 5759,
+      "title": "SPX RIB 24 Dinette",
+      "makeId": "6a319344ea96ed0aba988d09",
+      "modelId": "6a319344ea96ed0aba988d0d",
+      "images": 0
+    },
+    {
+      "id": 5763,
+      "title": "Bayliner VR6",
+      "makeId": "6a319344ea96ed0aba988d3f",
+      "modelId": "6a319344ea96ed0aba988d43",
+      "images": 0
+    },
+    {
+      "id": 5767,
+      "title": "Regal 1900",
+      "makeId": "6a319344ea96ed0aba988d72",
+      "modelId": "6a319344ea96ed0aba988d76",
+      "images": 0
+    },
+    {
+      "id": 5771,
+      "title": "Nordkapp Avant 705",
+      "makeId": "6a319344ea96ed0aba988db1",
+      "modelId": "6a319344ea96ed0aba988db5",
+      "images": 0
+    },
+    {
+      "id": 5819,
+      "title": "Brig Eagle 10",
+      "makeId": "6a319345ea96ed0aba988fca",
+      "modelId": "6a319345ea96ed0aba9890f6",
+      "images": 19
+    },
+    {
+      "id": 5860,
+      "title": "Brig Eagle 10",
+      "makeId": "6a319345ea96ed0aba988fca",
+      "modelId": "6a319345ea96ed0aba9890f6",
+      "images": 0
+    },
+    {
+      "id": 5865,
+      "title": "Yamarin 67 DC",
+      "makeId": "6a319345ea96ed0aba988f31",
+      "modelId": "6a319345ea96ed0aba98904b",
+      "images": 0
+    },
+    {
+      "id": 7089,
+      "title": "Grand Golden Line 680",
+      "makeId": "6a319343ea96ed0aba988b93",
+      "modelId": "6a319343ea96ed0aba988b97",
+      "images": 11
+    },
+    {
+      "id": 7103,
+      "title": "Grand Drive Line 600 LUX",
+      "makeId": "6a319343ea96ed0aba988b93",
+      "modelId": "6a319346ea96ed0aba98918d",
+      "images": 11
+    },
+    {
+      "id": 7113,
+      "title": "Yamarin 63 BR",
+      "makeId": "6a319345ea96ed0aba988f31",
+      "modelId": "6a319345ea96ed0aba988f35",
+      "images": 8
+    },
+    {
+      "id": 7118,
+      "title": "Brig Eagle 6.7",
+      "makeId": "6a319345ea96ed0aba988fca",
+      "modelId": null,
+      "images": 18
+    }
+  ],
+  "failed": [],
+  "skipped": [],
+  "image_errors": []
+}

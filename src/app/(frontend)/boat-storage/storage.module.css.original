@@ -1,0 +1,59 @@
+.hero {
+  position: relative;
+  padding: 5rem 0 4rem;
+  text-align: center;
+  color: white;
+  background: linear-gradient(135deg, var(--navy-dark) 0%, var(--navy) 100%);
+  overflow: hidden;
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: url('/media/INDOOR-STORAGE-08.jpg') center/cover no-repeat;
+  opacity: 0.3;
+}
+
+.hero > * { position: relative; }
+.hero h1 { font-size: clamp(2rem, 4vw, 3rem); font-weight: 800; margin-bottom: 0.75rem; }
+.hero p { font-size: 1.2rem; color: rgba(255,255,255,0.75); }
+
+.intro { display: grid; grid-template-columns: 1fr 260px; gap: 3rem; padding: 4rem 0; border-bottom: 1px solid var(--gray-200); align-items: start; }
+.introText h2 { font-size: 1.75rem; font-weight: 700; color: var(--navy); margin-bottom: 1rem; }
+.introText p { color: var(--gray-700); line-height: 1.8; margin-bottom: 1rem; }
+
+.introStats { display: flex; flex-direction: column; gap: 1rem; }
+.stat { background: var(--navy); color: white; border-radius: 10px; padding: 1.25rem 1.5rem; text-align: center; }
+.stat span { display: block; font-size: 1.75rem; font-weight: 800; color: var(--gold); }
+.stat small { font-size: 0.8rem; color: rgba(255,255,255,0.75); }
+
+.packages { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; padding: 3rem 0; border-bottom: 1px solid var(--gray-200); }
+
+.package { border: 1px solid var(--gray-200); border-radius: 10px; padding: 2rem; }
+.packageHeader { display: flex; gap: 1rem; align-items: flex-start; margin-bottom: 1.5rem; }
+.packageIcon { font-size: 2.5rem; }
+.packageHeader h2 { font-size: 1.2rem; font-weight: 700; color: var(--navy); margin-bottom: 0.25rem; }
+.packageHeader p { font-size: 0.85rem; color: var(--gray-500); }
+
+.packageList { list-style: none; display: flex; flex-direction: column; gap: 0.6rem; }
+.packageList li { display: flex; gap: 0.75rem; font-size: 0.92rem; color: var(--gray-700); align-items: flex-start; }
+.packageList li span { color: var(--gold); font-weight: 700; flex-shrink: 0; margin-top: 1px; }
+
+.faq { padding: 3rem 0; border-bottom: 1px solid var(--gray-200); }
+.faq h2 { font-size: 1.75rem; font-weight: 700; color: var(--navy); margin-bottom: 2rem; }
+.faqGrid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem; }
+.faqItem { padding: 1.25rem; background: var(--gray-100); border-radius: 8px; }
+.faqItem h3 { font-size: 0.95rem; font-weight: 700; color: var(--navy); margin-bottom: 0.5rem; }
+.faqItem p { font-size: 0.88rem; color: var(--gray-700); line-height: 1.6; }
+
+.cta { text-align: center; padding: 4rem 0; }
+.cta h2 { font-size: 1.75rem; font-weight: 700; color: var(--navy); margin-bottom: 0.75rem; }
+.cta p { color: var(--gray-600); margin-bottom: 1.5rem; }
+
+@media (max-width: 768px) {
+  .intro { grid-template-columns: 1fr; }
+  .introStats { flex-direction: row; }
+  .packages { grid-template-columns: 1fr; }
+  .faqGrid { grid-template-columns: 1fr; }
+}

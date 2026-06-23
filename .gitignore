@@ -1,0 +1,25 @@
+# Dependencies
+node_modules/
+
+# Next.js build output
+.next/
+out/
+
+# Environment variables
+.env
+.env.local
+.env.*.local
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Uploads (large binary files — managed on server separately)
+public/media/
+
+# Migration source images and archive (large binaries, not part of codebase)
+migration/images/
+abs-website.zip

@@ -1,0 +1,84 @@
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.field input,
+.field textarea {
+  width: 100%;
+  padding: 0.65rem 0.85rem;
+  border: 1px solid rgba(255,255,255,0.3);
+  border-radius: 4px;
+  font-size: 0.9rem;
+  background: rgba(255,255,255,0.1);
+  color: var(--white);
+  font-family: inherit;
+  transition: border-color 0.2s;
+}
+
+.field input::placeholder,
+.field textarea::placeholder {
+  color: rgba(255,255,255,0.5);
+}
+
+.field input:focus,
+.field textarea:focus {
+  outline: none;
+  border-color: var(--gold);
+  background: rgba(255,255,255,0.15);
+}
+
+.contactMethod p {
+  font-size: 0.8rem;
+  color: rgba(255,255,255,0.7);
+  margin-bottom: 0.4rem;
+}
+
+.methodBtns {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.methodBtn {
+  flex: 1;
+  padding: 0.4rem 0.5rem;
+  border: 1px solid rgba(255,255,255,0.3);
+  border-radius: 4px;
+  background: transparent;
+  color: rgba(255,255,255,0.7);
+  font-size: 0.75rem;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.methodActive {
+  background: rgba(255,255,255,0.15);
+  border-color: var(--gold);
+  color: var(--white);
+}
+
+.submitBtn {
+  width: 100%;
+  justify-content: center;
+  margin-top: 0.25rem;
+}
+
+.submitBtn:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.success {
+  padding: 1rem;
+  background: rgba(40, 167, 69, 0.2);
+  border: 1px solid rgba(40, 167, 69, 0.4);
+  border-radius: 4px;
+  color: var(--white);
+  font-size: 0.9rem;
+}
+
+.error {
+  color: #ff8080;
+  font-size: 0.85rem;
+}

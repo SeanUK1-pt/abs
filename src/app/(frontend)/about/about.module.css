@@ -1,0 +1,229 @@
+.intro {
+  display: grid;
+  grid-template-columns: 1fr 320px;
+  gap: 4rem;
+  padding: 4rem 0;
+  border-bottom: 1px solid var(--gray-200);
+}
+
+.introText h2 {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: var(--navy);
+  margin-bottom: 1rem;
+}
+
+.introText p {
+  color: var(--gray-700);
+  line-height: 1.8;
+  margin-bottom: 1rem;
+  font-size: 1.05rem;
+}
+
+.introCard {
+  background: var(--gray-100);
+  border-radius: 12px;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.contactPerson {
+  display: flex;
+  gap: 1rem;
+  align-items: flex-start;
+}
+
+.personIcon {
+  font-size: 2rem;
+  background: var(--navy);
+  color: white;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.contactPerson strong {
+  display: block;
+  font-weight: 700;
+  color: var(--navy);
+  margin-bottom: 0.1rem;
+}
+
+.contactPerson span {
+  display: block;
+  font-size: 0.8rem;
+  color: var(--gray-500);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-bottom: 0.5rem;
+}
+
+.contactPerson a {
+  display: block;
+  font-size: 0.9rem;
+  color: var(--navy);
+  margin-bottom: 0.2rem;
+}
+
+.address strong {
+  display: block;
+  font-weight: 700;
+  color: var(--navy);
+  margin-bottom: 0.5rem;
+}
+
+.address p {
+  font-size: 0.9rem;
+  color: var(--gray-700);
+  line-height: 1.6;
+  margin-bottom: 0.5rem;
+}
+
+.hint {
+  font-size: 0.8rem !important;
+  color: var(--gray-500) !important;
+  font-style: italic;
+}
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+  padding: 3rem 0;
+  border-bottom: 1px solid var(--gray-200);
+}
+
+.stat {
+  text-align: center;
+  padding: 2rem 1rem;
+  background: var(--navy);
+  border-radius: 8px;
+  color: white;
+}
+
+.statNum {
+  display: block;
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: var(--gold);
+}
+
+.statLabel {
+  display: block;
+  font-size: 0.85rem;
+  color: rgba(255,255,255,0.75);
+  margin-top: 0.25rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.services {
+  padding: 4rem 0;
+  border-bottom: 1px solid var(--gray-200);
+}
+
+.services h2 {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: var(--navy);
+  margin-bottom: 2rem;
+}
+
+.servicesGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+}
+
+.serviceCard {
+  display: block;
+  padding: 1.75rem;
+  border: 1px solid var(--gray-200);
+  border-radius: 8px;
+  transition: border-color 0.2s, box-shadow 0.2s, transform 0.2s;
+  text-decoration: none;
+  color: inherit;
+}
+
+.serviceCard:hover {
+  border-color: var(--navy);
+  box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+  transform: translateY(-2px);
+}
+
+.serviceIndex {
+  font-size: 0.85rem;
+  font-weight: 800;
+  color: var(--gold);
+  display: block;
+  margin-bottom: 0.75rem;
+  letter-spacing: 0.05em;
+}
+
+.serviceCard h3 {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--navy);
+  margin-bottom: 0.5rem;
+}
+
+.serviceCard p {
+  font-size: 0.9rem;
+  color: var(--gray-600);
+  line-height: 1.6;
+}
+
+.brandsIntro {
+  padding: 4rem 0 1rem;
+  text-align: center;
+}
+
+.brandsIntro h2 {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: var(--navy);
+  margin-bottom: 0.5rem;
+}
+
+.brandsIntro p {
+  color: var(--gray-600);
+}
+
+.cta {
+  background: var(--navy);
+  border-radius: 12px;
+  padding: 3rem;
+  text-align: center;
+  margin: 4rem 0;
+  color: white;
+}
+
+.cta h2 {
+  font-size: 1.75rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+}
+
+.ctaBtns {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+@media (max-width: 900px) {
+  .intro { grid-template-columns: 1fr; }
+  .stats { grid-template-columns: repeat(2, 1fr); }
+  .servicesGrid { grid-template-columns: 1fr 1fr; }
+}
+
+@media (max-width: 600px) {
+  .stats { grid-template-columns: repeat(2, 1fr); }
+  .servicesGrid { grid-template-columns: 1fr; }
+}

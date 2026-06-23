@@ -1,0 +1,64 @@
+.form {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.label {
+  font-weight: 700;
+  color: var(--navy);
+  white-space: nowrap;
+  font-size: 1rem;
+}
+
+.fields {
+  display: flex;
+  gap: 0.75rem;
+  flex: 1;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.select {
+  padding: 0.65rem 1rem;
+  border: 2px solid var(--gray-300);
+  border-radius: 4px;
+  font-size: 0.9rem;
+  background: var(--white);
+  color: var(--gray-700);
+  cursor: pointer;
+  flex: 1;
+  min-width: 130px;
+  max-width: 220px;
+  transition: border-color 0.2s;
+}
+
+.select:focus {
+  outline: none;
+  border-color: var(--navy);
+}
+
+.searchBtn {
+  background: var(--navy);
+  color: white;
+  border: 2px solid var(--navy);
+  white-space: nowrap;
+  padding: 0.65rem 1.5rem;
+  border-radius: 4px;
+  font-weight: 700;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.searchBtn:hover {
+  background: var(--navy-dark);
+}
+
+@media (max-width: 768px) {
+  .form { flex-direction: column; align-items: stretch; gap: 0.75rem; }
+  .fields { flex-direction: column; align-items: stretch; gap: 0.75rem; }
+  .select { min-width: 0; max-width: none; width: 100%; }
+  .searchBtn { width: 100%; }
+}
