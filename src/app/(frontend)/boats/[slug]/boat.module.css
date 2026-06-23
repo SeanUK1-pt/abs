@@ -47,22 +47,18 @@
 .specsGrid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 0;
-  border: 1px solid var(--gray-200);
-  border-radius: var(--radius);
-  overflow: hidden;
+  column-gap: 2.5rem;
 }
 
 .specRow {
   display: flex;
   justify-content: space-between;
-  padding: 0.65rem 1rem;
+  align-items: baseline;
+  gap: 1rem;
+  padding: 0.7rem 0;
   border-bottom: 1px solid var(--gray-200);
   font-size: 0.9rem;
 }
-
-.specRow:last-child { border-bottom: none; }
-.specRow:nth-child(odd) { background: var(--gray-100); }
 
 .specLabel {
   color: var(--gray-600);
@@ -116,17 +112,6 @@
 .specGroup > .specsColumns,
 .specGroup > .specsGrid {
   padding: 1.25rem;
-}
-
-/* Engine table: borderless striped rows, inset by the panel padding */
-.specGroup > .specsGrid {
-  border: none;
-  border-radius: 0;
-}
-
-.specGroup > .specsGrid .specRow:first-child,
-.specGroup > .specsGrid .specRow:nth-child(2) {
-  border-top: none;
 }
 
 .specsColumns {
