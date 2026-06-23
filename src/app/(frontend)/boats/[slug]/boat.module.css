@@ -89,6 +89,26 @@
   margin-bottom: 0.6rem;
 }
 
+.specsColumns {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  align-items: start;
+}
+
+.specsColLabel {
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  color: var(--gray-500);
+  margin-bottom: 0.4rem;
+}
+
+.specsColumns .specsGrid {
+  grid-template-columns: 1fr;
+}
+
 .richText {
   color: var(--gray-700);
   line-height: 1.7;
@@ -280,6 +300,9 @@
     order: -1;
   }
   .specsGrid {
+    grid-template-columns: 1fr;
+  }
+  .specsColumns {
     grid-template-columns: 1fr;
   }
 }

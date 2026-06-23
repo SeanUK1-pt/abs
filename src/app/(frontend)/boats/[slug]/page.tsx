@@ -79,18 +79,20 @@ export default async function BoatPage({ params }: { params: Promise<{ slug: str
     return `${n}`
   }
 
-  const overviewSpecs = [
+  const overviewLeft = [
     { label: t('spec_make'), value: make },
     { label: t('spec_model'), value: model },
     { label: t('spec_year'), value: boat.year },
-    { label: t('spec_type'), value: boat.boat_type?.replace(/_/g, ' ') },
     { label: t('spec_condition'), value: boat.condition },
+    { label: t('spec_stock'), value: boat.stock_number },
+  ].filter(s => s.value)
+
+  const overviewRight = [
+    { label: t('spec_type'), value: boat.boat_type?.replace(/_/g, ' ') },
     { label: t('spec_length'), value: boat.length_m ? `${boat.length_m}m` : null },
     { label: t('spec_beam'), value: boat.beam_m ? `${boat.beam_m}m` : null },
     { label: t('spec_hull'), value: boat.hull_material },
-    { label: t('spec_ce'), value: boat.ce_category ? `Cat. ${boat.ce_category}` : null },
     { label: t('spec_location'), value: boat.location },
-    { label: t('spec_stock'), value: boat.stock_number },
   ].filter(s => s.value)
 
   const engineSpecs = [
@@ -133,16 +135,32 @@ export default async function BoatPage({ params }: { params: Promise<{ slug: str
             <section className={styles.section}>
               <h2 className={styles.sectionTitle}>{t('specifications')}</h2>
 
-              {overviewSpecs.length > 0 && (
+              {(overviewLeft.length > 0 || overviewRight.length > 0) && (
                 <div className={styles.specGroup}>
                   <h3 className={styles.specGroupTitle}>Overview</h3>
-                  <div className={styles.specsGrid}>
-                    {overviewSpecs.map(({ label, value }) => (
-                      <div key={label} className={styles.specRow}>
-                        <span className={styles.specLabel}>{label}</span>
-                        <span className={styles.specValue}>{String(value)}</span>
+                  <div className={styles.specsColumns}>
+                    <div>
+                      <p className={styles.specsColLabel}>Identity &amp; Listing</p>
+                      <div className={styles.specsGrid}>
+                        {overviewLeft.map(({ label, value }) => (
+                          <div key={label} className={styles.specRow}>
+                            <span className={styles.specLabel}>{label}</span>
+                            <span className={styles.specValue}>{String(value)}</span>
+                          </div>
+                        ))}
                       </div>
-                    ))}
+                    </div>
+                    <div>
+                      <p className={styles.specsColLabel}>Boat Facts</p>
+                      <div className={styles.specsGrid}>
+                        {overviewRight.map(({ label, value }) => (
+                          <div key={label} className={styles.specRow}>
+                            <span className={styles.specLabel}>{label}</span>
+                            <span className={styles.specValue}>{String(value)}</span>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
                   </div>
                 </div>
               )}
