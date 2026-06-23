@@ -72,28 +72,36 @@ export default async function BoatPage({ params }: { params: Promise<{ slug: str
 
   const statusLabels = STATUS_LABELS[locale] || STATUS_LABELS.en
 
-  const specs = [
+  const engineCountLabel = (n: number | null | undefined) => {
+    if (!n) return null
+    if (n === 1) return t('spec_engine_single')
+    if (n === 2) return t('spec_engine_twin')
+    return `${n}`
+  }
+
+  const overviewSpecs = [
     { label: t('spec_make'), value: make },
     { label: t('spec_model'), value: model },
     { label: t('spec_year'), value: boat.year },
+    { label: t('spec_type'), value: boat.boat_type?.replace(/_/g, ' ') },
+    { label: t('spec_condition'), value: boat.condition },
     { label: t('spec_length'), value: boat.length_m ? `${boat.length_m}m` : null },
     { label: t('spec_beam'), value: boat.beam_m ? `${boat.beam_m}m` : null },
-    { label: t('spec_engine_hours'), value: boat.engine_hours != null ? `${boat.engine_hours}h` : null },
-    { label: t('spec_engine'), value: [
-        boat.engine_make,
-        boat.engine_model,
-        boat.engine_hp ? `${boat.engine_hp}hp` : null,
-        boat.engine_count === 2 ? t('spec_engine_twin') : boat.engine_count === 1 ? t('spec_engine_single') : null,
-      ].filter(Boolean).join(' ') || null },
-    { label: t('spec_capacity'), value: boat.max_capacity ? `${boat.max_capacity} ${t('spec_capacity_unit')}` : null },
+    { label: t('spec_hull'), value: boat.hull_material },
+    { label: t('spec_ce'), value: boat.ce_category ? `Cat. ${boat.ce_category}` : null },
+    { label: t('spec_location'), value: boat.location },
+    { label: t('spec_stock'), value: boat.stock_number },
+  ].filter(s => s.value)
+
+  const engineSpecs = [
+    { label: t('spec_engine_make'), value: boat.engine_make },
+    { label: t('spec_engine_model'), value: boat.engine_model },
+    { label: t('spec_engine_hp'), value: boat.engine_hp ? `${boat.engine_hp}hp` : null },
+    { label: t('spec_engine_count'), value: engineCountLabel(boat.engine_count) },
     { label: t('spec_fuel'), value: boat.fuel_type },
     { label: t('spec_drive'), value: boat.drive_type },
-    { label: t('spec_hull'), value: boat.hull_material },
-    { label: t('spec_type'), value: boat.boat_type?.replace(/_/g, ' ') },
-    { label: t('spec_ce'), value: boat.ce_category ? `Cat. ${boat.ce_category}` : null },
-    { label: t('spec_condition'), value: boat.condition },
-    { label: t('spec_stock'), value: boat.stock_number },
-    { label: t('spec_location'), value: boat.location },
+    { label: t('spec_engine_hours'), value: boat.engine_hours != null ? `${boat.engine_hours}h` : null },
+    { label: t('spec_capacity'), value: boat.max_capacity ? `${boat.max_capacity} ${t('spec_capacity_unit')}` : null },
   ].filter(s => s.value)
 
   // Group features by category
@@ -124,14 +132,34 @@ export default async function BoatPage({ params }: { params: Promise<{ slug: str
             {/* Specs */}
             <section className={styles.section}>
               <h2 className={styles.sectionTitle}>{t('specifications')}</h2>
-              <div className={styles.specsGrid}>
-                {specs.map(({ label, value }) => (
-                  <div key={label} className={styles.specRow}>
-                    <span className={styles.specLabel}>{label}</span>
-                    <span className={styles.specValue}>{String(value)}</span>
+
+              {overviewSpecs.length > 0 && (
+                <div className={styles.specGroup}>
+                  <h3 className={styles.specGroupTitle}>Overview</h3>
+                  <div className={styles.specsGrid}>
+                    {overviewSpecs.map(({ label, value }) => (
+                      <div key={label} className={styles.specRow}>
+                        <span className={styles.specLabel}>{label}</span>
+                        <span className={styles.specValue}>{String(value)}</span>
+                      </div>
+                    ))}
                   </div>
-                ))}
-              </div>
+                </div>
+              )}
+
+              {engineSpecs.length > 0 && (
+                <div className={styles.specGroup}>
+                  <h3 className={styles.specGroupTitle}>Engine &amp; Performance</h3>
+                  <div className={styles.specsGrid}>
+                    {engineSpecs.map(({ label, value }) => (
+                      <div key={label} className={styles.specRow}>
+                        <span className={styles.specLabel}>{label}</span>
+                        <span className={styles.specValue}>{String(value)}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
             </section>
 
             {/* Description */}

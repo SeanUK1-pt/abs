@@ -78,6 +78,7 @@ export const Boats: CollectionConfig = {
       type: 'collapsible',
       label: 'Specifications',
       fields: [
+        // Overview
         {
           type: 'row',
           fields: [
@@ -91,24 +92,7 @@ export const Boats: CollectionConfig = {
             { name: 'year', type: 'number', admin: { width: '25%' } },
             { name: 'length_m', type: 'number', admin: { width: '25%', step: 0.1, description: 'metres' } },
             { name: 'beam_m', type: 'number', admin: { width: '25%', step: 0.01, description: 'metres' } },
-            { name: 'engine_hours', type: 'number', admin: { width: '25%' } },
-          ],
-        },
-        {
-          type: 'row',
-          fields: [
-            { name: 'stock_number', type: 'text', admin: { width: '50%' } },
-            {
-              name: 'ce_category',
-              type: 'select',
-              options: [
-                { label: 'A — Ocean', value: 'A' },
-                { label: 'B — Offshore', value: 'B' },
-                { label: 'C — Inshore', value: 'C' },
-                { label: 'D — Sheltered', value: 'D' },
-              ],
-              admin: { width: '50%' },
-            },
+            { name: 'stock_number', type: 'text', admin: { width: '25%' } },
           ],
         },
         {
@@ -126,7 +110,7 @@ export const Boats: CollectionConfig = {
                 { label: 'Personal Watercraft', value: 'pwc' },
                 { label: 'Aluminium Hull', value: 'aluminium_hull' },
               ],
-              admin: { width: '50%' },
+              admin: { width: '33%' },
             },
             {
               name: 'hull_material',
@@ -139,24 +123,35 @@ export const Boats: CollectionConfig = {
                 { label: 'Wood', value: 'wood' },
                 { label: 'Carbon Fibre', value: 'carbon' },
               ],
-              admin: { width: '50%' },
+              admin: { width: '33%' },
             },
+            {
+              name: 'ce_category',
+              type: 'select',
+              options: [
+                { label: 'A — Ocean', value: 'A' },
+                { label: 'B — Offshore', value: 'B' },
+                { label: 'C — Inshore', value: 'C' },
+                { label: 'D — Sheltered', value: 'D' },
+              ],
+              admin: { width: '33%' },
+            },
+          ],
+        },
+
+        // Engine & Performance
+        {
+          type: 'row',
+          fields: [
+            { name: 'engine_make', type: 'text', admin: { width: '25%', description: 'e.g. Yamaha' } },
+            { name: 'engine_model', type: 'text', admin: { width: '25%', description: 'e.g. F150' } },
+            { name: 'engine_hp', type: 'number', admin: { width: '25%', description: 'horsepower' } },
+            { name: 'engine_count', type: 'number', admin: { width: '25%', description: '1 single · 2 twin · 3 triple' } },
           ],
         },
         {
           type: 'row',
           fields: [
-            {
-              name: 'drive_type',
-              type: 'select',
-              options: [
-                { label: 'Outboard', value: 'outboard' },
-                { label: 'Inboard', value: 'inboard' },
-                { label: 'Sterndrive', value: 'sterndrive' },
-                { label: 'Jet', value: 'jet' },
-              ],
-              admin: { width: '50%' },
-            },
             {
               name: 'fuel_type',
               type: 'select',
@@ -166,22 +161,20 @@ export const Boats: CollectionConfig = {
                 { label: 'Electric', value: 'electric' },
                 { label: 'Hybrid', value: 'hybrid' },
               ],
-              admin: { width: '50%' },
+              admin: { width: '25%' },
             },
-          ],
-        },
-        {
-          type: 'row',
-          fields: [
-            { name: 'engine_make', type: 'text', admin: { width: '25%', description: 'e.g. Yamaha' } },
-            { name: 'engine_model', type: 'text', admin: { width: '25%', description: 'e.g. F150' } },
-            { name: 'engine_hp', type: 'number', admin: { width: '25%', description: 'horsepower' } },
-            { name: 'engine_count', type: 'number', admin: { width: '25%', description: '1 = single, 2 = twin' } },
-          ],
-        },
-        {
-          type: 'row',
-          fields: [
+            {
+              name: 'drive_type',
+              type: 'select',
+              options: [
+                { label: 'Outboard', value: 'outboard' },
+                { label: 'Inboard', value: 'inboard' },
+                { label: 'Sterndrive', value: 'sterndrive' },
+                { label: 'Jet', value: 'jet' },
+              ],
+              admin: { width: '25%' },
+            },
+            { name: 'engine_hours', type: 'number', admin: { width: '25%' } },
             { name: 'max_capacity', type: 'number', admin: { width: '25%', description: 'Max persons on board' } },
           ],
         },

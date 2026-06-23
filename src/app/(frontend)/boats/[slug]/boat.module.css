@@ -76,6 +76,19 @@
   text-transform: capitalize;
 }
 
+.specGroup {
+  margin-bottom: 1.5rem;
+}
+
+.specGroupTitle {
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--gold-dark);
+  margin-bottom: 0.6rem;
+}
+
 .richText {
   color: var(--gray-700);
   line-height: 1.7;
