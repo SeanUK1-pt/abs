@@ -76,33 +76,83 @@
   text-transform: capitalize;
 }
 
+/* Colored spec panels — bold group headers with a gold accent edge */
 .specGroup {
-  margin-bottom: 1.5rem;
+  margin-bottom: 1.25rem;
+  background: var(--white);
+  border: 1px solid var(--gray-200);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
 }
 
 .specGroupTitle {
-  font-size: 0.75rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  color: var(--gold-dark);
-  margin-bottom: 0.6rem;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-family: var(--font-heading);
+  font-size: 1.05rem;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  text-transform: none;
+  color: var(--white);
+  background: var(--ocean-gradient);
+  border-left: 4px solid var(--gold);
+  padding: 0.85rem 1.25rem;
+  margin: 0;
+}
+
+/* Gold marker before each panel title */
+.specGroupTitle::before {
+  content: '';
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--gold);
+  flex-shrink: 0;
+}
+
+/* Padded content area inside each panel */
+.specGroup > .specsColumns,
+.specGroup > .specsGrid {
+  padding: 1.25rem;
+}
+
+/* Engine table: borderless striped rows, inset by the panel padding */
+.specGroup > .specsGrid {
+  border: none;
+  border-radius: 0;
+}
+
+.specGroup > .specsGrid .specRow:first-child,
+.specGroup > .specsGrid .specRow:nth-child(2) {
+  border-top: none;
 }
 
 .specsColumns {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 1rem;
+  gap: 1.5rem;
   align-items: start;
 }
 
 .specsColLabel {
-  font-size: 0.7rem;
-  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-size: 0.72rem;
+  font-weight: 800;
   text-transform: uppercase;
-  letter-spacing: 0.07em;
-  color: var(--gray-500);
-  margin-bottom: 0.4rem;
+  letter-spacing: 0.1em;
+  color: var(--gold-dark);
+  margin-bottom: 0.55rem;
+}
+
+.specsColLabel::before {
+  content: '';
+  width: 18px;
+  height: 2px;
+  background: var(--gold);
 }
 
 .specsColumns .specsGrid {
