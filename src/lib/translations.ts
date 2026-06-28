@@ -21,6 +21,8 @@ const translations = {
     hero_body: 'Authorised dealer for GRAND, Yamarin, and SPX RIB — backed by full servicing, storage, and brokerage from our marina office in Lagos.',
     hero_browse: 'Browse All Boats',
     hero_contact: 'Contact Us',
+    hero_view_boat: 'View this boat',
+    hero_featured: 'Featured',
     brands_label: 'Authorised dealer for',
     featured_title: 'Featured Boats',
     featured_subtitle: 'Hand-picked listings from our collection',
@@ -32,6 +34,10 @@ const translations = {
     cta_contact: 'Get in Touch',
     cta_whatsapp: 'WhatsApp Us',
     view_all_boats: 'View All Boats',
+    news_title: 'News & Updates',
+    news_subtitle: 'The latest from Algarve Boat Sales',
+    news_read_more: 'Read more',
+    news_view_all: 'View All',
 
     // Boats listing page
     boats_found: 'boats found',
@@ -171,6 +177,8 @@ const translations = {
     hero_body: 'Concessionário autorizado GRAND, Yamarin e SPX RIB — com manutenção completa, armazenamento e mediação a partir do nosso escritório na marina de Lagos.',
     hero_browse: 'Ver Todos os Barcos',
     hero_contact: 'Contacte-nos',
+    hero_view_boat: 'Ver este barco',
+    hero_featured: 'Destaque',
     brands_label: 'Concessionário autorizado de',
     featured_title: 'Barcos em Destaque',
     featured_subtitle: 'Seleção especial da nossa coleção',
@@ -182,6 +190,10 @@ const translations = {
     cta_contact: 'Entre em Contacto',
     cta_whatsapp: 'WhatsApp',
     view_all_boats: 'Ver Todos os Barcos',
+    news_title: 'Notícias e Novidades',
+    news_subtitle: 'As últimas novidades da Algarve Boat Sales',
+    news_read_more: 'Ler mais',
+    news_view_all: 'Ver Tudo',
 
     // Boats listing
     boats_found: 'barcos encontrados',

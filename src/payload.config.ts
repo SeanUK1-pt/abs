@@ -13,6 +13,7 @@ import { Models } from './collections/Models'
 import { Pages } from './collections/Pages'
 import { Media } from './collections/Media'
 import { Enquiries } from './collections/Enquiries'
+import { Updates } from './collections/Updates'
 import { Users } from './collections/Users'
 
 import { MainNavigation } from './globals/MainNavigation'
@@ -39,6 +40,7 @@ export default buildConfig({
     Models,
     Pages,
     Media,
+    Updates,
     Enquiries,
     Users,
   ],

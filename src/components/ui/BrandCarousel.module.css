@@ -1,0 +1,111 @@
+.carousel {
+  position: relative;
+  width: 100%;
+  height: 340px;
+  border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+  overflow: hidden;
+  background: var(--ocean-gradient);
+}
+
+.slide {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.7s ease-in-out, visibility 0.7s;
+}
+
+.slideActive {
+  opacity: 1;
+  visibility: visible;
+}
+
+.img {
+  object-fit: cover;
+  object-position: center;
+}
+
+.overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background: linear-gradient(to top, rgba(17, 36, 56, 0.35) 0%, rgba(17, 36, 56, 0) 45%);
+}
+
+.pending {
+  width: 100%;
+  height: 340px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--gray-100);
+  color: var(--gray-500);
+  font-size: 0.9rem;
+  font-weight: 600;
+  border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+}
+
+.arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  background: rgba(17, 36, 56, 0.4);
+  color: var(--white);
+  cursor: pointer;
+  backdrop-filter: blur(4px);
+  transition: background 0.2s, border-color 0.2s;
+}
+
+.arrow:hover {
+  background: var(--gold);
+  border-color: var(--gold);
+  color: var(--navy);
+}
+
+.arrow:focus-visible {
+  outline: 3px solid var(--gold-light);
+  outline-offset: 2px;
+}
+
+.arrowPrev { left: 1rem; }
+.arrowNext { right: 1rem; }
+
+.dots {
+  position: absolute;
+  bottom: 1rem;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 0.45rem;
+  z-index: 2;
+}
+
+.dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.5);
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  transition: background 0.3s, transform 0.3s;
+}
+
+.dotActive {
+  background: var(--gold);
+  transform: scale(1.3);
+}
+
+@media (max-width: 768px) {
+  .carousel, .pending { height: 240px; }
+  .arrow { display: none; }
+}

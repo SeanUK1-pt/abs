@@ -1,5 +1,7 @@
 import Link from 'next/link'
-import Image from 'next/image'
+import { getPayload } from 'payload'
+import config from '@payload-config'
+import { BrandCarousel } from '@/components/ui/BrandCarousel'
 import styles from './brands.module.css'
 import { getLocale } from '@/lib/locale'
 import { getPageData } from '@/lib/getPage'
@@ -51,6 +53,52 @@ const BRANDS = [
   },
 ]
 
+const BRAND_KEYS = ['grand', 'yamarin', 'spx', 'vanclaes']
+
+async function getBrandImages(locale: string): Promise<Record<string, { src: string; alt: string }[]>> {
+  const payload = await getPayload({ config })
+  const { docs } = await payload.find({
+    collection: 'boats',
+    where: { status: { equals: 'available' } },
+    limit: 80,
+    sort: '-createdAt',
+    locale: locale as any,
+    depth: 2,
+  })
+
+  const map: Record<string, { src: string; alt: string }[]> = {}
+  for (const b of docs as any[]) {
+    const makeName = (typeof b.make === 'object' ? b.make?.name : '') || ''
+    const key = BRAND_KEYS.find((k) => makeName.toLowerCase().includes(k))
+    if (!key) continue
+    const bucket = (map[key] ||= [])
+    const candidates: any[] = [
+      typeof b.main_image === 'object' ? b.main_image : null,
+      ...(Array.isArray(b.gallery)
+        ? b.gallery.map((g: any) => (typeof g?.image === 'object' ? g.image : null))
+        : []),
+    ]
+    for (const img of candidates) {
+      if (bucket.length >= 6) break
+      if (img?.url && !bucket.some((x) => x.src === img.url)) {
+        bucket.push({ src: img.url, alt: img.alt || b.title })
+      }
+    }
+  }
+  return map
+}
+
+function pickBrandImages(
+  name: string,
+  heroImg: string | null,
+  map: Record<string, { src: string; alt: string }[]>,
+) {
+  const key = BRAND_KEYS.find((k) => name.toLowerCase().includes(k))
+  const real = (key && map[key]) || []
+  if (real.length > 0) return real
+  return heroImg ? [{ src: heroImg, alt: name }] : []
+}
+
 export async function generateMetadata() {
   const locale = await getLocale()
   const page = await getPageData('brands', locale)
@@ -63,6 +111,7 @@ export async function generateMetadata() {
 export default async function BrandsPage() {
   const locale = await (await import('@/lib/locale')).getLocale()
   const page = await getPageData('brands', locale)
+  const imagesByBrand = await getBrandImages(locale)
 
   return (
     <>
@@ -85,16 +134,7 @@ export default async function BrandsPage() {
         <div className={styles.brands}>
           {BRANDS.map(({ name, origin, category, description, models, highlight, heroImg, website }) => (
             <div key={name} className={styles.brand}>
-              {heroImg ? (
-                <div className={styles.brandImg}>
-                  <Image src={heroImg} alt={name} fill className={styles.brandImgEl} sizes="(max-width: 900px) 100vw, 1200px" />
-                  <div className={styles.brandImgOverlay} />
-                </div>
-              ) : (
-                <div className={styles.brandImgPending} data-pending-asset={`${name.toLowerCase().replace(/\s+/g, '-')}-hero.jpg`}>
-                  Photo coming soon
-                </div>
-              )}
+              <BrandCarousel images={pickBrandImages(name, heroImg, imagesByBrand)} name={name} />
               <div className={styles.brandHeader}>
                 <div>
                   <h2>{name}</h2>

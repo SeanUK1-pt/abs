@@ -137,3 +137,15 @@
   .searchBar { margin-top: -2rem; }
   .ctaBox { flex-direction: column; align-items: flex-start; padding: 2rem; }
 }
+
+/* ── News & Updates ─────────────────────────────── */
+.newsSection {
+  padding: 4.5rem 0;
+  background: var(--white);
+}
+
+.newsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 1.5rem;
+}
