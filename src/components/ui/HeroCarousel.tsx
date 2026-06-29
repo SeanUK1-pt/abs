@@ -5,104 +5,97 @@ import Image from 'next/image'
 import Link from 'next/link'
 import styles from './HeroCarousel.module.css'
 
-export type HeroBoatSlide = {
-  src: string
-  alt: string
-  brand?: string
-  name?: string
-  price?: string
-  href?: string
-  featured?: boolean
-}
-
-export type HeroHeadline = {
+export type HeroSlide = {
+  variant: 'intro' | 'brand' | 'brokerage'
+  src?: string | null
+  alt?: string
+  eyebrow?: string
+  logoSrc?: string | null
   title: string
-  subtitle: string
-  body: string
-  browseLabel: string
-  browseHref: string
-  contactLabel: string
-  contactHref: string
-  viewLabel: string
-  featuredLabel: string
+  titleAccent?: string
+  message?: string
+  primaryLabel?: string
+  primaryHref?: string
+  secondaryLabel?: string
+  secondaryHref?: string
 }
 
-const FALLBACK_SRC = '/media/spx_38_hero.jpg'
-
-export function HeroCarousel({
-  headline,
-  slides,
-}: {
-  headline: HeroHeadline
-  slides: HeroBoatSlide[]
-}) {
-  // First slide is always the marketing headline; brand/boat slides follow.
-  const headlineSrc = slides[0]?.src || FALLBACK_SRC
-  const allSlides = [
-    { kind: 'headline' as const, src: headlineSrc, alt: headline.title },
-    ...slides.map((s) => ({ kind: 'boat' as const, ...s })),
-  ]
-  const count = allSlides.length
-
+export function HeroCarousel({ slides }: { slides: HeroSlide[] }) {
+  const count = slides.length
   const [active, setActive] = useState(0)
+  const [paused, setPaused] = useState(false)
 
   const go = useCallback((i: number) => setActive(((i % count) + count) % count), [count])
 
   useEffect(() => {
-    if (count <= 1) return
-    const timer = setInterval(() => setActive((i) => (i + 1) % count), 6000)
+    if (count <= 1 || paused) return
+    const timer = setInterval(() => setActive((i) => (i + 1) % count), 6500)
     return () => clearInterval(timer)
-  }, [count])
+  }, [count, paused])
 
   return (
-    <div className={styles.carousel} aria-roledescription="carousel">
-      {allSlides.map((slide, i) => (
+    <div
+      className={styles.carousel}
+      aria-roledescription="carousel"
+      onMouseEnter={() => setPaused(true)}
+      onMouseLeave={() => setPaused(false)}
+    >
+      {slides.map((slide, i) => (
         <div
           key={i}
           className={`${styles.slide} ${i === active ? styles.slideActive : ''}`}
           aria-hidden={i !== active}
         >
-          <Image
-            src={slide.src}
-            alt={slide.alt}
-            fill
-            className={styles.img}
-            priority={i === 0}
-            sizes="100vw"
-          />
-          <div className={styles.overlay} />
+          {slide.src ? (
+            <Image
+              src={slide.src}
+              alt={slide.alt || slide.title}
+              fill
+              className={styles.img}
+              priority={i === 0}
+              sizes="100vw"
+            />
+          ) : (
+            <div className={styles.imgFallback} aria-hidden="true" />
+          )}
+          <div className={`${styles.overlay} ${slide.variant === 'intro' ? styles.overlayIntro : ''}`} />
 
           <div className={`container ${styles.content}`}>
-            {slide.kind === 'headline' ? (
-              <div className={styles.headlineBlock}>
-                <h1 className={styles.title}>
-                  {headline.title}
-                  <br />
-                  <span className={styles.accent}>{headline.subtitle}</span>
-                </h1>
-                <p className={styles.sub}>{headline.body}</p>
-                <div className={styles.ctas}>
-                  <Link href={headline.browseHref} className="btn btn-gold">
-                    {headline.browseLabel}
+            <div className={styles.block}>
+              {slide.eyebrow && <span className={styles.eyebrow}>{slide.eyebrow}</span>}
+
+              {slide.logoSrc ? (
+                // eslint-disable-next-line @next/next/no-img-element
+                <img src={slide.logoSrc} alt={slide.title} className={styles.logo} />
+              ) : (
+                <h2 className={styles.title}>
+                  {slide.title}
+                  {slide.titleAccent && (
+                    <>
+                      <br />
+                      <span className={styles.accent}>{slide.titleAccent}</span>
+                    </>
+                  )}
+                </h2>
+              )}
+
+              {slide.logoSrc && <span className={styles.srTitle}>{slide.title}</span>}
+
+              {slide.message && <p className={styles.message}>{slide.message}</p>}
+
+              <div className={styles.ctas}>
+                {slide.primaryLabel && slide.primaryHref && (
+                  <Link href={slide.primaryHref} className="btn btn-gold">
+                    {slide.primaryLabel}
                   </Link>
-                  <Link href={headline.contactHref} className="btn btn-outline-white">
-                    {headline.contactLabel}
-                  </Link>
-                </div>
-              </div>
-            ) : (
-              <div className={styles.boatBlock}>
-                {slide.featured && <span className={styles.flagship}>{headline.featuredLabel}</span>}
-                {slide.brand && <span className={styles.brandChip}>{slide.brand}</span>}
-                <h2 className={styles.boatName}>{slide.name}</h2>
-                {slide.price && <p className={styles.boatPrice}>{slide.price}</p>}
-                {slide.href && (
-                  <Link href={slide.href} className="btn btn-gold">
-                    {headline.viewLabel}
+                )}
+                {slide.secondaryLabel && slide.secondaryHref && (
+                  <Link href={slide.secondaryHref} className="btn btn-outline-white">
+                    {slide.secondaryLabel}
                   </Link>
                 )}
               </div>
-            )}
+            </div>
           </div>
         </div>
       ))}
@@ -127,7 +120,7 @@ export function HeroCarousel({
           </button>
 
           <div className={styles.dots}>
-            {allSlides.map((_, i) => (
+            {slides.map((_, i) => (
               <button
                 key={i}
                 type="button"

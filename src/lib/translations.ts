@@ -39,6 +39,33 @@ const translations = {
     news_read_more: 'Read more',
     news_view_all: 'View All',
 
+    // Hero brand & brokerage slides
+    hero_authorised_dealer: 'Authorised Dealer',
+    hero_explore_range: 'Explore the Range',
+    hero_view_trailers: 'View Trailers',
+    hero_brand_grand_msg: 'Premium fibreglass RIBs with superior build quality, crafted in Europe.',
+    hero_brand_yamarin_msg: 'Finnish-built bowriders and day cruisers, engineered for real seas since 1969.',
+    hero_brand_spx_msg: 'Sicilian-designed luxury RIBs where Italian style meets serious performance.',
+    hero_brand_vanclaes_msg: "Europe's premier stainless-steel boat trailers, built to last a lifetime.",
+    hero_brokerage_eyebrow: 'More Than Sales',
+    hero_brokerage_title: 'Brokerage, Service & Storage',
+    hero_brokerage_msg: "We don't just sell boats. Our Lagos team also handles brokerage, full servicing, and secure indoor winter storage.",
+    hero_brokerage_primary: 'Our Services',
+    hero_brokerage_secondary: 'Sell Your Boat',
+
+    // Story & services band
+    story_eyebrow: 'Algarve Boat Sales',
+    story_title: 'More than a boat dealership',
+    story_body: "From our office at Marina de Lagos, we're a full-service marine business — new and pre-owned sales, brokerage, expert maintenance, and secure indoor storage. Whatever stage you're at with your boat, we're with you for the whole journey.",
+    story_link: 'About Us',
+    pillars_learn: 'Learn more',
+    pillar_sales_title: 'Sales & Brokerage',
+    pillar_sales_body: 'New and pre-owned boats, plus brokerage to sell your current vessel.',
+    pillar_maintenance_title: 'Maintenance & Servicing',
+    pillar_maintenance_body: 'Factory-trained servicing, repairs, and winterisation by our workshop.',
+    pillar_storage_title: 'Indoor Storage',
+    pillar_storage_body: 'Secure, dry indoor storage to protect your boat all year round.',
+
     // Boats listing page
     boats_found: 'boats found',
     boat_found: 'boat found',
@@ -194,6 +221,33 @@ const translations = {
     news_subtitle: 'As últimas novidades da Algarve Boat Sales',
     news_read_more: 'Ler mais',
     news_view_all: 'Ver Tudo',
+
+    // Hero brand & brokerage slides
+    hero_authorised_dealer: 'Concessionário Autorizado',
+    hero_explore_range: 'Explorar a Gama',
+    hero_view_trailers: 'Ver Reboques',
+    hero_brand_grand_msg: 'RIBs premium em fibra de vidro, com qualidade de construção superior, fabricados na Europa.',
+    hero_brand_yamarin_msg: 'Bowriders e day cruisers finlandeses, concebidos para o mar a sério desde 1969.',
+    hero_brand_spx_msg: 'RIBs de luxo de design siciliano, onde o estilo italiano encontra o desempenho.',
+    hero_brand_vanclaes_msg: 'Os melhores reboques em aço inoxidável da Europa, feitos para durar uma vida.',
+    hero_brokerage_eyebrow: 'Mais do que Vendas',
+    hero_brokerage_title: 'Mediação, Manutenção e Armazenamento',
+    hero_brokerage_msg: 'Não vendemos apenas barcos. A nossa equipa em Lagos trata também de mediação, manutenção completa e armazenamento interior seguro no inverno.',
+    hero_brokerage_primary: 'Os Nossos Serviços',
+    hero_brokerage_secondary: 'Vender o Seu Barco',
+
+    // Story & services band
+    story_eyebrow: 'Algarve Boat Sales',
+    story_title: 'Mais do que um stand de barcos',
+    story_body: 'A partir do nosso escritório na Marina de Lagos, somos uma empresa náutica completa — venda de barcos novos e usados, mediação, manutenção especializada e armazenamento interior seguro. Em qualquer fase da vida do seu barco, estamos consigo em todo o percurso.',
+    story_link: 'Sobre Nós',
+    pillars_learn: 'Saber mais',
+    pillar_sales_title: 'Vendas e Mediação',
+    pillar_sales_body: 'Barcos novos e usados, além de mediação para vender o seu barco atual.',
+    pillar_maintenance_title: 'Manutenção e Assistência',
+    pillar_maintenance_body: 'Manutenção, reparações e preparação para o inverno pela nossa oficina.',
+    pillar_storage_title: 'Armazenamento Interior',
+    pillar_storage_body: 'Armazenamento interior seguro e seco para proteger o seu barco todo o ano.',
 
     // Boats listing
     boats_found: 'barcos encontrados',
