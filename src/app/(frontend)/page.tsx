@@ -114,7 +114,6 @@ async function getHeroSlides(locale: string, t: ReturnType<typeof getTranslation
       variant: 'brand',
       src: imageFor(brand.key) || anyImage,
       alt: brand.label,
-      eyebrow: t('hero_authorised_dealer'),
       logoSrc: logo || null,
       title: brand.label,
       message: t(brand.msgKey),
@@ -230,53 +229,48 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* ── Brand Logos ───────────────────────────────────── */}
-      <section className={styles.brandStrip}>
+      {/* ── Showcase: Featured + Story ────────────────────── */}
+      <section className={styles.showcase}>
         <div className="container">
-          <p className={styles.brandStripLabel}>{t('brands_label')}</p>
-        </div>
-        <BrandLogos
-          logos={[
-            { name: 'GRAND Inflatables', file: 'grand-logo.png' },
-            { name: 'Yamarin', file: 'yamarin-logo.png' },
-            { name: 'SPX RIB', file: 'spx-logo.png' },
-            { name: 'Vanclaes', file: 'vanclaes-logo.png' },
-          ]}
-        />
-      </section>
-
-      {/* ── Featured Spotlight ────────────────────────────── */}
-      {spotlight.length > 0 && (
-        <section className={styles.featuredSection}>
-          <div className="container">
-            <div className="section-header">
-              <div>
-                <h2 className="section-title">{t('featured_title')}</h2>
-                <p className="section-subtitle">{t('featured_subtitle')}</p>
+          <div className={styles.showcaseGrid}>
+            {spotlight.length > 0 && (
+              <div className={styles.featuredCol}>
+                <div className={styles.sectionHead}>
+                  <div>
+                    <h2 className={styles.sectionTitle}>{t('featured_title')}</h2>
+                    <p className={styles.sectionSub}>{t('featured_subtitle')}</p>
+                  </div>
+                </div>
+                <FeaturedSpotlight
+                  boats={spotlight}
+                  labels={{
+                    viewBoat: t('hero_view_boat'),
+                    featured: t('hero_featured'),
+                    ivaIncl: t('iva_incl'),
+                    newLabel: t('condition_new'),
+                    usedLabel: t('condition_used'),
+                  }}
+                />
               </div>
-              <Link href="/boats?featured=true" className="btn btn-outline">{t('featured_view_all')}</Link>
-            </div>
-            <FeaturedSpotlight
-              boats={spotlight}
-              labels={{
-                viewBoat: t('hero_view_boat'),
-                featured: t('hero_featured'),
-                ivaIncl: t('iva_incl'),
-                newLabel: t('condition_new'),
-                usedLabel: t('condition_used'),
-              }}
-            />
+            )}
+            <aside className={styles.storyAside}>
+              <span className={styles.storyEyebrow}>{t('story_eyebrow')}</span>
+              <h2 className={styles.storyTitle}>{t('story_title')}</h2>
+              <p className={styles.storyBody}>{t('story_body')}</p>
+              <Link href="/about" className="btn btn-gold">{t('story_link')}</Link>
+            </aside>
           </div>
-        </section>
-      )}
+          <ServicePillars t={t} />
+        </div>
+      </section>
 
       {/* ── Latest Listings ───────────────────────────────── */}
       <section className={styles.latestSection}>
         <div className="container">
-          <div className="section-header">
+          <div className={styles.sectionHead}>
             <div>
-              <h2 className="section-title">{t('latest_title')}</h2>
-              <p className="section-subtitle">{t('latest_subtitle')}</p>
+              <h2 className={styles.sectionTitle}>{t('latest_title')}</h2>
+              <p className={styles.sectionSub}>{t('latest_subtitle')}</p>
             </div>
             <Link href="/boats" className="btn btn-outline">{t('view_all_boats')}</Link>
           </div>
@@ -288,29 +282,14 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* ── Story & Services ──────────────────────────────── */}
-      <section className={styles.storySection}>
-        <div className="container">
-          <div className={styles.storyGrid}>
-            <div className={styles.storyIntro}>
-              <span className={styles.storyEyebrow}>{t('story_eyebrow')}</span>
-              <h2 className={styles.storyTitle}>{t('story_title')}</h2>
-              <p className={styles.storyBody}>{t('story_body')}</p>
-              <Link href="/about" className="btn btn-outline">{t('story_link')}</Link>
-            </div>
-            <ServicePillars t={t} />
-          </div>
-        </div>
-      </section>
-
       {/* ── News & Updates ────────────────────────────────── */}
       {updates.length > 0 && (
         <section className={styles.newsSection}>
           <div className="container">
-            <div className="section-header">
+            <div className={styles.sectionHead}>
               <div>
-                <h2 className="section-title">{t('news_title')}</h2>
-                <p className="section-subtitle">{t('news_subtitle')}</p>
+                <h2 className={styles.sectionTitle}>{t('news_title')}</h2>
+                <p className={styles.sectionSub}>{t('news_subtitle')}</p>
               </div>
             </div>
             <div className={styles.newsGrid}>
@@ -321,6 +300,22 @@ export default async function HomePage() {
           </div>
         </section>
       )}
+
+      {/* ── Authorised dealer / brand logos ──────────────── */}
+      <section className={styles.bottomBrands}>
+        <div className="container">
+          <BrandLogos
+            label={t('brands_label')}
+            size="lg"
+            logos={[
+              { name: 'GRAND Inflatables', file: 'grand-logo.png' },
+              { name: 'Yamarin', file: 'yamarin-logo.png' },
+              { name: 'SPX RIB', file: 'spx-logo.png' },
+              { name: 'Vanclaes', file: 'vanclaes-logo.png' },
+            ]}
+          />
+        </div>
+      </section>
 
       {/* ── CTA ───────────────────────────────────────────── */}
       <section className={styles.ctaSection}>

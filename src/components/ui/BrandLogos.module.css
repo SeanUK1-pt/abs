@@ -28,6 +28,11 @@
   justify-content: center;
 }
 
+.logoLg {
+  height: 68px;
+  min-width: 120px;
+}
+
 .pending {
   height: 42px;
   min-width: 120px;
@@ -47,4 +52,5 @@
 @media (max-width: 480px) {
   .row { gap: 1.25rem 1.5rem; }
   .logo, .pending { height: 36px; }
+  .logoLg { height: 48px; }
 }
