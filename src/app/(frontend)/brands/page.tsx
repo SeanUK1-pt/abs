@@ -8,7 +8,24 @@ import { getPageData } from '@/lib/getPage'
 import { RichText } from '@/components/ui/RichText'
 import { PageHero } from '@/components/ui/PageHero'
 
-const BRANDS = [
+type ModelRange = { name: string; blurb: string }
+type Brand = {
+  name: string
+  short: string
+  slug: string
+  logo: string
+  origin: string
+  category: string
+  website: string
+  heroImg: string | null
+  description: string
+  highlight: string
+  models?: string[]
+  ranges?: ModelRange[]
+  feature?: { name: string; tagline: string }
+}
+
+const BRANDS: Brand[] = [
   {
     name: 'GRAND Inflatables',
     short: 'GRAND',
@@ -20,8 +37,12 @@ const BRANDS = [
     heroImg: '/media/screenshot-31.png',
     description:
       'GRAND is a rigid inflatable boat manufacturer specialising in high-end fibreglass RIBs. Founded in 2001 by a group of passionate engineers and sailing enthusiasts, GRAND boats are developed, designed, and built in Ukraine — ensuring every boat is a true European product. Through a global distribution network, they offer a wide range of high-end family RIBs, yacht tenders, and commercial RIBs, crafted to deliver a fusion of luxury and functionality.',
-    models: ['Golden Line 650', 'Golden Line 680', 'Golden Line 750', 'Golden Line 850', 'Silverline 300', 'Silverline 330'],
     highlight: 'Premium fibreglass RIBs with superior build quality',
+    ranges: [
+      { name: 'Golden Line', blurb: 'Flagship premium RIBs — luxury, comfort and refined design.' },
+      { name: 'Silver Line', blurb: 'Versatile family RIBs balancing quality, space and value.' },
+      { name: 'Drive Line', blurb: 'High-performance commercial and work-ready RIBs.' },
+    ],
   },
   {
     name: 'Yamarin',
@@ -34,8 +55,13 @@ const BRANDS = [
     heroImg: '/media/yamarin_hero-scaled.jpg',
     description:
       'Yamarin has been building high-quality leisure boats in Finland since 1969. Known for their exceptional seakeeping, Yamarin boats combine Scandinavian design with outstanding durability. The range covers everything from nimble bowriders to spacious day cruisers and cabin boats, all engineered for the demanding waters of northern Europe — and the Algarve.',
-    models: ['Yamarin 63 BR', 'Yamarin 67 DC', 'Yamarin 80 DC', 'Yamarin 88 DC Premium'],
     highlight: 'Finnish-built quality since 1969',
+    feature: { name: 'Yamarin Aura', tagline: 'The all-new flagship — Scandinavian design at its finest.' },
+    ranges: [
+      { name: 'Day Cruiser', blurb: 'Spacious cruisers built for long, comfortable days afloat.' },
+      { name: 'Bow Rider', blurb: 'Agile, sporty open boats — perfect for family fun.' },
+      { name: 'Console', blurb: 'Practical console boats for fishing and exploring.' },
+    ],
   },
   {
     name: 'SPX RIB',
@@ -146,7 +172,7 @@ export default async function BrandsPage() {
         </section>
 
         <div className={styles.brands}>
-          {BRANDS.map(({ name, short, slug, logo, origin, category, description, models, highlight, heroImg, website }) => (
+          {BRANDS.map(({ name, short, slug, logo, origin, category, description, models, ranges, feature, highlight, heroImg, website }) => (
             <article key={name} className={styles.brand}>
               <div className={styles.media}>
                 <BrandCarousel images={pickBrandImages(name, heroImg, imagesByBrand)} name={name} fill />
@@ -171,15 +197,40 @@ export default async function BrandsPage() {
                 <p className={styles.desc}>{description}</p>
 
                 <div className={styles.rangeBlock}>
-                  <span className={styles.rangeLabel}>Model range</span>
-                  <div className={styles.modelGrid}>
-                    {models.map((m) => (
-                      <Link key={m} href={`/boats?make=${slug}`} className={styles.modelPanel}>
-                        <span>{m}</span>
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6" /></svg>
-                      </Link>
-                    ))}
-                  </div>
+                  <span className={styles.rangeLabel}>{ranges ? 'Model ranges' : 'Model range'}</span>
+
+                  {feature && (
+                    <Link href={`/boats?make=${slug}`} className={styles.featureTile}>
+                      <span className={styles.featureBadge}>New</span>
+                      <span className={styles.featureName}>{feature.name}</span>
+                      <span className={styles.featureTagline}>{feature.tagline}</span>
+                      <svg className={styles.featureArrow} width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6" /></svg>
+                    </Link>
+                  )}
+
+                  {ranges ? (
+                    <div className={styles.rangeGrid}>
+                      {ranges.map((r) => (
+                        <Link key={r.name} href={`/boats?make=${slug}`} className={styles.rangeTile}>
+                          <span className={styles.rangeName}>{r.name}</span>
+                          <span className={styles.rangeBlurb}>{r.blurb}</span>
+                          <span className={styles.rangeMore}>
+                            View range
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6" /></svg>
+                          </span>
+                        </Link>
+                      ))}
+                    </div>
+                  ) : (
+                    <div className={styles.modelGrid}>
+                      {models?.map((m) => (
+                        <Link key={m} href={`/boats?make=${slug}`} className={styles.modelPanel}>
+                          <span>{m}</span>
+                          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6" /></svg>
+                        </Link>
+                      ))}
+                    </div>
+                  )}
                 </div>
 
                 <div className={styles.actions}>
