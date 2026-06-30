@@ -7,6 +7,13 @@
   background: var(--ocean-gradient);
 }
 
+.carousel.fill,
+.pending.fill {
+  height: 100%;
+  min-height: 320px;
+  border-radius: 0;
+}
+
 .slide {
   position: absolute;
   inset: 0;

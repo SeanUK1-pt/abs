@@ -5,39 +5,37 @@ import { getPageData } from '@/lib/getPage'
 import { RichText } from '@/components/ui/RichText'
 import { PageHero } from '@/components/ui/PageHero'
 
-
-
 const SERVICES = [
   {
     title: 'Mechanical Services',
-    image: '/media/20241119_154607-scaled.jpg',
     items: ['Engine tune-ups & oil changes', 'Full system diagnostics', 'Seasonal preparation', 'Emergency repairs', 'All major engine brands'],
   },
   {
     title: 'Mechanical Systems Overhaul',
-    image: null,
     items: ['Complete engine inspection & repair', 'Inboard & outboard systems', 'Fuel and cooling system work', 'Hydraulics and electrical installs', 'Preventive diagnostic testing'],
   },
   {
     title: 'Hull Repair & Gel Coat Restoration',
-    image: '/media/20250703_113750-scaled.jpg',
     items: ['Gel coat repair & full respray', 'Osmosis treatment', 'Structural hull repairs', 'Polishing & waxing', 'Cosmetic restoration'],
   },
   {
     title: 'Antifouling & Protective Coating',
-    image: null,
     items: ['Antifouling application', 'Bottom paint', 'Protective hull coatings', 'Seasonal recoating', 'Performance-focused finishes'],
   },
   {
     title: 'Certifications & Compliance',
-    image: null,
     items: ['Documented, certified workmanship', 'Resale-ready paperwork', 'Charter compliance support', 'Regulatory standards met'],
   },
   {
     title: 'Guardenage & Daily Care',
-    image: null,
     items: ['Regular checks while in the Marina', 'Routine cleaning on contract', 'Individual deep cleans', 'Wash-down after every outing'],
   },
+]
+
+const QUICK_FACTS = [
+  'Yamaha & Mercury certified technicians',
+  'Based at Marina de Lagos',
+  'Genuine parts & documented work',
 ]
 
 export async function generateMetadata() {
@@ -50,7 +48,7 @@ export async function generateMetadata() {
 }
 
 export default async function MaintenancePage() {
-  const locale = await (await import('@/lib/locale')).getLocale()
+  const locale = await getLocale()
   const page = await getPageData('maintenance', locale)
 
   return (
@@ -63,9 +61,11 @@ export default async function MaintenancePage() {
       />
 
       <div className="container">
+        {/* ── Intro split ─────────────────────────────── */}
         <section className={styles.intro}>
-          <div>
-            <h2>Expert Care for Your Vessel</h2>
+          <div className={styles.introText}>
+            <span className={styles.eyebrow}>Expert Marine Care</span>
+            <h2 className={styles.introTitle}>Expert care for your vessel</h2>
             <p>
               Our daily and seasonal care programmes include cleaning, polishing, mechanical checkups, and
               system testing to help owners maintain their boats in top condition year-round.
@@ -73,29 +73,37 @@ export default async function MaintenancePage() {
             <p>
               We have a team that specialises in comprehensive boat renovation — combining craftsmanship,
               advanced technology, and marine expertise to restore and upgrade every aspect of your vessel.
-              With years of marine experience, high-quality materials, and a passion for perfection, we
-              transform your vessel into a reliable, beautiful, and seaworthy craft.
+              With years of experience, high-quality materials, and a passion for perfection, we transform
+              your vessel into a reliable, beautiful, and seaworthy craft.
             </p>
           </div>
-          <div className={styles.certBadge}>
-            <span className={styles.certIcon}>★</span>
-            <div>
-              <strong>Certified Engineers</strong>
-              <p>Our team includes manufacturer-certified engine technicians for Yamaha and Mercury outboards.</p>
-            </div>
-          </div>
+
+          <aside className={styles.introPanel}>
+            <span className={styles.panelIcon} aria-hidden="true">★</span>
+            <strong>Certified Engineers</strong>
+            <p>Our team includes manufacturer-certified engine technicians for Yamaha and Mercury outboards.</p>
+            <ul className={styles.facts}>
+              {QUICK_FACTS.map((f) => (
+                <li key={f}><span aria-hidden="true">✓</span>{f}</li>
+              ))}
+            </ul>
+          </aside>
         </section>
 
+        {/* ── What we cover ───────────────────────────── */}
         <section className={styles.servicesSection}>
-          <h2>What We Cover</h2>
+          <div className={styles.sectionHead}>
+            <h2 className={styles.sectionTitle}>What we cover</h2>
+            <p className={styles.sectionSub}>A complete range of servicing, repair, and protection for every part of your boat.</p>
+          </div>
           <div className={styles.servicesGrid}>
             {SERVICES.map(({ title, items }, i) => (
               <div key={title} className={styles.serviceCard}>
                 <span className={styles.serviceIndex}>{String(i + 1).padStart(2, '0')}</span>
                 <h3>{title}</h3>
                 <ul>
-                  {items.map(item => (
-                    <li key={item}><span>✓</span>{item}</li>
+                  {items.map((item) => (
+                    <li key={item}><span aria-hidden="true">✓</span>{item}</li>
                   ))}
                 </ul>
               </div>
@@ -103,8 +111,12 @@ export default async function MaintenancePage() {
           </div>
         </section>
 
+        {/* ── Seasonal programmes ─────────────────────── */}
         <section className={styles.seasonal}>
-          <h2>Seasonal Care Programmes</h2>
+          <div className={styles.sectionHead}>
+            <h2 className={styles.sectionTitle}>Seasonal care programmes</h2>
+            <p className={styles.sectionSub}>Keep your boat protected through every stage of the year.</p>
+          </div>
           <div className={styles.seasonGrid}>
             <div className={styles.season}>
               <h3>Spring Commissioning</h3>
@@ -121,17 +133,19 @@ export default async function MaintenancePage() {
           </div>
         </section>
 
+        {/* ── CTA ─────────────────────────────────────── */}
         <section className={styles.cta}>
-          <h2>Book a Service or Request a Quote</h2>
-          <p>Whether it's a routine annual service or a full renovation project, get in touch and we'll put together a tailored plan for your boat.</p>
+          <div>
+            <h2>Book a service or request a quote</h2>
+            <p>Whether it&apos;s a routine annual service or a full renovation project, get in touch and we&apos;ll put together a tailored plan for your boat.</p>
+          </div>
           <div className={styles.ctaBtns}>
             <Link href="/contact" className="btn btn-gold">Request a Quote</Link>
-            <Link href="/boat-storage" className="btn btn-outline">Winter Storage</Link>
+            <Link href="/boat-storage" className="btn btn-outline-white">Winter Storage</Link>
           </div>
         </section>
       </div>
 
-      {/* CMS additional content from Payload Pages editor */}
       {page?.content && (
         <div className="container" style={{ paddingBottom: '3rem' }}>
           <RichText content={page.content} className="richtext-content" />

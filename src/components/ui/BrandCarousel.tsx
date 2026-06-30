@@ -6,7 +6,15 @@ import styles from './BrandCarousel.module.css'
 
 export type BrandImage = { src: string; alt: string }
 
-export function BrandCarousel({ images, name }: { images: BrandImage[]; name: string }) {
+export function BrandCarousel({
+  images,
+  name,
+  fill = false,
+}: {
+  images: BrandImage[]
+  name: string
+  fill?: boolean
+}) {
   const count = images.length
   const [active, setActive] = useState(0)
 
@@ -20,14 +28,21 @@ export function BrandCarousel({ images, name }: { images: BrandImage[]; name: st
 
   if (count === 0) {
     return (
-      <div className={styles.pending} data-pending-asset={`${name.toLowerCase().replace(/\s+/g, '-')}-hero.jpg`}>
+      <div
+        className={`${styles.pending} ${fill ? styles.fill : ''}`}
+        data-pending-asset={`${name.toLowerCase().replace(/\s+/g, '-')}-hero.jpg`}
+      >
         Photo coming soon
       </div>
     )
   }
 
   return (
-    <div className={styles.carousel} aria-roledescription="carousel" aria-label={`${name} gallery`}>
+    <div
+      className={`${styles.carousel} ${fill ? styles.fill : ''}`}
+      aria-roledescription="carousel"
+      aria-label={`${name} gallery`}
+    >
       {images.map((img, i) => (
         <div
           key={i}
