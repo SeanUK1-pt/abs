@@ -14,7 +14,16 @@ export interface BrandLogo {
  * screens, instead of using one fused banner image (which can only shrink, not
  * reflow, and becomes illegible on phones — see Boat Storage page history).
  */
-export function BrandLogos({ logos, label }: { logos: BrandLogo[]; label?: string }) {
+export function BrandLogos({
+  logos,
+  label,
+  size = 'md',
+}: {
+  logos: BrandLogo[]
+  label?: string
+  size?: 'md' | 'lg'
+}) {
+  const logoClass = size === 'lg' ? `${styles.logo} ${styles.logoLg}` : styles.logo
   return (
     <section className={styles.strip}>
       {label && <p className={styles.label}>{label}</p>}
@@ -25,12 +34,12 @@ export function BrandLogos({ logos, label }: { logos: BrandLogo[]; label?: strin
               {logo.name}
             </div>
           ) : (
-            <div key={logo.name} className={styles.logo}>
+            <div key={logo.name} className={logoClass}>
               <Image
                 src={`/media/${logo.file}`}
                 alt={logo.name}
-                width={140}
-                height={50}
+                width={200}
+                height={72}
                 style={{ objectFit: 'contain', width: 'auto', height: '100%' }}
               />
             </div>

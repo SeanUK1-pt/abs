@@ -14,47 +14,176 @@
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 2rem;
-  padding: 3rem 0;
+  padding: 2rem 0 3rem;
+}
+
+/* ── Featured wide tile ─────────────────────────── */
+.featured {
+  display: grid;
+  grid-template-columns: 1fr;
+  margin-top: 3rem;
+  border: 1px solid var(--gray-200);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  background: var(--white);
+  box-shadow: var(--shadow-sm);
+  transition: box-shadow 0.25s ease;
+}
+
+.featured:hover {
+  box-shadow: var(--shadow-lg);
+}
+
+.featured:hover .mediaImg {
+  transform: scale(1.04);
+}
+
+@media (min-width: 900px) {
+  .featured {
+    grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
+    align-items: stretch;
+  }
+}
+
+.featuredMedia {
+  position: relative;
+  min-height: 260px;
+  overflow: hidden;
+}
+
+.featuredBody {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1rem;
+  padding: 2.25rem;
+}
+
+@media (min-width: 900px) {
+  .featuredBody {
+    padding: 2.75rem;
+    justify-content: center;
+  }
+}
+
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  font-size: 0.74rem;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--gold-dark);
+}
+
+.featuredTitle {
+  font-family: var(--font-heading);
+  font-size: clamp(1.5rem, 1.2rem + 1.2vw, 2rem);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: var(--navy);
+  line-height: 1.12;
+  margin-top: -0.35rem;
+}
+
+.featuredFeatures {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.5rem 1.5rem;
+}
+
+@media (min-width: 560px) {
+  .featuredFeatures {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.featuredActions {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  margin-top: 0.25rem;
 }
 
 .card {
   border: 1px solid var(--gray-200);
-  border-radius: var(--radius);
-  padding: 2rem;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  background: var(--white);
   display: flex;
   flex-direction: column;
-  gap: 1rem;
-  transition: box-shadow 0.2s;
+  box-shadow: var(--shadow-sm);
+  transition: box-shadow 0.25s ease, transform 0.25s ease;
 }
 
 .card:hover {
   box-shadow: var(--shadow-lg);
+  transform: translateY(-3px);
 }
 
-.cardHeader {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
+.card:hover .mediaImg {
+  transform: scale(1.05);
+}
+
+/* ── Image header ───────────────────────────────── */
+.media {
+  position: relative;
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+}
+
+.mediaImg {
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+
+.media::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(6, 20, 40, 0.85) 0%, rgba(6, 20, 40, 0.15) 55%, rgba(6, 20, 40, 0) 100%);
 }
 
 .cardIndex {
-  font-size: 1.1rem;
+  position: absolute;
+  top: 0.85rem;
+  left: 0.85rem;
+  z-index: 1;
+  font-size: 0.95rem;
   font-weight: 800;
   color: var(--gold);
-  width: 44px;
-  height: 44px;
+  width: 40px;
+  height: 40px;
   background: var(--navy);
   border-radius: var(--radius);
   display: flex;
   align-items: center;
   justify-content: center;
-  flex-shrink: 0;
+  box-shadow: var(--shadow-md);
 }
 
-.cardHeader h2 {
-  font-size: 1.2rem;
-  font-weight: 700;
-  color: var(--navy);
+.mediaTitle {
+  position: absolute;
+  left: 1.25rem;
+  right: 1.25rem;
+  bottom: 1rem;
+  z-index: 1;
+  font-family: var(--font-heading);
+  font-size: 1.25rem;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  color: var(--white);
+  line-height: 1.15;
+  text-shadow: 0 1px 12px rgba(0, 0, 0, 0.35);
+}
+
+/* ── Body ───────────────────────────────────────── */
+.body {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 1.75rem;
+  flex: 1;
 }
 
 .desc {
@@ -101,7 +230,7 @@
   color: white;
 }
 
-.cta h2 { font-size: 1.75rem; font-weight: 700; margin-bottom: 0.75rem; }
+.cta h2 { font-size: 1.75rem; font-weight: 700; margin-bottom: 0.75rem; color: var(--white); }
 .cta p { color: rgba(255,255,255,0.75); margin-bottom: 1.5rem; }
 
 .ctaBtns {
@@ -116,7 +245,10 @@
 }
 
 @media (max-width: 480px) {
-  .card { padding: 1.5rem; }
-  .cardHeader h2 { font-size: 1.05rem; }
+  .body { padding: 1.5rem; }
+  .featuredBody { padding: 1.5rem; }
+  .mediaTitle { font-size: 1.1rem; }
+  .featuredActions { flex-direction: column; align-items: stretch; }
+  .featuredActions :global(.btn) { text-align: center; }
   .cta { padding: 2rem 1.5rem; }
 }
