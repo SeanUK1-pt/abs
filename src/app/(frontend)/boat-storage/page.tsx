@@ -112,18 +112,24 @@ export default async function BoatStoragePage() {
               away safely for the winter. Available for boats up to 10m/30ft.
             </p>
 
-            <h2>Package Prices Include</h2>
+            <h2>What&rsquo;s Included</h2>
             <div className={styles.packageIncludeGrid}>
-              <ul className={styles.packageList}>
-                {WINTER_PACKAGE.map(item => (
-                  <li key={item}><span>✓</span>{item}</li>
-                ))}
-              </ul>
-              <ul className={styles.packageList}>
-                {SPRING_PACKAGE.map(item => (
-                  <li key={item}><span>✓</span>{item}</li>
-                ))}
-              </ul>
+              <div className={styles.packageCard}>
+                <h3 className={styles.packageCardTitle}>Winter Storage</h3>
+                <ul className={styles.packageList}>
+                  {WINTER_PACKAGE.map(item => (
+                    <li key={item}><span>✓</span>{item}</li>
+                  ))}
+                </ul>
+              </div>
+              <div className={styles.packageCard}>
+                <h3 className={styles.packageCardTitle}>Spring Handback</h3>
+                <ul className={styles.packageList}>
+                  {SPRING_PACKAGE.map(item => (
+                    <li key={item}><span>✓</span>{item}</li>
+                  ))}
+                </ul>
+              </div>
             </div>
 
             <h2>Why Store Your Boat?</h2>
