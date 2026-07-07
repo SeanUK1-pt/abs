@@ -35,20 +35,26 @@
 
 .select {
   padding: 0.8rem 1rem;
-  border: 2px solid var(--gray-300);
+  border: 1px solid var(--gray-200);
   border-radius: var(--radius-sm);
   font-size: 0.95rem;
-  background: var(--white);
+  /* Subtle shade so each control reads as a distinct field on the white card */
+  background: var(--gray-100);
   color: var(--gray-700);
   cursor: pointer;
   flex: 1;
   min-width: 150px;
-  transition: border-color 0.18s, box-shadow 0.18s;
+  transition: border-color 0.18s, box-shadow 0.18s, background 0.18s;
+}
+
+.select:hover {
+  border-color: var(--gray-300);
 }
 
 .select:focus {
   outline: none;
   border-color: var(--navy);
+  background: var(--white);
   box-shadow: 0 0 0 3px rgba(30, 69, 107, 0.15);
 }
 
