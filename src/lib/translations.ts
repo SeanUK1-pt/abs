@@ -124,6 +124,7 @@ const translations = {
     spec_engine_make: 'Engine Make',
     spec_engine_model: 'Engine Model',
     spec_engine_hp: 'Horsepower',
+    spec_engine_hp_unit: 'hp',
     spec_engine_count: 'Engine Config',
     spec_capacity: 'Max Capacity',
     spec_capacity_unit: 'persons',
@@ -162,6 +163,17 @@ const translations = {
     contact_address_hint: 'Ground floor, next to Artesão bar & café',
     contact_form_title: 'Send a Message',
     contact_form_sub: "Fill in the form and we'll get back to you as soon as possible.",
+
+    // Services page
+    services_title: 'Our Services',
+    services_subtitle: 'Everything you need — from buying your first boat to keeping it in perfect condition',
+    services_intro: "Welcome to Algarve Boat Sales. Our mission is to provide unforgettable maritime experiences. Whether you're buying or selling a boat, needing an engine service, help navigating paperwork, or finding the best accessories — we have you covered. Our skilled and friendly crew provide practical, hassle-free solutions so you can spend your time out on the water.",
+    services_eyebrow: 'Our flagship service',
+    services_sell_boat: 'Sell Your Boat',
+    services_learn_more: 'Learn More',
+    services_cta_title: 'Have a question about any of our services?',
+    services_cta_body: "Our team is happy to help — get in touch and we'll respond within a few hours.",
+    services_contact: 'Contact Us',
 
     // Footer
     footer_tagline: 'Premium new and pre-owned boat sales in Lagos, Algarve, Portugal. Authorised dealer for GRAND, Yamarin, and SPX RIB.',
@@ -307,6 +319,7 @@ const translations = {
     spec_engine_make: 'Marca do Motor',
     spec_engine_model: 'Modelo do Motor',
     spec_engine_hp: 'Potência',
+    spec_engine_hp_unit: 'cv',
     spec_engine_count: 'Configuração',
     spec_capacity: 'Capacidade Máx.',
     spec_capacity_unit: 'pessoas',
@@ -345,6 +358,17 @@ const translations = {
     contact_address_hint: 'Rés-do-chão, ao lado do bar & café Artesão',
     contact_form_title: 'Enviar Mensagem',
     contact_form_sub: 'Preencha o formulário e entraremos em contacto o mais rápido possível.',
+
+    // Services page
+    services_title: 'Os Nossos Serviços',
+    services_subtitle: 'Tudo o que precisa — desde a compra do seu primeiro barco até à sua manutenção perfeita',
+    services_intro: 'Bem-vindo à Algarve Boat Sales. A nossa missão é proporcionar experiências marítimas inesquecíveis. Quer esteja a comprar ou a vender um barco, a precisar de manutenção do motor, de ajuda com a burocracia, ou a procurar os melhores acessórios — estamos aqui para si. A nossa equipa qualificada e simpática oferece soluções práticas e sem complicações para que possa passar mais tempo no mar.',
+    services_eyebrow: 'O nosso serviço principal',
+    services_sell_boat: 'Vender o Seu Barco',
+    services_learn_more: 'Saber Mais',
+    services_cta_title: 'Tem alguma dúvida sobre os nossos serviços?',
+    services_cta_body: 'A nossa equipa terá todo o gosto em ajudar — contacte-nos e respondemos em poucas horas.',
+    services_contact: 'Contacte-nos',
 
     // Footer
     footer_tagline: 'Venda de barcos novos e usados em Lagos, Algarve, Portugal. Concessionário autorizado de GRAND, Yamarin e SPX RIB.',
