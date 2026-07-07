@@ -82,11 +82,11 @@ async function getHeroSlides(locale: string, t: ReturnType<typeof getTranslation
     (boats.find((b) => typeof b.main_image === 'object' && b.main_image?.url)?.main_image as any)?.url || null
   const findMake = (key: string) => makes.find((m) => (m.name || '').toLowerCase().includes(key))
 
-  const HERO_BRANDS: { key: string; label: string; msgKey: any; trailers?: boolean }[] = [
-    { key: 'grand', label: 'GRAND', msgKey: 'hero_brand_grand_msg' },
-    { key: 'yamarin', label: 'Yamarin', msgKey: 'hero_brand_yamarin_msg' },
-    { key: 'spx', label: 'SPX RIB', msgKey: 'hero_brand_spx_msg' },
-    { key: 'vanclaes', label: 'Vanclaes', msgKey: 'hero_brand_vanclaes_msg', trailers: true },
+  const HERO_BRANDS: { key: string; label: string; titleKey?: any; msgKey: any; trailers?: boolean; heroImg: string }[] = [
+    { key: 'grand', label: 'GRAND', titleKey: 'hero_brand_grand_title', msgKey: 'hero_brand_grand_msg', heroImg: '/media/hero-grand.png' },
+    { key: 'yamarin', label: 'Yamarin', titleKey: 'hero_brand_yamarin_title', msgKey: 'hero_brand_yamarin_msg', heroImg: imageFor('yamarin') || anyImage || '/media/yamarin_hero-scaled.jpg' },
+    { key: 'spx', label: 'SPX RIB', msgKey: 'hero_brand_spx_msg', heroImg: '/media/hero-spx.png' },
+    { key: 'vanclaes', label: 'Vanclaes', titleKey: 'hero_brand_vanclaes_title', msgKey: 'hero_brand_vanclaes_msg', trailers: true, heroImg: '/media/vanclaes-hero.png' },
   ]
 
   const slides: HeroSlide[] = []
@@ -94,7 +94,7 @@ async function getHeroSlides(locale: string, t: ReturnType<typeof getTranslation
   // 1. Intro
   slides.push({
     variant: 'intro',
-    src: anyImage,
+    src: '/media/general-hero-2.png',
     alt: 'Boats for sale in the Algarve',
     title: t('hero_title'),
     titleAccent: t('hero_subtitle'),
@@ -112,10 +112,10 @@ async function getHeroSlides(locale: string, t: ReturnType<typeof getTranslation
     const href = brand.trailers ? '/trailers' : mk?.slug ? `/boats?make=${mk.slug}` : '/boats'
     slides.push({
       variant: 'brand',
-      src: imageFor(brand.key) || anyImage,
+      src: brand.heroImg,
       alt: brand.label,
       logoSrc: logo || null,
-      title: brand.label,
+      title: brand.titleKey ? t(brand.titleKey) : brand.label,
       message: t(brand.msgKey),
       primaryLabel: brand.trailers ? t('hero_view_trailers') : t('hero_explore_range'),
       primaryHref: href,
@@ -125,7 +125,7 @@ async function getHeroSlides(locale: string, t: ReturnType<typeof getTranslation
   // 6. Brokerage / services
   slides.push({
     variant: 'brokerage',
-    src: imageFor('yamarin') || anyImage,
+    src: '/media/storage_short_bg_1.jpg',
     alt: 'Algarve Boat Sales services',
     eyebrow: t('hero_brokerage_eyebrow'),
     title: t('hero_brokerage_title'),
@@ -300,6 +300,32 @@ export default async function HomePage() {
           </div>
         </section>
       )}
+
+      {/* ── Empowered by Yamaha ───────────────────────────── */}
+      <section className={styles.yamaha}>
+        <div className="container">
+          <div className={styles.yamahaInner}>
+            <div className={styles.yamahaMedia}>
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src="/brands/yamaha-xf450-action.jpg"
+                alt="Twin Yamaha XF450 V8 outboard engines powering a boat"
+                className={styles.yamahaImg}
+              />
+            </div>
+            <div className={styles.yamahaText}>
+              <span className={styles.yamahaEyebrow}>{t('yamaha_eyebrow')}</span>
+              <h2 className={styles.yamahaTitle}>{t('yamaha_title')}</h2>
+              <p className={styles.yamahaBody}>{t('yamaha_body')}</p>
+              <Link href="/contact" className="btn btn-gold">{t('yamaha_cta')}</Link>
+              <span className={styles.yamahaLogoBadge}>
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src="/brands/yamaha-empowered-by.svg" alt="Empowered by Yamaha" />
+              </span>
+            </div>
+          </div>
+        </div>
+      </section>
 
       {/* ── Authorised dealer / brand logos ──────────────── */}
       <section className={styles.bottomBrands}>

@@ -23,6 +23,7 @@ type Brand = {
   models?: string[]
   ranges?: ModelRange[]
   feature?: { name: string; tagline: string }
+  yamahaPowered?: boolean
 }
 
 const BRANDS: Brand[] = [
@@ -30,6 +31,7 @@ const BRANDS: Brand[] = [
     name: 'GRAND Inflatables',
     short: 'GRAND',
     slug: 'grand-inflatables',
+    yamahaPowered: true,
     logo: '/media/grand-logo.png',
     origin: 'Ukraine',
     category: 'RIB / Inflatable',
@@ -48,6 +50,7 @@ const BRANDS: Brand[] = [
     name: 'Yamarin',
     short: 'Yamarin',
     slug: 'yamarin',
+    yamahaPowered: true,
     logo: '/media/yamarin-logo.png',
     origin: 'Finland',
     category: 'Bowrider / Day Cruiser',
@@ -67,6 +70,7 @@ const BRANDS: Brand[] = [
     name: 'SPX RIB',
     short: 'SPX RIB',
     slug: 'spx-rib',
+    yamahaPowered: true,
     logo: '/media/spx-logo.png',
     origin: 'Italy (Sicily)',
     category: 'Luxury RIB',
@@ -85,7 +89,7 @@ const BRANDS: Brand[] = [
     origin: 'Netherlands',
     category: 'Boat Trailers',
     website: 'https://vanclaes.com',
-    heroImg: null,
+    heroImg: '/media/brands-vanclaes.png',
     description:
       "Vanclaes is one of Europe's leading manufacturers of high-quality boat trailers. Built from marine-grade stainless steel, Vanclaes trailers are designed for longevity and ease of use, with hot-dip galvanised options available. From compact single-axle trailers for small RIBs to heavy-duty multi-axle trailers for large cabin boats, Vanclaes has a solution for every vessel.",
     models: ['Rib Marine Wave 1350', 'Rib Marine Wave 1800', 'Rib Marine Wave 2750'],
@@ -172,10 +176,16 @@ export default async function BrandsPage() {
         </section>
 
         <div className={styles.brands}>
-          {BRANDS.map(({ name, short, slug, logo, origin, category, description, models, ranges, feature, highlight, heroImg, website }) => (
+          {BRANDS.map(({ name, short, slug, logo, origin, category, description, models, ranges, feature, highlight, heroImg, website, yamahaPowered }) => (
             <article key={name} className={styles.brand}>
               <div className={styles.media}>
                 <BrandCarousel images={pickBrandImages(name, heroImg, imagesByBrand)} name={name} fill />
+                {yamahaPowered && (
+                  <span className={styles.yamahaBadge}>
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img src="/brands/yamaha-empowered-by.svg" alt="Empowered by Yamaha" />
+                  </span>
+                )}
               </div>
 
               <div className={styles.body}>

@@ -43,6 +43,9 @@ const translations = {
     hero_authorised_dealer: 'Authorised Dealer',
     hero_explore_range: 'Explore the Range',
     hero_view_trailers: 'View Trailers',
+    hero_brand_grand_title: 'GRAND BOATS',
+    hero_brand_yamarin_title: 'YAMARIN BOATS',
+    hero_brand_vanclaes_title: 'VANCLAES TRAILERS',
     hero_brand_grand_msg: 'Premium fibreglass RIBs with superior build quality, crafted in Europe.',
     hero_brand_yamarin_msg: 'Finnish-built bowriders and day cruisers, engineered for real seas since 1969.',
     hero_brand_spx_msg: 'Sicilian-designed luxury RIBs where Italian style meets serious performance.',
@@ -249,6 +252,12 @@ const translations = {
     services_cta_body: "Our team is happy to help — get in touch and we'll respond within a few hours.",
     services_contact: 'Contact Us',
 
+    // Yamaha partnership section
+    yamaha_eyebrow: 'Our Engine Partner',
+    yamaha_title: 'Yamaha power, factory-matched',
+    yamaha_body: 'Our GRAND, Yamarin and SPX RIB models are rigged with Yamaha marine engines — the benchmark for reliability, efficiency and after-sales support. As your Algarve dealer we supply, fit and service Yamaha power to match every boat.',
+    yamaha_cta: 'Talk Engines',
+
     // Footer
     footer_tagline: 'Premium new and pre-owned boat sales in Lagos, Algarve, Portugal. Authorised dealer for GRAND, Yamarin, and SPX RIB.',
     footer_boats: 'Boats',
@@ -312,6 +321,9 @@ const translations = {
     hero_authorised_dealer: 'Concessionário Autorizado',
     hero_explore_range: 'Explorar a Gama',
     hero_view_trailers: 'Ver Reboques',
+    hero_brand_grand_title: 'Barcos GRAND',
+    hero_brand_yamarin_title: 'Barcos Yamarin',
+    hero_brand_vanclaes_title: 'Reboques Vanclaes',
     hero_brand_grand_msg: 'RIBs premium em fibra de vidro, com qualidade de construção superior, fabricados na Europa.',
     hero_brand_yamarin_msg: 'Bowriders e day cruisers finlandeses, concebidos para o mar a sério desde 1969.',
     hero_brand_spx_msg: 'RIBs de luxo de design siciliano, onde o estilo italiano encontra o desempenho.',
@@ -517,6 +529,12 @@ const translations = {
     services_cta_title: 'Tem alguma dúvida sobre os nossos serviços?',
     services_cta_body: 'A nossa equipa terá todo o gosto em ajudar — contacte-nos e respondemos em poucas horas.',
     services_contact: 'Contacte-nos',
+
+    // Yamaha partnership section
+    yamaha_eyebrow: 'O Nosso Parceiro de Motores',
+    yamaha_title: 'Potência Yamaha, à medida de fábrica',
+    yamaha_body: 'Os nossos modelos GRAND, Yamarin e SPX RIB são equipados com motores marítimos Yamaha — a referência em fiabilidade, eficiência e apoio pós-venda. Como seu concessionário no Algarve, fornecemos, instalamos e assistimos a potência Yamaha para cada barco.',
+    yamaha_cta: 'Falar sobre Motores',
 
     // Footer
     footer_tagline: 'Venda de barcos novos e usados em Lagos, Algarve, Portugal. Concessionário autorizado de GRAND, Yamarin e SPX RIB.',

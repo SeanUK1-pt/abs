@@ -395,3 +395,34 @@
     padding: 2rem 1.5rem;
   }
 }
+
+
+/* ── Empowered by Yamaha overlay (Yamaha-powered brands) ── */
+.yamahaBadge {
+  position: absolute;
+  right: 0.85rem;
+  bottom: 0.85rem;
+  z-index: 3;
+  display: block;
+  background: var(--white);
+  border-radius: var(--radius-sm);
+  padding: 0.35rem 0.55rem;
+  box-shadow: var(--shadow-md);
+  pointer-events: none;
+}
+
+.yamahaBadge img {
+  display: block;
+  width: 118px;
+  height: auto;
+}
+
+@media (max-width: 560px) {
+  .yamahaBadge {
+    right: 0.6rem;
+    bottom: 0.6rem;
+  }
+  .yamahaBadge img {
+    width: 94px;
+  }
+}

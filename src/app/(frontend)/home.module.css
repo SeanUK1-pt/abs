@@ -12,15 +12,18 @@
   position: relative;
   z-index: 10;
   /* Match the showcase section below so the area around the floating card
-     is never the white <body>. Kills the white stripe under the bar. */
+     is never the white <body> (kills the old white stripe). flow-root
+     establishes a block-formatting context so the card's negative margin
+     lifts ONLY the card up into the hero, instead of collapsing through
+     and dragging the whole cream section up with it. */
   background: var(--off-white);
+  display: flow-root;
   padding: 0;
 }
 
 .searchBar :global(.container) {
-  /* Lift only the card over the hero (previously on the section, which left
-     its transparent lower half exposing the white body). */
-  margin-top: -3rem;
+  /* Float the card up so it overlaps the base of the hero. */
+  margin-top: -3.5rem;
   background: var(--white);
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow-lg);
@@ -228,6 +231,129 @@
 }
 
 /* ── Brand strip (moved to bottom) ──────────────── */
+/* ── Empowered by Yamaha (engine partner feature) ── */
+.yamaha {
+  background: var(--ocean-gradient);
+  padding: 3rem 0;
+  color: var(--white);
+}
+
+.yamahaInner {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  flex-wrap: wrap;
+  padding-left: 1.5rem;
+}
+
+.yamahaInner::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 5px;
+  background: var(--gold);
+  border-radius: 3px;
+}
+
+.yamahaMedia {
+  position: relative;
+  flex-shrink: 0;
+  width: 340px;
+  max-width: 100%;
+  aspect-ratio: 1 / 1;
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: var(--shadow-md);
+}
+
+.yamahaImg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.yamahaText {
+  position: relative;
+  flex: 1;
+  min-width: 260px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.5rem;
+  padding-bottom: 3rem;
+}
+
+.yamahaLogoBadge {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--white);
+  border-radius: var(--radius-sm);
+  padding: 0.4rem 0.65rem;
+  box-shadow: var(--shadow-md);
+}
+
+.yamahaLogoBadge img {
+  display: block;
+  width: 150px;
+  max-width: 45vw;
+  height: auto;
+}
+
+.yamahaEyebrow {
+  font-size: 0.76rem;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--gold-light);
+}
+
+.yamahaTitle {
+  font-family: var(--font-heading);
+  font-size: clamp(1.5rem, 1.2rem + 1.2vw, 2rem);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+  color: var(--white);
+  margin: 0;
+  text-wrap: balance;
+}
+
+.yamahaBody {
+  font-size: 1rem;
+  line-height: 1.65;
+  color: rgba(255, 255, 255, 0.82);
+  max-width: 60ch;
+  margin: 0 0 0.85rem;
+}
+
+@media (max-width: 640px) {
+  .yamahaInner {
+    gap: 1.5rem;
+  }
+  .yamahaMedia {
+    width: 100%;
+    aspect-ratio: 16 / 10;
+  }
+  .yamahaLogoBadge {
+    position: static;
+    margin-top: 0.5rem;
+  }
+  .yamahaText {
+    padding-bottom: 0;
+  }
+  .yamahaLogoBadge img {
+    width: 140px;
+  }
+}
+
 .bottomBrands {
   background: var(--white);
 }
@@ -291,7 +417,7 @@
 
 @media (max-width: 768px) {
   .hero { min-height: 380px; }
-  .searchBar :global(.container) { margin-top: -2rem; }
+  .searchBar :global(.container) { margin-top: -2.5rem; }
   .newsGrid { grid-template-columns: 1fr; }
   .ctaBox { flex-direction: column; align-items: flex-start; padding: 2rem; }
 }

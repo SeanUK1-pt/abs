@@ -1,34 +1,24 @@
-.frame {
-  position: relative;
-  width: 100%;
-  height: clamp(720px, 88vh, 1080px);
-  background: var(--gray-100);
+.wrap {
   border-radius: var(--radius-lg);
   overflow: hidden;
   box-shadow: var(--shadow-lg);
   border: 1px solid var(--gray-200);
 }
 
-.iframe {
-  width: 100%;
-  height: 100%;
-  border: 0;
-  display: block;
-}
-
-/* Launch cover (also serves as the required first-gesture target) */
-.cover {
-  position: absolute;
-  inset: 0;
-  z-index: 2;
+/* ── Branded header bar (navy + gold), Vanclaes logo prominent ── */
+.bar {
+  position: relative;
   display: flex;
   align-items: center;
-  justify-content: center;
-  padding: 2rem;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+  padding: 1rem 1.25rem 1rem 1.5rem;
   background: var(--ocean-gradient);
+  border-bottom: 3px solid var(--gold);
 }
 
-.cover::before {
+.bar::before {
   content: '';
   position: absolute;
   top: 0;
@@ -38,45 +28,89 @@
   background: var(--gold);
 }
 
-.coverInner {
-  max-width: 540px;
-  text-align: center;
-  color: var(--white);
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  min-width: 0;
 }
 
-.eyebrow {
+.logoChip {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--white);
+  border-radius: var(--radius-sm);
+  padding: 0.5rem 0.7rem;
+  box-shadow: var(--shadow-sm);
+  flex-shrink: 0;
+}
+
+.logo {
   display: block;
-  font-size: 0.78rem;
+  width: auto;
+  height: 40px;
+}
+
+.barText {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.barEyebrow {
+  font-size: 0.72rem;
   font-weight: 800;
   letter-spacing: 0.16em;
   text-transform: uppercase;
   color: var(--gold-light);
-  margin-bottom: 0.75rem;
 }
 
-.coverTitle {
+.barTitle {
   font-family: var(--font-heading);
-  font-size: clamp(1.6rem, 1.2rem + 1.4vw, 2.25rem);
+  font-size: clamp(1.1rem, 0.95rem + 0.7vw, 1.4rem);
   font-weight: 800;
-  letter-spacing: -0.02em;
+  letter-spacing: -0.01em;
   color: var(--white);
-  line-height: 1.1;
-  margin: 0 0 0.85rem;
+  line-height: 1.2;
 }
 
-.coverText {
-  font-size: 1.02rem;
-  line-height: 1.65;
+.cookieBtn {
+  flex-shrink: 0;
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.35);
   color: rgba(255, 255, 255, 0.85);
-  margin: 0 auto 1.75rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  padding: 0.5rem 0.9rem;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: border-color 0.18s, color 0.18s, background 0.18s;
 }
 
-.coverNote {
-  margin-top: 1rem;
-  font-size: 0.82rem;
-  color: rgba(255, 255, 255, 0.6);
+.cookieBtn:hover {
+  border-color: var(--gold-light);
+  color: var(--white);
+  background: rgba(255, 255, 255, 0.06);
 }
 
-@media (max-width: 480px) {
-  .cover { padding: 1.5rem; }
+/* ── The live configurator frame ── */
+.frame {
+  position: relative;
+  width: 100%;
+  height: clamp(720px, 84vh, 1080px);
+  background: var(--gray-100);
+}
+
+.iframe {
+  width: 100%;
+  height: 100%;
+  border: 0;
+  display: block;
+}
+
+@media (max-width: 640px) {
+  .bar { padding: 0.85rem 1rem 0.85rem 1.25rem; }
+  .cookieBtn { order: 3; }
+  .logo { height: 32px; }
 }
