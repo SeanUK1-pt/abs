@@ -82,11 +82,11 @@ async function getHeroSlides(locale: string, t: ReturnType<typeof getTranslation
     (boats.find((b) => typeof b.main_image === 'object' && b.main_image?.url)?.main_image as any)?.url || null
   const findMake = (key: string) => makes.find((m) => (m.name || '').toLowerCase().includes(key))
 
-  const HERO_BRANDS: { key: string; label: string; titleKey?: any; msgKey: any; trailers?: boolean; heroImg: string }[] = [
-    { key: 'grand', label: 'GRAND', titleKey: 'hero_brand_grand_title', msgKey: 'hero_brand_grand_msg', heroImg: '/media/hero-grand.png' },
-    { key: 'yamarin', label: 'Yamarin', titleKey: 'hero_brand_yamarin_title', msgKey: 'hero_brand_yamarin_msg', heroImg: imageFor('yamarin') || anyImage || '/media/yamarin_hero-scaled.jpg' },
-    { key: 'spx', label: 'SPX RIB', msgKey: 'hero_brand_spx_msg', heroImg: '/media/hero-spx.png' },
-    { key: 'vanclaes', label: 'Vanclaes', titleKey: 'hero_brand_vanclaes_title', msgKey: 'hero_brand_vanclaes_msg', trailers: true, heroImg: '/media/vanclaes-hero.png' },
+  const HERO_BRANDS: { key: string; label: string; titleKey?: any; msgKey: any; brandsSlug: string; heroImg: string }[] = [
+    { key: 'grand', label: 'GRAND', titleKey: 'hero_brand_grand_title', msgKey: 'hero_brand_grand_msg', brandsSlug: 'grand-inflatables', heroImg: '/media/hero-grand.png' },
+    { key: 'yamarin', label: 'Yamarin', titleKey: 'hero_brand_yamarin_title', msgKey: 'hero_brand_yamarin_msg', brandsSlug: 'yamarin', heroImg: imageFor('yamarin') || anyImage || '/media/yamarin_hero-scaled.jpg' },
+    { key: 'spx', label: 'SPX RIB', msgKey: 'hero_brand_spx_msg', brandsSlug: 'spx-rib', heroImg: '/media/hero-spx.png' },
+    { key: 'vanclaes', label: 'Vanclaes', titleKey: 'hero_brand_vanclaes_title', msgKey: 'hero_brand_vanclaes_msg', brandsSlug: 'vanclaes', heroImg: '/media/vanclaes-hero.png' },
   ]
 
   const slides: HeroSlide[] = []
@@ -109,7 +109,6 @@ async function getHeroSlides(locale: string, t: ReturnType<typeof getTranslation
   for (const brand of HERO_BRANDS) {
     const mk = findMake(brand.key)
     const logo = mk && typeof mk.logo === 'object' ? mk.logo?.url : null
-    const href = brand.trailers ? '/trailers' : mk?.slug ? `/boats?make=${mk.slug}` : '/boats'
     slides.push({
       variant: 'brand',
       src: brand.heroImg,
@@ -117,8 +116,8 @@ async function getHeroSlides(locale: string, t: ReturnType<typeof getTranslation
       logoSrc: logo || null,
       title: brand.titleKey ? t(brand.titleKey) : brand.label,
       message: t(brand.msgKey),
-      primaryLabel: brand.trailers ? t('hero_view_trailers') : t('hero_explore_range'),
-      primaryHref: href,
+      primaryLabel: t('hero_explore_range'),
+      primaryHref: `/brands#${brand.brandsSlug}`,
     })
   }
 
