@@ -38,7 +38,8 @@ export async function POST(req: NextRequest) {
         })
 
         await transporter.sendMail({
-          from: process.env.SMTP_FROM || process.env.SMTP_USER,
+          from: `Sales Website <${process.env.SMTP_FROM || process.env.SMTP_USER}>`,
+          replyTo: `${name} <${email}>`,
           to: process.env.CONTACT_EMAIL,
           subject: `New Enquiry: ${listing_title || 'General'}`,
           html: `
