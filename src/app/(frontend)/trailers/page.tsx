@@ -39,10 +39,41 @@ export default async function TrailersPage({
         imageAlt="A stainless steel boat trailer with a RIB loaded on it"
       />
 
+      <section className={styles.configBanner}>
+        <div className={`container ${styles.configInner}`}>
+          <div className={styles.configText}>
+            <span className={styles.configEyebrow}>New Trailers &middot; Vanclaes</span>
+            <h2 className={styles.configTitle}>Build a new trailer, made to measure</h2>
+            <p className={styles.configLede}>
+              Design a brand-new Vanclaes trailer around your exact boat &mdash; model, axles, options
+              and finish &mdash; with our live configurator. We supply, fit and register it for you
+              across the Algarve.
+            </p>
+            <div className={styles.configActions}>
+              <Link href="/trailers/configurator" className="btn btn-gold">
+                Start Configuring
+              </Link>
+              <Link href="/contact" className="btn btn-outline-white">
+                Ask for advice
+              </Link>
+            </div>
+          </div>
+          <div className={styles.configMedia}>
+            <Image
+              src="/services/trailer.jpg"
+              alt="A new Vanclaes boat trailer"
+              fill
+              className={styles.configImg}
+              sizes="(max-width: 900px) 100vw, 420px"
+            />
+          </div>
+        </div>
+      </section>
+
       <div className="container py-8">
         <div className={styles.toolbar}>
           <p className={styles.count}>
-            <strong>{totalDocs}</strong> trailer{totalDocs === 1 ? '' : 's'} available
+            <strong>{totalDocs}</strong> used trailer{totalDocs === 1 ? '' : 's'} available
           </p>
           <TrailerFilters currentCondition={params.condition} currentPriceMax={params.price_max} />
         </div>
