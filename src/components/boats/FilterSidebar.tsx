@@ -61,18 +61,23 @@ export function FilterSidebar({ searchParams, makes, filterableFeatures, locale 
       </div>
 
       <FilterGroup title={l.condition}>
-        {['new', 'used'].map(v => (
-          <label key={v} className={styles.checkLabel}>
-            <input
-              type="radio"
-              name="condition"
-              value={v}
-              checked={filters.condition === v}
-              onChange={() => set('condition', filters.condition === v ? '' : v)}
-            />
-            <span>{v === 'new' ? l.new : l.used}</span>
-          </label>
-        ))}
+        <div className={styles.segmented}>
+          {['new', 'used'].map(v => (
+            <label
+              key={v}
+              className={`${styles.segmentLabel} ${filters.condition === v ? styles.segmentActive : ''}`}
+            >
+              <input
+                type="radio"
+                name="condition"
+                value={v}
+                checked={filters.condition === v}
+                onChange={() => set('condition', v)}
+              />
+              <span>{v === 'new' ? l.new : l.used}</span>
+            </label>
+          ))}
+        </div>
       </FilterGroup>
 
       <FilterGroup title={l.type}>
