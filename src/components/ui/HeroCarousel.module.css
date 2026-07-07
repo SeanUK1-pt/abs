@@ -37,30 +37,51 @@
   position: absolute;
   inset: 0;
   z-index: 1;
+  /* Neutral (not blue) scrim anchored to the lower-left where the copy sits.
+     Fades to fully transparent across the right so the lifestyle photo and
+     the product read clearly and keep their true colours. */
   background:
     linear-gradient(
-      to right,
-      rgba(8, 27, 46, 0.95) 0%,
-      rgba(8, 27, 46, 0.78) 42%,
-      rgba(8, 27, 46, 0.45) 100%
+      100deg,
+      rgba(12, 16, 20, 0.72) 0%,
+      rgba(12, 16, 20, 0.5) 26%,
+      rgba(12, 16, 20, 0.2) 48%,
+      rgba(12, 16, 20, 0) 66%
     ),
-    linear-gradient(to bottom, rgba(8, 27, 46, 0.2) 0%, rgba(8, 27, 46, 0) 30%);
+    linear-gradient(
+      to top,
+      rgba(12, 16, 20, 0.55) 0%,
+      rgba(12, 16, 20, 0.12) 26%,
+      rgba(12, 16, 20, 0) 50%
+    );
 }
 
 .overlayIntro {
+  /* Intro carries the most copy, so allow a touch more coverage while
+     still keeping the right side clear. */
   background:
     linear-gradient(
-      to right,
-      rgba(8, 27, 46, 0.88) 0%,
-      rgba(8, 27, 46, 0.62) 50%,
-      rgba(8, 27, 46, 0.35) 100%
+      100deg,
+      rgba(12, 16, 20, 0.78) 0%,
+      rgba(12, 16, 20, 0.56) 30%,
+      rgba(12, 16, 20, 0.24) 52%,
+      rgba(12, 16, 20, 0) 70%
     ),
-    linear-gradient(to bottom, rgba(8, 27, 46, 0.2) 0%, rgba(8, 27, 46, 0) 30%);
+    linear-gradient(
+      to top,
+      rgba(12, 16, 20, 0.55) 0%,
+      rgba(12, 16, 20, 0.12) 26%,
+      rgba(12, 16, 20, 0) 50%
+    );
 }
 
 .content {
   position: relative;
   z-index: 2;
+  /* .slide is a flex container; without an explicit width the .container
+     shrink-wraps and its auto side-margins center it. Force full width so
+     the copy anchors to the left, clear of the product on the right. */
+  width: 100%;
   padding-top: 3.25rem;
   padding-bottom: 4.5rem;
 }
@@ -81,6 +102,7 @@
   letter-spacing: 0.18em;
   text-transform: uppercase;
   color: var(--gold-light);
+  text-shadow: 0 1px 8px rgba(0, 0, 0, 0.5);
 }
 
 .logo {
@@ -90,7 +112,7 @@
   object-fit: contain;
   object-position: left center;
   /* lift logos that ship on dark/transparent backgrounds */
-  filter: drop-shadow(0 2px 10px rgba(0, 0, 0, 0.35));
+  filter: drop-shadow(0 2px 14px rgba(0, 0, 0, 0.55));
 }
 
 .srTitle {
@@ -113,7 +135,7 @@
   color: var(--white);
   line-height: 1.04;
   margin: 0;
-  text-shadow: 0 2px 24px rgba(0, 0, 0, 0.3);
+  text-shadow: 0 2px 18px rgba(0, 0, 0, 0.55), 0 1px 3px rgba(0, 0, 0, 0.45);
 }
 
 .accent {
@@ -122,10 +144,11 @@
 
 .message {
   font-size: clamp(1.02rem, 0.9rem + 0.5vw, 1.25rem);
-  color: rgba(255, 255, 255, 0.85);
+  color: rgba(255, 255, 255, 0.94);
   max-width: 52ch;
   line-height: 1.6;
   margin: 0;
+  text-shadow: 0 1px 12px rgba(0, 0, 0, 0.55);
 }
 
 .ctas {
