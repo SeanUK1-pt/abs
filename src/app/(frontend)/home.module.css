@@ -12,15 +12,18 @@
   position: relative;
   z-index: 10;
   /* Match the showcase section below so the area around the floating card
-     is never the white <body>. Kills the white stripe under the bar. */
+     is never the white <body> (kills the old white stripe). flow-root
+     establishes a block-formatting context so the card's negative margin
+     lifts ONLY the card up into the hero, instead of collapsing through
+     and dragging the whole cream section up with it. */
   background: var(--off-white);
+  display: flow-root;
   padding: 0;
 }
 
 .searchBar :global(.container) {
-  /* Lift only the card over the hero (previously on the section, which left
-     its transparent lower half exposing the white body). */
-  margin-top: -3rem;
+  /* Float the card up so it overlaps the base of the hero. */
+  margin-top: -3.5rem;
   background: var(--white);
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow-lg);
@@ -291,7 +294,7 @@
 
 @media (max-width: 768px) {
   .hero { min-height: 380px; }
-  .searchBar :global(.container) { margin-top: -2rem; }
+  .searchBar :global(.container) { margin-top: -2.5rem; }
   .newsGrid { grid-template-columns: 1fr; }
   .ctaBox { flex-direction: column; align-items: flex-start; padding: 2rem; }
 }

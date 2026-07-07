@@ -35,11 +35,12 @@
 
 .select {
   padding: 0.8rem 1rem;
-  border: 1px solid var(--gray-200);
+  border: 1px solid #e3d7b8;
   border-radius: var(--radius-sm);
   font-size: 0.95rem;
-  /* Subtle shade so each control reads as a distinct field on the white card */
-  background: var(--gray-100);
+  /* Warm sand/gold shade so each control reads as a distinct field on the
+     white card, tying into the brand's gold accent (not cold grey). */
+  background: #f3ecdc;
   color: var(--gray-700);
   cursor: pointer;
   flex: 1;
@@ -48,14 +49,15 @@
 }
 
 .select:hover {
-  border-color: var(--gray-300);
+  border-color: var(--gold);
+  background: #efe6d0;
 }
 
 .select:focus {
   outline: none;
-  border-color: var(--navy);
+  border-color: var(--gold-dark);
   background: var(--white);
-  box-shadow: 0 0 0 3px rgba(30, 69, 107, 0.15);
+  box-shadow: 0 0 0 3px rgba(200, 150, 44, 0.22);
 }
 
 .searchBtn {
