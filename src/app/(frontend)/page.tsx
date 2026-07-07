@@ -305,19 +305,23 @@ export default async function HomePage() {
       <section className={styles.yamaha}>
         <div className="container">
           <div className={styles.yamahaInner}>
-            <span className={styles.yamahaChip}>
+            <div className={styles.yamahaMedia}>
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
-                src="/brands/yamaha-empowered-by.svg"
-                alt="Empowered by Yamaha"
-                className={styles.yamahaLogo}
+                src="/brands/yamaha-xf450-action.jpg"
+                alt="Twin Yamaha XF450 V8 outboard engines powering a boat"
+                className={styles.yamahaImg}
               />
-            </span>
+            </div>
             <div className={styles.yamahaText}>
               <span className={styles.yamahaEyebrow}>{t('yamaha_eyebrow')}</span>
               <h2 className={styles.yamahaTitle}>{t('yamaha_title')}</h2>
               <p className={styles.yamahaBody}>{t('yamaha_body')}</p>
               <Link href="/contact" className="btn btn-gold">{t('yamaha_cta')}</Link>
+              <span className={styles.yamahaLogoBadge}>
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src="/brands/yamaha-empowered-by.svg" alt="Empowered by Yamaha" />
+              </span>
             </div>
           </div>
         </div>
