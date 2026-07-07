@@ -39,6 +39,12 @@ const translations = {
     news_read_more: 'Read more',
     news_view_all: 'View All',
 
+    // Yamaha engine partnership
+    yamaha_eyebrow: 'Our Engine Partner',
+    yamaha_title: 'Yamaha power, factory-matched',
+    yamaha_body: 'Our GRAND, Yamarin and SPX RIB models are rigged with Yamaha marine engines — the benchmark for reliability, efficiency and after-sales support. As your Algarve dealer we supply, fit and service Yamaha power to match every boat.',
+    yamaha_cta: 'Talk Engines',
+
     // Hero brand & brokerage slides
     hero_authorised_dealer: 'Authorised Dealer',
     hero_explore_range: 'Explore the Range',
@@ -221,6 +227,12 @@ const translations = {
     news_subtitle: 'As últimas novidades da Algarve Boat Sales',
     news_read_more: 'Ler mais',
     news_view_all: 'Ver Tudo',
+
+    // Yamaha engine partnership
+    yamaha_eyebrow: 'O Nosso Parceiro de Motores',
+    yamaha_title: 'Potência Yamaha, à medida de fábrica',
+    yamaha_body: 'Os nossos modelos GRAND, Yamarin e SPX RIB são equipados com motores marítimos Yamaha — a referência em fiabilidade, eficiência e apoio pós-venda. Como seu concessionário no Algarve, fornecemos, instalamos e assistimos a potência Yamaha para cada barco.',
+    yamaha_cta: 'Falar sobre Motores',
 
     // Hero brand & brokerage slides
     hero_authorised_dealer: 'Concessionário Autorizado',

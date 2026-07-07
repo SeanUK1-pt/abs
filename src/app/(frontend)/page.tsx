@@ -301,6 +301,28 @@ export default async function HomePage() {
         </section>
       )}
 
+      {/* ── Empowered by Yamaha ───────────────────────────── */}
+      <section className={styles.yamaha}>
+        <div className="container">
+          <div className={styles.yamahaInner}>
+            <span className={styles.yamahaChip}>
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src="/brands/yamaha-empowered-by.svg"
+                alt="Empowered by Yamaha"
+                className={styles.yamahaLogo}
+              />
+            </span>
+            <div className={styles.yamahaText}>
+              <span className={styles.yamahaEyebrow}>{t('yamaha_eyebrow')}</span>
+              <h2 className={styles.yamahaTitle}>{t('yamaha_title')}</h2>
+              <p className={styles.yamahaBody}>{t('yamaha_body')}</p>
+              <Link href="/contact" className="btn btn-gold">{t('yamaha_cta')}</Link>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* ── Authorised dealer / brand logos ──────────────── */}
       <section className={styles.bottomBrands}>
         <div className="container">
