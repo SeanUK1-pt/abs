@@ -98,7 +98,7 @@ export default async function BoatPage({ params }: { params: Promise<{ slug: str
   const engineSpecs = [
     { label: t('spec_engine_make'), value: boat.engine_make },
     { label: t('spec_engine_model'), value: boat.engine_model },
-    { label: t('spec_engine_hp'), value: boat.engine_hp ? `${boat.engine_hp}hp` : null },
+    { label: t('spec_engine_hp'), value: boat.engine_hp ? `${boat.engine_hp}${t('spec_engine_hp_unit')}` : null },
     { label: t('spec_engine_count'), value: engineCountLabel(boat.engine_count) },
     { label: t('spec_fuel'), value: boat.fuel_type },
     { label: t('spec_drive'), value: boat.drive_type },
