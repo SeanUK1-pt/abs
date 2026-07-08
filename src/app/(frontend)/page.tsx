@@ -88,11 +88,11 @@ async function getHeroSlides(locale: string, t: ReturnType<typeof getTranslation
     (boats.find((b) => typeof b.main_image === 'object' && b.main_image?.url)?.main_image as any)?.url || null
   const findMake = (key: string) => makes.find((m) => (m.name || '').toLowerCase().includes(key))
 
-  const HERO_BRANDS: { key: string; label: string; msgKey: any; trailers?: boolean }[] = [
-    { key: 'grand', label: 'GRAND', msgKey: 'hero_brand_grand_msg' },
-    { key: 'yamarin', label: 'Yamarin', msgKey: 'hero_brand_yamarin_msg' },
-    { key: 'spx', label: 'SPX RIB', msgKey: 'hero_brand_spx_msg' },
-    { key: 'vanclaes', label: 'Vanclaes', msgKey: 'hero_brand_vanclaes_msg', trailers: true },
+  const HERO_BRANDS: { key: string; label: string; msgKey: any; fallbackImg: string; trailers?: boolean }[] = [
+    { key: 'grand', label: 'GRAND', msgKey: 'hero_brand_grand_msg', fallbackImg: '/media/hero-grand.png' },
+    { key: 'yamarin', label: 'Yamarin', msgKey: 'hero_brand_yamarin_msg', fallbackImg: '/media/yamarin_hero-scaled.jpg' },
+    { key: 'spx', label: 'SPX RIB', msgKey: 'hero_brand_spx_msg', fallbackImg: '/media/hero-spx.png' },
+    { key: 'vanclaes', label: 'Vanclaes', msgKey: 'hero_brand_vanclaes_msg', fallbackImg: '/media/vanclaes-hero.png', trailers: true },
   ]
 
   const slides: HeroSlide[] = []
@@ -100,7 +100,7 @@ async function getHeroSlides(locale: string, t: ReturnType<typeof getTranslation
   // 1. Intro
   slides.push({
     variant: 'intro',
-    src: anyImage,
+    src: anyImage || '/media/general-hero-2.png',
     alt: 'Boats for sale in the Algarve',
     title: t('hero_title'),
     titleAccent: t('hero_subtitle'),
@@ -118,7 +118,7 @@ async function getHeroSlides(locale: string, t: ReturnType<typeof getTranslation
     const href = brand.trailers ? '/trailers' : mk?.slug ? `/boats?make=${mk.slug}` : '/boats'
     slides.push({
       variant: 'brand',
-      src: imageFor(brand.key) || anyImage,
+      src: imageFor(brand.key) || brand.fallbackImg,
       alt: brand.label,
       logoSrc: logo || null,
       title: brand.label,
@@ -131,7 +131,7 @@ async function getHeroSlides(locale: string, t: ReturnType<typeof getTranslation
   // 6. Brokerage / services
   slides.push({
     variant: 'brokerage',
-    src: imageFor('yamarin') || anyImage,
+    src: imageFor('yamarin') || '/media/storage_short_bg_1.jpg',
     alt: 'Algarve Boat Sales services',
     eyebrow: t('hero_brokerage_eyebrow'),
     title: t('hero_brokerage_title'),
