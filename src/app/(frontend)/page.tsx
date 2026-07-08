@@ -88,9 +88,9 @@ async function getHeroSlides(locale: string, t: ReturnType<typeof getTranslation
     (boats.find((b) => typeof b.main_image === 'object' && b.main_image?.url)?.main_image as any)?.url || null
   const findMake = (key: string) => makes.find((m) => (m.name || '').toLowerCase().includes(key))
 
-  const HERO_BRANDS: { key: string; label: string; displayTitle: string; msgKey: any; fallbackImg: string; trailers?: boolean }[] = [
+  const HERO_BRANDS: { key: string; label: string; displayTitle: string; msgKey: any; fallbackImg: string; cmsFirst?: boolean; trailers?: boolean }[] = [
     { key: 'grand', label: 'GRAND', displayTitle: t('hero_brand_grand_title'), msgKey: 'hero_brand_grand_msg', fallbackImg: '/media/hero-grand.png' },
-    { key: 'yamarin', label: 'Yamarin', displayTitle: t('hero_brand_yamarin_title'), msgKey: 'hero_brand_yamarin_msg', fallbackImg: '/media/yamarin_hero-scaled.jpg' },
+    { key: 'yamarin', label: 'Yamarin', displayTitle: t('hero_brand_yamarin_title'), msgKey: 'hero_brand_yamarin_msg', fallbackImg: '/media/yamarin_hero-scaled.jpg', cmsFirst: true },
     { key: 'spx', label: 'SPX RIB', displayTitle: 'SPX BOATS', msgKey: 'hero_brand_spx_msg', fallbackImg: '/media/hero-spx.png' },
     { key: 'vanclaes', label: 'Vanclaes', displayTitle: t('hero_brand_vanclaes_title'), msgKey: 'hero_brand_vanclaes_msg', fallbackImg: '/media/vanclaes-hero.png', trailers: true },
   ]
@@ -118,7 +118,7 @@ async function getHeroSlides(locale: string, t: ReturnType<typeof getTranslation
     const href = brand.trailers ? '/trailers' : mk?.slug ? `/boats?make=${mk.slug}` : '/boats'
     slides.push({
       variant: 'brand',
-      src: brand.fallbackImg,
+      src: brand.cmsFirst ? (imageFor(brand.key) || brand.fallbackImg) : brand.fallbackImg,
       alt: brand.label,
       logoSrc: logo || null,
       title: brand.displayTitle,
