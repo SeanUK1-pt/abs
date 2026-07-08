@@ -376,6 +376,59 @@ const translations = {
     svc4_f2: 'Import / customs assistance',
     svc4_f3: 'Insurance referrals',
 
+    // Brands page - UI
+    brands_page_title: 'Exclusive Brands',
+    brands_page_subtitle: "Authorised dealer for the world's finest boat manufacturers",
+    brands_page_intro: 'We handpick the brands we represent — every manufacturer in our portfolio has been chosen for their commitment to quality, innovation, and after-sales support. As the authorised Algarve dealer for each brand, we offer factory-direct ordering, warranty support, and genuine parts.',
+    brands_model_ranges: 'Model ranges',
+    brands_model_range: 'Model range',
+    brands_new_badge: 'New',
+    brands_view_range: 'View range',
+    brands_view_boats: 'View Used {brand} Boats',
+    brands_visit_website: 'Visit Website',
+    brands_cta_title: 'Interested in a specific brand?',
+    brands_cta_body: 'Contact us for pricing, availability, and to arrange a viewing or sea trial.',
+    brands_browse_all: 'Browse All Boats',
+    brands_request_info: 'Request Info',
+
+    // Brands page - GRAND
+    brand_grand_desc: 'GRAND is a rigid inflatable boat manufacturer specialising in high-end fibreglass RIBs. Founded in 2001 by a group of passionate engineers and sailing enthusiasts, GRAND boats are developed, designed, and built in Ukraine — ensuring every boat is a true European product. Through a global distribution network, they offer a wide range of high-end family RIBs, yacht tenders, and commercial RIBs, crafted to deliver a fusion of luxury and functionality.',
+    brand_grand_highlight: 'Premium fibreglass RIBs with superior build quality',
+    brand_grand_feature_name: 'GRAND G980',
+    brand_grand_feature_tagline: 'The flagship Golden Line RIB — luxury, power and European craftsmanship at its peak.',
+    brand_grand_r0_name: 'Golden Line',
+    brand_grand_r0_blurb: 'Flagship premium RIBs — luxury, comfort and refined design.',
+    brand_grand_r1_name: 'Silver Line',
+    brand_grand_r1_blurb: 'Versatile family RIBs balancing quality, space and value.',
+    brand_grand_r2_name: 'Drive Line',
+    brand_grand_r2_blurb: 'High-performance commercial and work-ready RIBs.',
+
+    // Brands page - Yamarin
+    brand_yamarin_desc: 'Yamarin has been building high-quality leisure boats in Finland since 1969. Known for their exceptional seakeeping, Yamarin boats combine Scandinavian design with outstanding durability. The range covers everything from nimble bowriders to spacious day cruisers and cabin boats, all engineered for the demanding waters of northern Europe — and the Algarve.',
+    brand_yamarin_highlight: 'Finnish-built quality since 1969',
+    brand_yamarin_feature_name: 'Yamarin Aura',
+    brand_yamarin_feature_tagline: 'The all-new flagship — Scandinavian design at its finest.',
+    brand_yamarin_r0_name: 'Day Cruiser',
+    brand_yamarin_r0_blurb: 'Spacious cruisers built for long, comfortable days afloat.',
+    brand_yamarin_r1_name: 'Bow Rider',
+    brand_yamarin_r1_blurb: 'Agile, sporty open boats — perfect for family fun.',
+    brand_yamarin_r2_name: 'Console',
+    brand_yamarin_r2_blurb: 'Practical console boats for fishing and exploring.',
+
+    // Brands page - SPX RIB
+    brand_spx_desc: "SPX RIB is a brand from Sicily, Italy, that has completely redesigned the deck space of rigid inflatables — moving from a utilitarian look to Italian chic, packed with features. Algarve Boat Sales is the authorised Portuguese dealer, and we're proud to bring SPX RIB to the Algarve. SPX already enjoys great success globally, having made waves at its debut at the Miami International Boat Show.",
+    brand_spx_highlight: 'Italian design meets serious performance',
+    brand_spx_m0_name: 'SPX 24 (7.5m)',
+    brand_spx_m1_name: 'SPX 32 (9.7m)',
+    brand_spx_m2_name: 'SPX 38 (11.5m)',
+
+    // Brands page - Vanclaes
+    brand_vanclaes_desc: "Vanclaes is one of Europe's leading manufacturers of high-quality boat trailers. Built from marine-grade stainless steel, Vanclaes trailers are designed for longevity and ease of use, with hot-dip galvanised options available. From compact single-axle trailers for small RIBs to heavy-duty multi-axle trailers for large cabin boats, Vanclaes has a solution for every vessel.",
+    brand_vanclaes_highlight: "Europe's premier stainless steel trailer manufacturer",
+    brand_vanclaes_m0_name: 'Rib Marine Wave 1350',
+    brand_vanclaes_m1_name: 'Rib Marine Wave 1800',
+    brand_vanclaes_m2_name: 'Rib Marine Wave 2750',
+
     // Yamaha partnership section
     yamaha_eyebrow: 'Our Engine Partner',
     yamaha_title: 'Yamaha power, factory-matched',
@@ -777,6 +830,59 @@ const translations = {
     svc4_f1: 'Documentação de categoria CE',
     svc4_f2: 'Assistência na importação e alfândega',
     svc4_f3: 'Referências para seguros',
+
+    // Brands page - UI
+    brands_page_title: 'Marcas Exclusivas',
+    brands_page_subtitle: 'Concessionário autorizado dos melhores fabricantes de barcos do mundo',
+    brands_page_intro: 'Selecionamos cuidadosamente as marcas que representamos — cada fabricante da nossa carteira foi escolhido pelo seu compromisso com a qualidade, inovação e apoio pós-venda. Como concessionário autorizado no Algarve para cada marca, oferecemos encomendas diretas de fábrica, apoio em garantia e peças genuínas.',
+    brands_model_ranges: 'Gamas de modelos',
+    brands_model_range: 'Gama de modelos',
+    brands_new_badge: 'Novo',
+    brands_view_range: 'Ver gama',
+    brands_view_boats: 'Ver Barcos {brand} Usados',
+    brands_visit_website: 'Visitar o Website',
+    brands_cta_title: 'Interessado numa marca específica?',
+    brands_cta_body: 'Contacte-nos para preços, disponibilidade e para agendar uma visita ou ensaio no mar.',
+    brands_browse_all: 'Ver Todos os Barcos',
+    brands_request_info: 'Pedir Informação',
+
+    // Brands page - GRAND
+    brand_grand_desc: 'A GRAND é um fabricante de barcos rígidos infláveis especializado em RIBs de fibra de vidro de alta gama. Fundada em 2001 por um grupo de engenheiros apaixonados e entusiastas da vela, os barcos GRAND são desenvolvidos, desenhados e construídos na Ucrânia — garantindo que cada barco é um verdadeiro produto europeu. Através de uma rede de distribuição global, oferecem uma ampla gama de RIBs familiares de alta gama, tenders de iate e RIBs comerciais, criados para proporcionar uma fusão de luxo e funcionalidade.',
+    brand_grand_highlight: 'RIBs premium em fibra de vidro com qualidade de construção superior',
+    brand_grand_feature_name: 'GRAND G980',
+    brand_grand_feature_tagline: 'O flagship Golden Line RIB — luxo, potência e artesanato europeu no seu auge.',
+    brand_grand_r0_name: 'Golden Line',
+    brand_grand_r0_blurb: 'RIBs premium de topo — conforto de luxo e design refinado.',
+    brand_grand_r1_name: 'Silver Line',
+    brand_grand_r1_blurb: 'RIBs familiares versáteis com equilíbrio entre qualidade, espaço e valor.',
+    brand_grand_r2_name: 'Drive Line',
+    brand_grand_r2_blurb: 'RIBs de alto desempenho para uso comercial e trabalho.',
+
+    // Brands page - Yamarin
+    brand_yamarin_desc: 'A Yamarin constrói barcos de lazer de alta qualidade na Finlândia desde 1969. Conhecidos pela sua excecional capacidade de navegar em mar agitado, os barcos Yamarin combinam design escandinavo com durabilidade excecional. A gama abrange desde bow riders ágeis até day cruisers espaçosos e barcos de cabina, todos concebidos para as exigentes águas do norte da Europa — e do Algarve.',
+    brand_yamarin_highlight: 'Qualidade de fabrico finlandês desde 1969',
+    brand_yamarin_feature_name: 'Yamarin Aura',
+    brand_yamarin_feature_tagline: 'O novo flagship — design escandinavo no seu melhor.',
+    brand_yamarin_r0_name: 'Day Cruiser',
+    brand_yamarin_r0_blurb: 'Cruzeiros espaçosos construídos para dias longos e confortáveis no mar.',
+    brand_yamarin_r1_name: 'Bow Rider',
+    brand_yamarin_r1_blurb: 'Barcos abertos ágeis e desportivos — perfeitos para diversão em família.',
+    brand_yamarin_r2_name: 'Console',
+    brand_yamarin_r2_blurb: 'Barcos de consola práticos para pesca e exploração.',
+
+    // Brands page - SPX RIB
+    brand_spx_desc: 'A SPX RIB é uma marca da Sicília, Itália, que redesenhou completamente o espaço de convés dos rígidos infláveis — passando de um aspeto utilitário para um chique italiano, repleto de funcionalidades. A Algarve Boat Sales é o concessionário português autorizado, e temos o orgulho de trazer a SPX RIB para o Algarve. A SPX já goza de grande sucesso a nível global, tendo causado sensação na sua estreia no Miami International Boat Show.',
+    brand_spx_highlight: 'Design italiano aliado a um desempenho sério',
+    brand_spx_m0_name: 'SPX 24 (7.5m)',
+    brand_spx_m1_name: 'SPX 32 (9.7m)',
+    brand_spx_m2_name: 'SPX 38 (11.5m)',
+
+    // Brands page - Vanclaes
+    brand_vanclaes_desc: "A Vanclaes é um dos principais fabricantes europeus de reboques de barcos de alta qualidade. Construídos em aço inoxidável de grau marinho, os reboques Vanclaes são concebidos para longevidade e facilidade de uso, com opções galvanizadas por imersão a quente disponíveis. Desde reboques compactos de um eixo para pequenos RIBs até reboques de vários eixos para grandes barcos de cabina, a Vanclaes tem uma solução para cada embarcação.",
+    brand_vanclaes_highlight: 'O principal fabricante europeu de reboques em aço inoxidável',
+    brand_vanclaes_m0_name: 'Rib Marine Wave 1350',
+    brand_vanclaes_m1_name: 'Rib Marine Wave 1800',
+    brand_vanclaes_m2_name: 'Rib Marine Wave 2750',
 
     // Yamaha partnership section
     yamaha_eyebrow: 'O Nosso Parceiro de Motores',
