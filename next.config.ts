@@ -104,16 +104,13 @@ const nextConfig: NextConfig = {
       { source: '/product/yamarin-88-dc-premium', destination: '/boats', permanent: true },
       { source: '/product/yamarin-88-dc-premium/', destination: '/boats', permanent: true },
 
-      // ─── TODO: NEEDS SEAN ────────────────────────────────────────────────────
-      // Two Yamarin 63 BR units exist in inventory (2026 and 2022). Resolve which
-      // old WordPress listing maps to which slug, then add:
-      //
-      // { source: '/listings/yamarin-63-br', destination: '/boats/yamarin-63-br-????', permanent: true },
-      // { source: '/listings/yamarin-63-br/', destination: '/boats/yamarin-63-br-????', permanent: true },
-      // { source: '/listings/yamarin-63-br-2', destination: '/boats/yamarin-63-br-????', permanent: true },
-      // { source: '/listings/yamarin-63-br-2/', destination: '/boats/yamarin-63-br-????', permanent: true },
-      // { source: '/product/yamarin-63br', destination: '/boats/yamarin-63-br-????', permanent: true },
-      // { source: '/product/yamarin-63br/', destination: '/boats/yamarin-63-br-????', permanent: true },
+      // ─── Yamarin 63 BR (resolved: all old listings → 2022 unit) ────────────
+      { source: '/listings/yamarin-63-br', destination: '/boats/yamarin-63-br-2022', permanent: true },
+      { source: '/listings/yamarin-63-br/', destination: '/boats/yamarin-63-br-2022', permanent: true },
+      { source: '/listings/yamarin-63-br-2', destination: '/boats/yamarin-63-br-2022', permanent: true },
+      { source: '/listings/yamarin-63-br-2/', destination: '/boats/yamarin-63-br-2022', permanent: true },
+      { source: '/product/yamarin-63br', destination: '/boats/yamarin-63-br-2022', permanent: true },
+      { source: '/product/yamarin-63br/', destination: '/boats/yamarin-63-br-2022', permanent: true },
     ]
   },
 }
