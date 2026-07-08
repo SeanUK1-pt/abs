@@ -20,14 +20,36 @@
   text-decoration: underline;
 }
 
+.detailHeader {
+  margin-bottom: 1.5rem;
+}
+
 .layout {
   display: grid;
   grid-template-columns: 1fr 380px;
+  grid-template-areas:
+    "gallery sidebar"
+    "details sidebar";
   gap: 2rem;
   align-items: start;
 }
 
-.main { min-width: 0; }
+.galleryArea {
+  grid-area: gallery;
+  min-width: 0;
+}
+
+.main {
+  grid-area: details;
+  min-width: 0;
+}
+
+/* First details panel sits right under the gallery/CTA — drop the extra divider */
+.main > .section:first-child {
+  margin-top: 0;
+  padding-top: 0;
+  border-top: none;
+}
 
 .section {
   margin-top: 2rem;
@@ -225,6 +247,7 @@
 
 /* Sidebar */
 .sidebar {
+  grid-area: sidebar;
   position: sticky;
   top: 90px;
   display: flex;
@@ -251,17 +274,17 @@
 
 .boatTitle {
   font-family: var(--font-heading);
-  font-size: 1.3rem;
+  font-size: clamp(1.55rem, 1.2rem + 1.6vw, 2.1rem);
   font-weight: 800;
   letter-spacing: -0.02em;
   color: var(--navy);
-  line-height: 1.25;
+  line-height: 1.15;
 }
 
 .makeModelLine {
   color: var(--gray-500);
-  font-size: 0.85rem;
-  margin-bottom: 1rem;
+  font-size: 0.9rem;
+  margin-bottom: 0;
 }
 
 .priceRow {
@@ -329,10 +352,13 @@
 @media (max-width: 900px) {
   .layout {
     grid-template-columns: 1fr;
+    grid-template-areas:
+      "gallery"
+      "sidebar"
+      "details";
   }
   .sidebar {
     position: static;
-    order: -1;
   }
   .specsGrid {
     grid-template-columns: 1fr;

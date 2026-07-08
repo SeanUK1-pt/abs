@@ -52,13 +52,38 @@ export function FilterSidebar({ searchParams, makes, filterableFeatures, locale 
   }
 
   const hasFilters = Object.values(filters).some(Boolean)
+  const activeCount = Object.values(filters).filter(Boolean).length
+  const [open, setOpen] = useState(false)
 
   return (
-    <div className={styles.sidebar}>
-      <div className={styles.header}>
-        <h3>{l.filters}</h3>
-        {hasFilters && <button onClick={clear} className={styles.clearBtn}>{l.clear_all}</button>}
-      </div>
+    <div className={styles.wrap}>
+      {/* Mobile-only toggle — keeps results near the top until filters are needed */}
+      <button
+        type="button"
+        className={styles.mobileToggle}
+        aria-expanded={open}
+        aria-controls="filter-body"
+        onClick={() => setOpen(o => !o)}
+      >
+        <span className={styles.mobileToggleLabel}>
+          {l.filters}
+          {activeCount > 0 && <span className={styles.activeCount}>{activeCount}</span>}
+        </span>
+        <svg
+          className={`${styles.chevron} ${open ? styles.chevronOpen : ''}`}
+          width="18" height="18" viewBox="0 0 24 24" fill="none"
+          stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"
+          aria-hidden="true"
+        >
+          <polyline points="6 9 12 15 18 9" />
+        </svg>
+      </button>
+
+      <div id="filter-body" className={`${styles.sidebar} ${open ? styles.sidebarOpen : ''}`}>
+        <div className={styles.header}>
+          <h3>{l.filters}</h3>
+          {hasFilters && <button onClick={clear} className={styles.clearBtn}>{l.clear_all}</button>}
+        </div>
 
       <FilterGroup title={l.condition}>
         <div className={styles.segmented}>
@@ -201,6 +226,7 @@ export function FilterSidebar({ searchParams, makes, filterableFeatures, locale 
           <option value="carbon">Carbon Fibre</option>
         </select>
       </FilterGroup>
+      </div>
     </div>
   )
 }

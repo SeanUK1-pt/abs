@@ -209,3 +209,75 @@
   background: var(--navy);
   color: var(--white);
 }
+
+/* ── Mobile collapsible toggle ─────────────────────── */
+.mobileToggle {
+  display: none;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  width: 100%;
+  padding: 0.9rem 1.1rem;
+  background: var(--ocean-gradient);
+  border: none;
+  border-left: 4px solid var(--gold);
+  border-radius: var(--radius-lg);
+  color: var(--white);
+  font-family: var(--font-heading);
+  font-size: 0.9rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  cursor: pointer;
+  box-shadow: var(--shadow-sm);
+}
+
+.mobileToggle:focus-visible {
+  outline: 3px solid var(--gold-light);
+  outline-offset: 2px;
+}
+
+.mobileToggleLabel {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+}
+
+.activeCount {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 20px;
+  height: 20px;
+  padding: 0 0.35rem;
+  background: var(--gold);
+  color: var(--navy-deep);
+  border-radius: var(--radius-pill);
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0;
+}
+
+.chevron {
+  color: var(--gold-light);
+  transition: transform 0.2s ease;
+  flex-shrink: 0;
+}
+
+.chevronOpen {
+  transform: rotate(180deg);
+}
+
+@media (max-width: 900px) {
+  .mobileToggle {
+    display: flex;
+  }
+  /* Collapsed by default on mobile; the toggle reveals the filter card */
+  .sidebar {
+    display: none;
+    margin-top: 0.75rem;
+  }
+  .sidebarOpen {
+    display: block;
+  }
+}

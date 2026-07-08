@@ -126,11 +126,78 @@ export default async function BoatPage({ params }: { params: Promise<{ slug: str
           <span>{boat.title}</span>
         </nav>
 
-        <div className={styles.layout}>
-          {/* ── Left: Images + Details ─────────── */}
-          <div className={styles.main}>
-            <GalleryGrid images={allImages} title={boat.title} />
+        {/* Title + make/model + status — full width, first */}
+        <header className={styles.detailHeader}>
+          <div className={styles.titleRow}>
+            <h1 className={styles.boatTitle}>{boat.title}</h1>
+            <span className={`badge badge-${boat.status?.replace('_', '-')}`}>
+              {statusLabels[boat.status] || boat.status}
+            </span>
+          </div>
+          {make && model && (
+            <p className={styles.makeModelLine}>{make} · {model}</p>
+          )}
+        </header>
 
+        <div className={styles.layout}>
+          {/* Pictures */}
+          <div className={styles.galleryArea}>
+            <GalleryGrid images={allImages} title={boat.title} />
+          </div>
+
+          {/* CTA: Price + Enquiry */}
+          <aside className={styles.sidebar}>
+            <div className={styles.priceCard}>
+              <div className={styles.priceRow}>
+                {boat.sale_price ? (
+                  <>
+                    <span className={styles.oldPrice}>{formatPrice(boat.price, boat.currency)}</span>
+                    <span className={styles.price}>{formatPrice(boat.sale_price, boat.currency)}</span>
+                  </>
+                ) : (
+                  <span className={styles.price}>{formatPrice(boat.price, boat.currency)}</span>
+                )}
+              </div>
+
+              <p className={styles.ivaNote}>
+                {boat.iva_included ? t('iva_included') : t('plus_iva')}
+              </p>
+
+              {boat.location && (
+                <p className={styles.location}>📍 {boat.location}</p>
+              )}
+
+              {boat.brochure && typeof boat.brochure === 'object' && (
+                <a
+                  href={(boat.brochure as any).url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={`btn btn-outline ${styles.brochureBtn}`}
+                >
+                  📄 {t('download_brochure')}
+                </a>
+              )}
+
+              {boat.video_url && (
+                <a href={boat.video_url} target="_blank" rel="noopener noreferrer" className={`btn btn-outline ${styles.brochureBtn}`}>
+                  ▶ {t('watch_video')}
+                </a>
+              )}
+            </div>
+
+            <div className={styles.enquiryCard}>
+              <h3>{t('enquire_boat')}</h3>
+              <EnquiryForm
+                listingTitle={boat.title}
+                listingType="boat"
+                listingId={String(boat.id)}
+                locale={locale}
+              />
+            </div>
+          </aside>
+
+          {/* Details: specs, description, features */}
+          <div className={styles.main}>
             {/* Specs */}
             <section className={styles.section}>
               <h2 className={styles.sectionTitle}>{t('specifications')}</h2>
@@ -241,70 +308,6 @@ export default async function BoatPage({ params }: { params: Promise<{ slug: str
               </section>
             )}
           </div>
-
-          {/* ── Right: Price + Enquiry ─────────── */}
-          <aside className={styles.sidebar}>
-            {/* Price card */}
-            <div className={styles.priceCard}>
-              <div className={styles.titleRow}>
-                <h1 className={styles.boatTitle}>{boat.title}</h1>
-                <span className={`badge badge-${boat.status?.replace('_', '-')}`}>
-                  {statusLabels[boat.status] || boat.status}
-                </span>
-              </div>
-
-              {make && model && (
-                <p className={styles.makeModelLine}>{make} · {model}</p>
-              )}
-
-              <div className={styles.priceRow}>
-                {boat.sale_price ? (
-                  <>
-                    <span className={styles.oldPrice}>{formatPrice(boat.price, boat.currency)}</span>
-                    <span className={styles.price}>{formatPrice(boat.sale_price, boat.currency)}</span>
-                  </>
-                ) : (
-                  <span className={styles.price}>{formatPrice(boat.price, boat.currency)}</span>
-                )}
-              </div>
-
-              <p className={styles.ivaNote}>
-                {boat.iva_included ? t('iva_included') : t('plus_iva')}
-              </p>
-
-              {boat.location && (
-                <p className={styles.location}>📍 {boat.location}</p>
-              )}
-
-              {boat.brochure && typeof boat.brochure === 'object' && (
-                <a
-                  href={(boat.brochure as any).url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className={`btn btn-outline ${styles.brochureBtn}`}
-                >
-                  📄 {t('download_brochure')}
-                </a>
-              )}
-
-              {boat.video_url && (
-                <a href={boat.video_url} target="_blank" rel="noopener noreferrer" className={`btn btn-outline ${styles.brochureBtn}`}>
-                  ▶ {t('watch_video')}
-                </a>
-              )}
-            </div>
-
-            {/* Enquiry form */}
-            <div className={styles.enquiryCard}>
-              <h3>{t('enquire_boat')}</h3>
-              <EnquiryForm
-                listingTitle={boat.title}
-                listingType="boat"
-                listingId={String(boat.id)}
-                locale={locale}
-              />
-            </div>
-          </aside>
         </div>
 
         {/* Related boats */}
