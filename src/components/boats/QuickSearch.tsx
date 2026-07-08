@@ -5,13 +5,14 @@ import { useState } from 'react'
 import styles from './QuickSearch.module.css'
 
 const LABELS: Record<string, Record<string, string>> = {
-  en: { title: 'Quick Search', condition: 'Condition', type: 'Boat Type', price: 'Max Price', length: 'Max Length', search: 'Search Boats', all: '', new: 'New', used: 'Used' },
-  pt: { title: 'Pesquisa Rápida', condition: 'Estado', type: 'Tipo de Barco', price: 'Preço Máximo', length: 'Comprimento Máximo', search: 'Pesquisar Barcos', all: '', new: 'Novo', used: 'Usado' },
+  en: { title: 'Quick Search', condition: 'Condition', type: 'Boat Type', price: 'Max Price', length: 'Max Length', search: 'Search Boats', open: 'Search Boats', close: 'Hide filters', all: '', new: 'New', used: 'Used' },
+  pt: { title: 'Pesquisa Rápida', condition: 'Estado', type: 'Tipo de Barco', price: 'Preço Máximo', length: 'Comprimento Máximo', search: 'Pesquisar Barcos', open: 'Pesquisar Barcos', close: 'Ocultar filtros', all: '', new: 'Novo', used: 'Usado' },
 }
 
 export function QuickSearch({ locale = 'en' }: { locale?: string }) {
   const l = LABELS[locale] || LABELS.en
   const router = useRouter()
+  const [open, setOpen] = useState(false)
   const [form, setForm] = useState({
     condition: '',
     boat_type: '',
@@ -30,11 +31,34 @@ export function QuickSearch({ locale = 'en' }: { locale?: string }) {
     <form onSubmit={handleSubmit} className={styles.form}>
       <h3 className={styles.label}>{l.title}</h3>
 
-      <div className={styles.fields}>
+      {/* Mobile-only toggle — keeps the hero + featured boats above the fold */}
+      <button
+        type="button"
+        className={styles.toggle}
+        aria-expanded={open}
+        aria-controls="quick-search-fields"
+        onClick={() => setOpen(o => !o)}
+      >
+        <span>{open ? l.close : l.open}</span>
+        <svg
+          className={`${styles.chevron} ${open ? styles.chevronOpen : ''}`}
+          width="18" height="18" viewBox="0 0 24 24" fill="none"
+          stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"
+          aria-hidden="true"
+        >
+          <polyline points="6 9 12 15 18 9" />
+        </svg>
+      </button>
+
+      <div
+        id="quick-search-fields"
+        className={`${styles.fields} ${open ? styles.fieldsOpen : ''}`}
+      >
         <select
           value={form.condition}
           onChange={e => setForm(f => ({ ...f, condition: e.target.value }))}
           className={styles.select}
+          aria-label={l.condition}
         >
           <option value="">{l.condition}</option>
           <option value="new">{l.new}</option>
@@ -45,6 +69,7 @@ export function QuickSearch({ locale = 'en' }: { locale?: string }) {
           value={form.boat_type}
           onChange={e => setForm(f => ({ ...f, boat_type: e.target.value }))}
           className={styles.select}
+          aria-label={l.type}
         >
           <option value="">{l.type}</option>
           <option value="rib">RIB</option>
@@ -59,6 +84,7 @@ export function QuickSearch({ locale = 'en' }: { locale?: string }) {
           value={form.price_max}
           onChange={e => setForm(f => ({ ...f, price_max: e.target.value }))}
           className={styles.select}
+          aria-label={l.price}
         >
           <option value="">{l.price}</option>
           <option value="25000">€25,000</option>
@@ -72,6 +98,7 @@ export function QuickSearch({ locale = 'en' }: { locale?: string }) {
           value={form.length_max}
           onChange={e => setForm(f => ({ ...f, length_max: e.target.value }))}
           className={styles.select}
+          aria-label={l.length}
         >
           <option value="">{l.length}</option>
           <option value="6">Up to 6m</option>

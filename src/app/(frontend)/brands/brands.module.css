@@ -400,13 +400,15 @@
 /* ── Empowered by Yamaha overlay (Yamaha-powered brands) ── */
 .yamahaBadge {
   position: absolute;
-  right: 0.85rem;
-  bottom: 0.85rem;
+  right: 0;
+  bottom: 1.25rem;
   z-index: 3;
   display: block;
   background: var(--white);
-  border-radius: var(--radius-sm);
-  padding: 0.35rem 0.55rem;
+  /* Flush to the image's right border per Yamaha brand spec — round only
+     the left corners so it reads as a tab anchored to the edge. */
+  border-radius: var(--radius-sm) 0 0 var(--radius-sm);
+  padding: 0.4rem 0.6rem;
   box-shadow: var(--shadow-md);
   pointer-events: none;
 }
@@ -419,8 +421,8 @@
 
 @media (max-width: 560px) {
   .yamahaBadge {
-    right: 0.6rem;
-    bottom: 0.6rem;
+    right: 0;
+    bottom: 0.9rem;
   }
   .yamahaBadge img {
     width: 94px;
