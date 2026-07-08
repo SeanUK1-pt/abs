@@ -11,6 +11,12 @@ import { getLocale } from '@/lib/locale'
 import { getTranslations } from '@/lib/translations'
 import styles from './home.module.css'
 
+export const metadata = {
+  title: 'Algarve Boat Sales | Premium Boat Dealer in Lagos, Portugal',
+  description: 'Authorised dealer for GRAND, Yamarin, SPX RIB and Vanclaes in the Algarve. Browse new and used boats for sale, plus maintenance, storage and trailer services in Lagos.',
+  alternates: { canonical: 'https://www.algarveboatsales.com' },
+}
+
 function formatPrice(price: number, currency = 'EUR') {
   return new Intl.NumberFormat('en-EU', { style: 'currency', currency, maximumFractionDigits: 0 }).format(price)
 }

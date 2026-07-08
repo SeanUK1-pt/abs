@@ -5,6 +5,24 @@ import { EnquiryForm } from '@/components/forms/EnquiryForm'
 import { GalleryGrid } from '@/components/boats/GalleryGrid'
 import styles from './trailer.module.css'
 
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params
+  const payload = await getPayload({ config })
+  const { docs } = await payload.find({
+    collection: 'trailers',
+    where: { slug: { equals: slug } },
+    limit: 1,
+    depth: 0,
+  })
+  const trailer = docs[0]
+  if (!trailer) return {}
+  const title = `${trailer.title} | Algarve Boat Sales`
+  return {
+    title,
+    alternates: { canonical: `https://www.algarveboatsales.com/trailers/${slug}` },
+  }
+}
+
 export default async function TrailerPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params
   const payload = await getPayload({ config })

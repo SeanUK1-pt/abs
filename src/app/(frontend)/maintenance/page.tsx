@@ -73,6 +73,7 @@ export async function generateMetadata() {
   return {
     title: page?.title ? `${page.title} | Algarve Boat Sales` : `${t('maint_title')} | Algarve Boat Sales`,
     description: page?.meta_description || 'Professional boat maintenance, servicing and renovation in the Algarve.',
+    alternates: { canonical: 'https://www.algarveboatsales.com/maintenance' },
   }
 }
 

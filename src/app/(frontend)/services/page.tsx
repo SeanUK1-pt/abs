@@ -104,6 +104,7 @@ export async function generateMetadata() {
   return {
     title: page?.title ? `${page.title} | Algarve Boat Sales` : `${t('services_title')} | Algarve Boat Sales`,
     description: page?.meta_description || 'Boat sales, maintenance, storage, and trailer services in Lagos, Algarve.',
+    alternates: { canonical: 'https://www.algarveboatsales.com/services' },
   }
 }
 

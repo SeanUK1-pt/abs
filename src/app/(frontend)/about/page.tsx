@@ -12,6 +12,7 @@ export async function generateMetadata() {
   return {
     title: page?.title ? `${page.title} | Algarve Boat Sales` : 'About Us | Algarve Boat Sales',
     description: page?.meta_description || 'Learn about Algarve Boat Sales — your premium boat dealer based at Marina de Lagos, Portugal.',
+    alternates: { canonical: 'https://www.algarveboatsales.com/about' },
   }
 }
 

@@ -11,6 +11,7 @@ export async function generateMetadata() {
   return {
     title: page?.title ? `${page.title} | Algarve Boat Sales` : 'Privacy Policy | Algarve Boat Sales',
     description: page?.meta_description || 'Privacy policy for Algarve Boat Sales.',
+    alternates: { canonical: 'https://www.algarveboatsales.com/privacy-policy' },
   }
 }
 

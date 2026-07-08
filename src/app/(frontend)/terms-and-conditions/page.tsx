@@ -11,6 +11,7 @@ export async function generateMetadata() {
   return {
     title: page?.title ? `${page.title} | Algarve Boat Sales` : 'Terms & Conditions | Algarve Boat Sales',
     description: page?.meta_description || 'Terms and conditions for use of the Algarve Boat Sales website.',
+    alternates: { canonical: 'https://www.algarveboatsales.com/terms-and-conditions' },
   }
 }
 

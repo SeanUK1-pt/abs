@@ -53,6 +53,123 @@ const STATUS_LABELS: Record<string, Record<string, string>> = {
   pt: { available: 'Disponível', under_offer: 'Em Negociação', sold: 'Vendido' },
 }
 
+const CANONICAL_ORIGIN = 'https://www.algarveboatsales.com'
+
+function absoluteUrl(url: string | null | undefined): string | null {
+  if (!url) return null
+  return url.startsWith('http') ? url : `${CANONICAL_ORIGIN}${url}`
+}
+
+function extractPlainText(content: any, maxLength = 300): string {
+  if (!content) return ''
+  if (typeof content === 'string') return content.slice(0, maxLength)
+  const texts: string[] = []
+  function walk(node: any) {
+    if (node?.text) texts.push(node.text)
+    if (node?.children) node.children.forEach(walk)
+  }
+  const nodes = content?.root?.children || content?.children || []
+  nodes.forEach(walk)
+  return texts.join(' ').replace(/\s+/g, ' ').trim().slice(0, maxLength)
+}
+
+function buildJsonLd(boat: any, make: string, model: string, slug: string) {
+  const price = boat.sale_price || boat.price
+  const currency = boat.currency || 'EUR'
+  const url = `${CANONICAL_ORIGIN}/boats/${slug}`
+
+  const availabilityMap: Record<string, string> = {
+    available: 'https://schema.org/InStock',
+    under_offer: 'https://schema.org/LimitedAvailability',
+    sold: 'https://schema.org/OutOfStock',
+  }
+  const conditionMap: Record<string, string> = {
+    new: 'https://schema.org/NewCondition',
+    used: 'https://schema.org/UsedCondition',
+  }
+
+  const mainImg = typeof boat.main_image === 'object' ? boat.main_image : null
+  const galleryImgs = (boat.gallery || [])
+    .map((g: any) => (typeof g.image === 'object' ? g.image : null))
+    .filter(Boolean)
+  const images = [mainImg, ...galleryImgs]
+    .filter(Boolean)
+    .map((img: any) => absoluteUrl(img.url))
+    .filter(Boolean)
+
+  const nameParts = [make, model, boat.year].filter(Boolean)
+  const name = nameParts.join(' ') || boat.title
+
+  const descFromContent = extractPlainText(boat.description)
+  const descFallbackParts = [
+    make && model ? `${make} ${model}` : null,
+    boat.year ? String(boat.year) : null,
+    boat.length_m ? `${boat.length_m}m` : null,
+    boat.condition === 'new' ? 'new boat' : 'used boat',
+    'for sale at Algarve Boat Sales, Lagos, Algarve.',
+  ].filter(Boolean)
+  const description = descFromContent || descFallbackParts.join(' ')
+
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'Product',
+    name,
+    description,
+    url,
+    ...(images.length > 0 && { image: images.length === 1 ? images[0] : images }),
+    ...(make && { brand: { '@type': 'Brand', name: make } }),
+    ...(model && { model }),
+    ...(boat.year && { productionDate: String(boat.year) }),
+    ...(boat.length_m && { depth: `${boat.length_m}m` }),
+    offers: {
+      '@type': 'Offer',
+      url,
+      price: price,
+      priceCurrency: currency,
+      availability: availabilityMap[boat.status] || 'https://schema.org/InStock',
+      itemCondition: conditionMap[boat.condition] || 'https://schema.org/UsedCondition',
+      seller: {
+        '@type': 'Organization',
+        name: 'Algarve Boat Sales',
+        url: CANONICAL_ORIGIN,
+      },
+    },
+  }
+}
+
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params
+  const boat = await getBoat(slug, 'en')
+  if (!boat) return {}
+
+  const make = typeof boat.make === 'object' ? (boat.make?.name ?? '') : (boat.make ?? '')
+  const model = typeof boat.model === 'object' ? (boat.model?.name ?? '') : (boat.model ?? '')
+  const year = boat.year ? String(boat.year) : ''
+  const parts = [make, model, year].filter(Boolean)
+  const title = parts.length
+    ? `${parts.join(' ')} for Sale | Algarve Boat Sales`
+    : 'Boat for Sale | Algarve Boat Sales'
+
+  const descParts: string[] = []
+  if (make && model) descParts.push(`${make} ${model}`)
+  if (year) descParts.push(year)
+  if (boat.length_m) descParts.push(`${boat.length_m}m`)
+  const price = boat.sale_price || boat.price
+  if (price) descParts.push(new Intl.NumberFormat('en-EU', { style: 'currency', currency: boat.currency || 'EUR', maximumFractionDigits: 0 }).format(price))
+  const base = descParts.join(' · ')
+  const suffix = ' — available now at Algarve Boat Sales, Lagos, Algarve.'
+  const description = (base + suffix).slice(0, 160)
+
+  const canonical = `https://www.algarveboatsales.com/boats/${slug}`
+
+  return {
+    title,
+    description,
+    alternates: { canonical },
+    openGraph: { title, description, url: canonical },
+  }
+}
+
 export default async function BoatPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params
   const locale = await getLocale()
@@ -114,8 +231,14 @@ export default async function BoatPage({ params }: { params: Promise<{ slug: str
     featuresByCategory[f.category].push(f)
   }
 
+  const jsonLd = buildJsonLd(boat, make || '', model || '', slug)
+
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       <div className={`container ${styles.page}`}>
         {/* Breadcrumb */}
         <nav className={styles.breadcrumb}>

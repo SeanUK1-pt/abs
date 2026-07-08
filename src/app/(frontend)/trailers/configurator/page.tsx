@@ -7,6 +7,7 @@ export const metadata = {
   title: 'Build a New Trailer | Algarve Boat Sales',
   description:
     'Configure a brand-new Vanclaes boat trailer to your exact specification. Choose model, axles, options and finish, with supply, fitting and IVA registration across the Algarve.',
+  alternates: { canonical: 'https://www.algarveboatsales.com/trailers/configurator' },
 }
 
 export default function TrailerConfiguratorPage() {

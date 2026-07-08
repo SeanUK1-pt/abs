@@ -7,6 +7,12 @@ import { getLocale } from '@/lib/locale'
 import { getTranslations } from '@/lib/translations'
 import styles from './boats.module.css'
 
+export const metadata = {
+  title: 'Boats for Sale | Algarve Boat Sales',
+  description: 'Browse new and used boats for sale in the Algarve, Portugal. RIBs, bowriders, day cruisers and more from authorised dealer Algarve Boat Sales in Lagos.',
+  alternates: { canonical: 'https://www.algarveboatsales.com/boats' },
+}
+
 interface SearchParams {
   condition?: string
   boat_type?: string

@@ -51,6 +51,7 @@ export async function generateMetadata() {
   return {
     title: page?.title ? `${page.title} | Algarve Boat Sales` : `${t('sell_title')} | Algarve Boat Sales`,
     description: page?.meta_description || 'Get a free boat valuation from Algarve Boat Sales.',
+    alternates: { canonical: 'https://www.algarveboatsales.com/sell-your-boat' },
   }
 }
 

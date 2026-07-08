@@ -7,6 +7,12 @@ import { TrailerConfigurator } from '@/components/boats/TrailerConfigurator'
 import { PageHero } from '@/components/ui/PageHero'
 import styles from './trailers.module.css'
 
+export const metadata = {
+  title: 'Boat Trailers | Algarve Boat Sales',
+  description: 'New and used boat trailers in the Algarve. Authorised Vanclaes dealer offering stainless steel trailer supply, fitting and IVA registration across Portugal.',
+  alternates: { canonical: 'https://www.algarveboatsales.com/trailers' },
+}
+
 function formatPrice(price: number) {
   return new Intl.NumberFormat('en-EU', { style: 'currency', currency: 'EUR', maximumFractionDigits: 0 }).format(price)
 }

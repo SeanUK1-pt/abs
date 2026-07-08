@@ -9,6 +9,7 @@ export async function generateMetadata() {
   const t = getTranslations(locale)
   return {
     title: `${t('contact_title')} | Algarve Boat Sales`,
+    alternates: { canonical: 'https://www.algarveboatsales.com/contact' },
   }
 }
 
