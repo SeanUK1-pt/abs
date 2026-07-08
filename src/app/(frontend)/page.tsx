@@ -100,7 +100,7 @@ async function getHeroSlides(locale: string, t: ReturnType<typeof getTranslation
   // 1. Intro
   slides.push({
     variant: 'intro',
-    src: anyImage || '/media/general-hero-2.png',
+    src: '/media/general-hero-2.png',
     alt: 'Boats for sale in the Algarve',
     title: t('hero_title'),
     titleAccent: t('hero_subtitle'),
@@ -131,7 +131,7 @@ async function getHeroSlides(locale: string, t: ReturnType<typeof getTranslation
   // 6. Brokerage / services
   slides.push({
     variant: 'brokerage',
-    src: imageFor('yamarin') || '/media/storage_short_bg_1.jpg',
+    src: '/media/storage_short_bg_1.jpg',
     alt: 'Algarve Boat Sales services',
     eyebrow: t('hero_brokerage_eyebrow'),
     title: t('hero_brokerage_title'),
