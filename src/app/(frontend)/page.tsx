@@ -88,11 +88,11 @@ async function getHeroSlides(locale: string, t: ReturnType<typeof getTranslation
     (boats.find((b) => typeof b.main_image === 'object' && b.main_image?.url)?.main_image as any)?.url || null
   const findMake = (key: string) => makes.find((m) => (m.name || '').toLowerCase().includes(key))
 
-  const HERO_BRANDS: { key: string; label: string; titleKey?: any; msgKey: any; brandsSlug: string; heroImg: string }[] = [
-    { key: 'grand', label: 'GRAND', titleKey: 'hero_brand_grand_title', msgKey: 'hero_brand_grand_msg', brandsSlug: 'grand-inflatables', heroImg: '/media/hero-grand.png' },
-    { key: 'yamarin', label: 'Yamarin', titleKey: 'hero_brand_yamarin_title', msgKey: 'hero_brand_yamarin_msg', brandsSlug: 'yamarin', heroImg: imageFor('yamarin') || anyImage || '/media/yamarin_hero-scaled.jpg' },
-    { key: 'spx', label: 'SPX RIB', msgKey: 'hero_brand_spx_msg', brandsSlug: 'spx-rib', heroImg: '/media/hero-spx.png' },
-    { key: 'vanclaes', label: 'Vanclaes', titleKey: 'hero_brand_vanclaes_title', msgKey: 'hero_brand_vanclaes_msg', brandsSlug: 'vanclaes', heroImg: '/media/vanclaes-hero.png' },
+  const HERO_BRANDS: { key: string; label: string; msgKey: any; trailers?: boolean }[] = [
+    { key: 'grand', label: 'GRAND', msgKey: 'hero_brand_grand_msg' },
+    { key: 'yamarin', label: 'Yamarin', msgKey: 'hero_brand_yamarin_msg' },
+    { key: 'spx', label: 'SPX RIB', msgKey: 'hero_brand_spx_msg' },
+    { key: 'vanclaes', label: 'Vanclaes', msgKey: 'hero_brand_vanclaes_msg', trailers: true },
   ]
 
   const slides: HeroSlide[] = []
@@ -100,7 +100,7 @@ async function getHeroSlides(locale: string, t: ReturnType<typeof getTranslation
   // 1. Intro
   slides.push({
     variant: 'intro',
-    src: '/media/general-hero-2.png',
+    src: anyImage,
     alt: 'Boats for sale in the Algarve',
     title: t('hero_title'),
     titleAccent: t('hero_subtitle'),
@@ -115,22 +115,23 @@ async function getHeroSlides(locale: string, t: ReturnType<typeof getTranslation
   for (const brand of HERO_BRANDS) {
     const mk = findMake(brand.key)
     const logo = mk && typeof mk.logo === 'object' ? mk.logo?.url : null
+    const href = brand.trailers ? '/trailers' : mk?.slug ? `/boats?make=${mk.slug}` : '/boats'
     slides.push({
       variant: 'brand',
-      src: brand.heroImg,
+      src: imageFor(brand.key) || anyImage,
       alt: brand.label,
       logoSrc: logo || null,
-      title: brand.titleKey ? t(brand.titleKey) : brand.label,
+      title: brand.label,
       message: t(brand.msgKey),
-      primaryLabel: t('hero_explore_range'),
-      primaryHref: `/brands#${brand.brandsSlug}`,
+      primaryLabel: brand.trailers ? t('hero_view_trailers') : t('hero_explore_range'),
+      primaryHref: href,
     })
   }
 
   // 6. Brokerage / services
   slides.push({
     variant: 'brokerage',
-    src: '/media/storage_short_bg_1.jpg',
+    src: imageFor('yamarin') || anyImage,
     alt: 'Algarve Boat Sales services',
     eyebrow: t('hero_brokerage_eyebrow'),
     title: t('hero_brokerage_title'),

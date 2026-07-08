@@ -345,5 +345,7 @@ img {
 @media (max-width: 768px) {
   .section-header { flex-direction: column; align-items: flex-start; }
   .boats-grid { grid-template-columns: 1fr; }
-  .container { padding: 0 1rem; }
+  /* Only narrow the horizontal gutter on mobile — must not reset the
+     vertical padding that .py-8 / .py-16 apply on container pages. */
+  .container { padding-left: 1rem; padding-right: 1rem; }
 }

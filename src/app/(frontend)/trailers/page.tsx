@@ -3,7 +3,6 @@ import config from '@payload-config'
 import Link from 'next/link'
 import Image from 'next/image'
 import { TrailerFilters } from '@/components/boats/TrailerFilters'
-import { TrailerConfigurator } from '@/components/boats/TrailerConfigurator'
 import { PageHero } from '@/components/ui/PageHero'
 import styles from './trailers.module.css'
 
@@ -46,28 +45,38 @@ export default async function TrailersPage({
         imageAlt="A stainless steel boat trailer with a RIB loaded on it"
       />
 
-      <div className="container py-8">
-        <div className={styles.configuratorNav}>
-          <span className={styles.configuratorEyebrow}>New Trailers &middot; Vanclaes</span>
-          <a href="#used-trailers" className={styles.back}>
-            View used trailers &darr;
-          </a>
+      <section className={styles.configBanner}>
+        <div className={`container ${styles.configInner}`}>
+          <div className={styles.configText}>
+            <span className={styles.configEyebrow}>New Trailers &middot; Vanclaes</span>
+            <h2 className={styles.configTitle}>Build a new trailer, made to measure</h2>
+            <p className={styles.configLede}>
+              Design a brand-new Vanclaes trailer around your exact boat &mdash; model, axles, options
+              and finish &mdash; with our live configurator. We supply, fit and register it for you
+              across the Algarve.
+            </p>
+            <div className={styles.configActions}>
+              <Link href="/trailers/configurator" className="btn btn-gold">
+                Start Configuring
+              </Link>
+              <Link href="/contact" className="btn btn-outline-white">
+                Ask for advice
+              </Link>
+            </div>
+          </div>
+          <div className={styles.configMedia}>
+            <Image
+              src="/services/trailer.jpg"
+              alt="A new Vanclaes boat trailer"
+              fill
+              className={styles.configImg}
+              sizes="(max-width: 900px) 100vw, 420px"
+            />
+          </div>
         </div>
+      </section>
 
-        <TrailerConfigurator />
-
-        <section className={styles.configuratorHelp}>
-          <h2>Not sure which trailer you need?</h2>
-          <p>
-            Our team will match a Vanclaes trailer to your boat&apos;s weight and dimensions, then
-            handle supply, fitting and IVA registration throughout Portugal. Send us your build and
-            we&apos;ll take care of the rest.
-          </p>
-          <Link href="/contact" className="btn btn-gold">Talk to our team</Link>
-        </section>
-      </div>
-
-      <div id="used-trailers" className="container py-8">
+      <div className="container py-8">
         <div className={styles.toolbar}>
           <p className={styles.count}>
             <strong>{totalDocs}</strong> used trailer{totalDocs === 1 ? '' : 's'} available
