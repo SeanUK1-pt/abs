@@ -118,7 +118,7 @@ async function getHeroSlides(locale: string, t: ReturnType<typeof getTranslation
     const href = brand.trailers ? '/trailers' : mk?.slug ? `/boats?make=${mk.slug}` : '/boats'
     slides.push({
       variant: 'brand',
-      src: imageFor(brand.key) || brand.fallbackImg,
+      src: brand.fallbackImg,
       alt: brand.label,
       logoSrc: logo || null,
       title: brand.displayTitle,
