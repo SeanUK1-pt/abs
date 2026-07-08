@@ -88,11 +88,11 @@ async function getHeroSlides(locale: string, t: ReturnType<typeof getTranslation
     (boats.find((b) => typeof b.main_image === 'object' && b.main_image?.url)?.main_image as any)?.url || null
   const findMake = (key: string) => makes.find((m) => (m.name || '').toLowerCase().includes(key))
 
-  const HERO_BRANDS: { key: string; label: string; msgKey: any; fallbackImg: string; trailers?: boolean }[] = [
-    { key: 'grand', label: 'GRAND', msgKey: 'hero_brand_grand_msg', fallbackImg: '/media/hero-grand.png' },
-    { key: 'yamarin', label: 'Yamarin', msgKey: 'hero_brand_yamarin_msg', fallbackImg: '/media/yamarin_hero-scaled.jpg' },
-    { key: 'spx', label: 'SPX RIB', msgKey: 'hero_brand_spx_msg', fallbackImg: '/media/hero-spx.png' },
-    { key: 'vanclaes', label: 'Vanclaes', msgKey: 'hero_brand_vanclaes_msg', fallbackImg: '/media/vanclaes-hero.png', trailers: true },
+  const HERO_BRANDS: { key: string; label: string; displayTitle: string; msgKey: any; fallbackImg: string; trailers?: boolean }[] = [
+    { key: 'grand', label: 'GRAND', displayTitle: t('hero_brand_grand_title'), msgKey: 'hero_brand_grand_msg', fallbackImg: '/media/hero-grand.png' },
+    { key: 'yamarin', label: 'Yamarin', displayTitle: t('hero_brand_yamarin_title'), msgKey: 'hero_brand_yamarin_msg', fallbackImg: '/media/yamarin_hero-scaled.jpg' },
+    { key: 'spx', label: 'SPX RIB', displayTitle: 'SPX BOATS', msgKey: 'hero_brand_spx_msg', fallbackImg: '/media/hero-spx.png' },
+    { key: 'vanclaes', label: 'Vanclaes', displayTitle: t('hero_brand_vanclaes_title'), msgKey: 'hero_brand_vanclaes_msg', fallbackImg: '/media/vanclaes-hero.png', trailers: true },
   ]
 
   const slides: HeroSlide[] = []
@@ -121,7 +121,7 @@ async function getHeroSlides(locale: string, t: ReturnType<typeof getTranslation
       src: imageFor(brand.key) || brand.fallbackImg,
       alt: brand.label,
       logoSrc: logo || null,
-      title: brand.label,
+      title: brand.displayTitle,
       message: t(brand.msgKey),
       primaryLabel: brand.trailers ? t('hero_view_trailers') : t('hero_explore_range'),
       primaryHref: href,
