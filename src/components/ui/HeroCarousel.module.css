@@ -221,7 +221,30 @@
 
 @media (max-width: 768px) {
   .arrow { display: none; }
-  .content { padding-top: 2.5rem; padding-bottom: 3.5rem; }
-  .dots { bottom: 2.5rem; }
+  .content { padding-top: 2.25rem; padding-bottom: 4rem; }
+  /* Lift the dots clear of the floating Quick Search card (which overlaps
+     the hero base by 2.5rem) so they no longer collide with its top edge. */
+  .dots { bottom: 4rem; }
   .block { gap: 0.8rem; }
+
+  /* Narrow screens wrap the copy across the full width, so extend the
+     scrim further right and deepen the bottom fade — the tail of each
+     line then stays legible instead of dropping onto bright image. */
+  .overlay,
+  .overlayIntro {
+    background:
+      linear-gradient(
+        105deg,
+        rgba(12, 16, 20, 0.84) 0%,
+        rgba(12, 16, 20, 0.66) 45%,
+        rgba(12, 16, 20, 0.42) 74%,
+        rgba(12, 16, 20, 0.24) 100%
+      ),
+      linear-gradient(
+        to top,
+        rgba(12, 16, 20, 0.72) 0%,
+        rgba(12, 16, 20, 0.22) 34%,
+        rgba(12, 16, 20, 0) 62%
+      );
+  }
 }

@@ -416,7 +416,7 @@
 }
 
 @media (max-width: 768px) {
-  .hero { min-height: 380px; }
+  .hero { min-height: 420px; }
   .searchBar :global(.container) { margin-top: -2.5rem; }
   .newsGrid { grid-template-columns: 1fr; }
   .ctaBox { flex-direction: column; align-items: flex-start; padding: 2rem; }
