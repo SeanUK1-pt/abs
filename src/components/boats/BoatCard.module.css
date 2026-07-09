@@ -12,9 +12,9 @@
 }
 
 .card:hover {
-  transform: translateY(-5px);
-  box-shadow: var(--shadow-lg);
-  border-color: var(--gray-300);
+  transform: translateY(-6px);
+  box-shadow: var(--shadow-lg), 0 0 0 1px var(--gold);
+  border-color: var(--gold);
 }
 
 .imageWrap {
@@ -26,11 +26,21 @@
 
 .image {
   object-fit: cover;
-  transition: transform 0.3s;
+  transition: transform 0.5s cubic-bezier(0.22, 0.61, 0.36, 1);
 }
 
 .card:hover .image {
-  transform: scale(1.06);
+  transform: scale(1.07);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card,
+  .card:hover,
+  .image,
+  .card:hover .image {
+    transition: none;
+    transform: none;
+  }
 }
 
 .imagePlaceholder {
