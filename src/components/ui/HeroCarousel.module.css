@@ -26,6 +26,19 @@
   transform: scale(1.04);
 }
 
+/* Slow cinematic push-in on whichever slide is active (restarts each time
+   the slide re-enters). Disabled for reduced-motion users. */
+@media (prefers-reduced-motion: no-preference) {
+  .slideActive .img {
+    animation: heroKenBurns 14s ease-out forwards;
+  }
+}
+
+@keyframes heroKenBurns {
+  from { transform: scale(1.04); }
+  to { transform: scale(1.14); }
+}
+
 .imgFallback {
   position: absolute;
   inset: 0;

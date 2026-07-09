@@ -3,6 +3,7 @@ import { Inter, Sora } from 'next/font/google'
 import '../globals.css'
 import { Header } from '@/components/layout/Header'
 import { Footer } from '@/components/layout/Footer'
+import { PremiumEffects } from '@/components/ui/PremiumEffects'
 import { getLocale } from '@/lib/locale'
 import { getMainNav, getFooterNav, getSiteSettings } from '@/lib/navigation'
 
@@ -28,6 +29,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         <Header locale={locale} navItems={mainNav} siteSettings={siteSettings} />
         <main>{children}</main>
         <Footer locale={locale} navItems={footerNav} siteSettings={siteSettings} />
+        <PremiumEffects />
       </body>
     </html>
   )
