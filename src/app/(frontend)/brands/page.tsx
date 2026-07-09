@@ -28,6 +28,7 @@ type Brand = {
   ranges?: ModelRange[]
   feature?: { name: string; tagline: string; href: string }
   yamahaPowered?: boolean
+  primaryHref?: string
 }
 
 const BRAND_KEYS = ['grand', 'yamarin', 'spx', 'vanclaes']
@@ -152,8 +153,10 @@ export default async function BrandsPage() {
       highlight: t('brand_spx_highlight'),
       models: [
         { name: t('brand_spx_m0_name'), href: 'https://www.spxrib.com/spx-24/' },
-        { name: t('brand_spx_m1_name'), href: 'https://www.spxrib.com/spx-32/' },
-        { name: t('brand_spx_m2_name'), href: 'https://www.spxrib.com/spx-38/' },
+        { name: t('brand_spx_m1_name'), href: 'https://www.spxrib.com/spx-28/' },
+        { name: t('brand_spx_m2_name'), href: 'https://www.spxrib.com/spx-32/' },
+        { name: t('brand_spx_m3_name'), href: 'https://www.spxrib.com/spx-38/' },
+        { name: t('brand_spx_m4_name'), href: 'https://www.spxrib.com/spx-55/' },
       ],
     },
     {
@@ -164,6 +167,7 @@ export default async function BrandsPage() {
       origin: 'Netherlands',
       category: 'Boat Trailers',
       website: 'https://vanclaes.com',
+      primaryHref: '/trailers',
       heroImg: '/media/brands-vanclaes.png',
       description: t('brand_vanclaes_desc'),
       highlight: t('brand_vanclaes_highlight'),
@@ -190,7 +194,7 @@ export default async function BrandsPage() {
         </section>
 
         <div className={styles.brands}>
-          {BRANDS.map(({ name, short, slug, logo, origin, category, description, models, ranges, feature, highlight, heroImg, website, yamahaPowered }) => (
+          {BRANDS.map(({ name, short, slug, logo, origin, category, description, models, ranges, feature, highlight, heroImg, website, yamahaPowered, primaryHref }) => (
             <article key={name} id={slug} className={styles.brand}>
               <div className={styles.media}>
                 <BrandCarousel images={pickBrandImages(name, heroImg, imagesByBrand)} name={name} fill />
@@ -265,7 +269,7 @@ export default async function BrandsPage() {
                 </div>
 
                 <div className={styles.actions}>
-                  <Link href={`/boats?make=${slug}`} className="btn btn-gold">
+                  <Link href={primaryHref || `/boats?make=${slug}`} className="btn btn-gold">
                     {t('brands_view_boats').replace('{brand}', short)}
                   </Link>
                   {website && (

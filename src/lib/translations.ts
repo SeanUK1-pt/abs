@@ -419,8 +419,10 @@ const translations = {
     brand_spx_desc: "SPX RIB is a brand from Sicily, Italy, that has completely redesigned the deck space of rigid inflatables — moving from a utilitarian look to Italian chic, packed with features. Algarve Boat Sales is the authorised Portuguese dealer, and we're proud to bring SPX RIB to the Algarve. SPX already enjoys great success globally, having made waves at its debut at the Miami International Boat Show.",
     brand_spx_highlight: 'Italian design meets serious performance',
     brand_spx_m0_name: 'SPX 24 (7.5m)',
-    brand_spx_m1_name: 'SPX 32 (9.7m)',
-    brand_spx_m2_name: 'SPX 38 (11.5m)',
+    brand_spx_m1_name: 'SPX 28 (8.5m)',
+    brand_spx_m2_name: 'SPX 32 (9.7m)',
+    brand_spx_m3_name: 'SPX 38 (11.5m)',
+    brand_spx_m4_name: 'SPX 55 (16.8m)',
 
     // Brands page - Vanclaes
     brand_vanclaes_desc: "Vanclaes is one of Europe's leading manufacturers of high-quality boat trailers. Built from marine-grade stainless steel, Vanclaes trailers are designed for longevity and ease of use, with hot-dip galvanised options available. From compact single-axle trailers for small RIBs to heavy-duty multi-axle trailers for large cabin boats, Vanclaes has a solution for every vessel.",
@@ -874,8 +876,10 @@ const translations = {
     brand_spx_desc: 'A SPX RIB é uma marca da Sicília, Itália, que redesenhou completamente o espaço de convés dos rígidos infláveis — passando de um aspeto utilitário para um chique italiano, repleto de funcionalidades. A Algarve Boat Sales é o concessionário português autorizado, e temos o orgulho de trazer a SPX RIB para o Algarve. A SPX já goza de grande sucesso a nível global, tendo causado sensação na sua estreia no Miami International Boat Show.',
     brand_spx_highlight: 'Design italiano aliado a um desempenho sério',
     brand_spx_m0_name: 'SPX 24 (7.5m)',
-    brand_spx_m1_name: 'SPX 32 (9.7m)',
-    brand_spx_m2_name: 'SPX 38 (11.5m)',
+    brand_spx_m1_name: 'SPX 28 (8.5m)',
+    brand_spx_m2_name: 'SPX 32 (9.7m)',
+    brand_spx_m3_name: 'SPX 38 (11.5m)',
+    brand_spx_m4_name: 'SPX 55 (16.8m)',
 
     // Brands page - Vanclaes
     brand_vanclaes_desc: "A Vanclaes é um dos principais fabricantes europeus de reboques de barcos de alta qualidade. Construídos em aço inoxidável de grau marinho, os reboques Vanclaes são concebidos para longevidade e facilidade de uso, com opções galvanizadas por imersão a quente disponíveis. Desde reboques compactos de um eixo para pequenos RIBs até reboques de vários eixos para grandes barcos de cabina, a Vanclaes tem uma solução para cada embarcação.",
