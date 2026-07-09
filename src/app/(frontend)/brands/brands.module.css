@@ -227,6 +227,16 @@
   box-shadow: var(--shadow-md);
 }
 
+.featureTileImg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.22;
+  pointer-events: none;
+}
+
 .featureBadge {
   grid-row: span 2;
   align-self: center;

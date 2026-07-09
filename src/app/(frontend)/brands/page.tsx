@@ -30,36 +30,33 @@ type Brand = {
 
 const BRAND_KEYS = ['grand', 'yamarin', 'spx', 'vanclaes']
 
-async function getBrandImages(): Promise<Record<string, { src: string; alt: string }[]>> {
+type BrandImageData = {
+  images: { src: string; alt: string }[]
+  featureImg: { src: string; alt: string } | null
+}
+
+async function getBrandImages(): Promise<Record<string, BrandImageData>> {
   const payload = await getPayload({ config })
 
-  // For each brand, try tile images first (e.g. grand-tile-1.jpg), then brand-named images (e.g. grand-*.jpg)
-  const map: Record<string, { src: string; alt: string }[]> = {}
+  const map: Record<string, BrandImageData> = {}
 
   await Promise.all(
     BRAND_KEYS.map(async (key) => {
-      // 1. Look for tile images: filename contains '{brand}-tile'
-      const tileRes = await payload.find({
-        collection: 'media',
-        where: { filename: { contains: `${key}-tile` } },
-        limit: 8,
-        sort: 'filename',
-      })
-      if (tileRes.docs.length > 0) {
-        map[key] = tileRes.docs.map((doc: any) => ({ src: doc.url, alt: doc.alt || key }))
-        return
-      }
+      const [tileRes, auraRes, fallbackRes] = await Promise.all([
+        payload.find({ collection: 'media', where: { filename: { contains: `${key}-tile` } }, limit: 8, sort: 'filename' }),
+        payload.find({ collection: 'media', where: { filename: { contains: `${key}-aura` } }, limit: 1, sort: 'filename' }),
+        payload.find({ collection: 'media', where: { filename: { contains: key } }, limit: 6, sort: 'filename' }),
+      ])
 
-      // 2. Fall back to any media with the brand name in the filename
-      const fallbackRes = await payload.find({
-        collection: 'media',
-        where: { filename: { contains: key } },
-        limit: 6,
-        sort: 'filename',
-      })
-      if (fallbackRes.docs.length > 0) {
-        map[key] = fallbackRes.docs.map((doc: any) => ({ src: doc.url, alt: doc.alt || key }))
-      }
+      const featureDoc = auraRes.docs[0] as any
+      const featureImg = featureDoc ? { src: featureDoc.url, alt: featureDoc.alt || key } : null
+
+      const images: { src: string; alt: string }[] =
+        tileRes.docs.length > 0
+          ? tileRes.docs.map((doc: any) => ({ src: doc.url, alt: doc.alt || key }))
+          : fallbackRes.docs.map((doc: any) => ({ src: doc.url, alt: doc.alt || key }))
+
+      map[key] = { images, featureImg }
     }),
   )
 
@@ -69,12 +66,17 @@ async function getBrandImages(): Promise<Record<string, { src: string; alt: stri
 function pickBrandImages(
   name: string,
   heroImg: string | null,
-  map: Record<string, { src: string; alt: string }[]>,
+  map: Record<string, BrandImageData>,
 ) {
   const key = BRAND_KEYS.find((k) => name.toLowerCase().includes(k))
-  const images = (key && map[key]) || []
+  const images = (key && map[key]?.images) || []
   if (images.length > 0) return images
   return heroImg ? [{ src: heroImg, alt: name }] : []
+}
+
+function pickFeatureImg(name: string, map: Record<string, BrandImageData>) {
+  const key = BRAND_KEYS.find((k) => name.toLowerCase().includes(k))
+  return (key && map[key]?.featureImg) || null
 }
 
 export async function generateMetadata() {
@@ -225,14 +227,21 @@ export default async function BrandsPage() {
                 <div className={styles.rangeBlock}>
                   <span className={styles.rangeLabel}>{ranges ? t('brands_model_ranges') : t('brands_model_range')}</span>
 
-                  {feature && (
-                    <a href={feature.href} target="_blank" rel="noopener noreferrer" className={styles.featureTile}>
-                      <span className={styles.featureBadge}>{t('brands_new_badge')}</span>
-                      <span className={styles.featureName}>{feature.name}</span>
-                      <span className={styles.featureTagline}>{feature.tagline}</span>
-                      <svg className={styles.featureArrow} width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6" /></svg>
-                    </a>
-                  )}
+                  {feature && (() => {
+                    const fImg = pickFeatureImg(name, imagesByBrand)
+                    return (
+                      <a href={feature.href} target="_blank" rel="noopener noreferrer" className={styles.featureTile}>
+                        {fImg && (
+                          // eslint-disable-next-line @next/next/no-img-element
+                          <img src={fImg.src} alt={fImg.alt} className={styles.featureTileImg} aria-hidden="true" />
+                        )}
+                        <span className={styles.featureBadge}>{t('brands_new_badge')}</span>
+                        <span className={styles.featureName}>{feature.name}</span>
+                        <span className={styles.featureTagline}>{feature.tagline}</span>
+                        <svg className={styles.featureArrow} width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6" /></svg>
+                      </a>
+                    )
+                  })()}
 
                   {ranges ? (
                     <div className={styles.rangeGrid}>
