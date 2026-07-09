@@ -1,4 +1,6 @@
 import Link from 'next/link'
+import fs from 'fs'
+import path from 'path'
 import { getPayload } from 'payload'
 import config from '@payload-config'
 import { BrandCarousel } from '@/components/ui/BrandCarousel'
@@ -35,30 +37,24 @@ type BrandImageData = {
   featureImg: { src: string; alt: string } | null
 }
 
-async function getBrandImages(): Promise<Record<string, BrandImageData>> {
-  const payload = await getPayload({ config })
+function getBrandImages(): Record<string, BrandImageData> {
+  const mediaDir = path.join(process.cwd(), 'public', 'media')
+  let files: string[] = []
+  try { files = fs.readdirSync(mediaDir) } catch { /* media dir not present in this env */ }
 
   const map: Record<string, BrandImageData> = {}
 
-  await Promise.all(
-    BRAND_KEYS.map(async (key) => {
-      const [tileRes, auraRes, fallbackRes] = await Promise.all([
-        payload.find({ collection: 'media', where: { filename: { contains: `${key}-tile` } }, limit: 8, sort: 'filename' }),
-        payload.find({ collection: 'media', where: { filename: { contains: `${key}-aura` } }, limit: 1, sort: 'filename' }),
-        payload.find({ collection: 'media', where: { filename: { contains: key } }, limit: 6, sort: 'filename' }),
-      ])
+  for (const key of BRAND_KEYS) {
+    const tile = files.filter(f => f.includes(`${key}-tile`)).sort()
+    const aura = files.filter(f => f.includes(`${key}-aura`)).sort()
+    const fallback = files.filter(f => f.toLowerCase().startsWith(key)).sort()
 
-      const featureDoc = auraRes.docs[0] as any
-      const featureImg = featureDoc ? { src: featureDoc.url, alt: featureDoc.alt || key } : null
-
-      const images: { src: string; alt: string }[] =
-        tileRes.docs.length > 0
-          ? tileRes.docs.map((doc: any) => ({ src: doc.url, alt: doc.alt || key }))
-          : fallbackRes.docs.map((doc: any) => ({ src: doc.url, alt: doc.alt || key }))
-
-      map[key] = { images, featureImg }
-    }),
-  )
+    const imageSrcs = (tile.length > 0 ? tile : fallback).slice(0, 8)
+    map[key] = {
+      images: imageSrcs.map(f => ({ src: `/media/${f}`, alt: key })),
+      featureImg: aura[0] ? { src: `/media/${aura[0]}`, alt: key } : null,
+    }
+  }
 
   return map
 }
@@ -92,7 +88,7 @@ export async function generateMetadata() {
 export default async function BrandsPage() {
   const locale = await getLocale()
   const page = await getPageData('brands', locale)
-  const imagesByBrand = await getBrandImages()
+  const imagesByBrand = getBrandImages()
   const t = getTranslations(locale)
 
   const BRANDS: Brand[] = [
