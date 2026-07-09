@@ -2,32 +2,34 @@
 import { useState, useEffect, useCallback } from 'react'
 
 const KEY = 'abs_favourites'
+const MAX_AGE = 365 * 24 * 60 * 60 // 1 year
 
-function readStorage(): string[] {
+function readCookie(): string[] {
+  if (typeof document === 'undefined') return []
+  const match = document.cookie.match(/(?:^|;\s*)abs_favourites=([^;]*)/)
+  if (!match) return []
   try {
-    const parsed = JSON.parse(localStorage.getItem(KEY) || '[]')
-    return Array.isArray(parsed) ? parsed : []
+    return JSON.parse(decodeURIComponent(match[1]))
   } catch {
     return []
   }
+}
+
+function writeCookie(ids: string[]) {
+  document.cookie = `${KEY}=${encodeURIComponent(JSON.stringify(ids))}; path=/; max-age=${MAX_AGE}; SameSite=Lax`
 }
 
 export function useFavourites() {
   const [ids, setIds] = useState<string[]>([])
 
   useEffect(() => {
-    setIds(readStorage())
-    const onStorage = (e: StorageEvent) => {
-      if (e.key === KEY) setIds(readStorage())
-    }
-    window.addEventListener('storage', onStorage)
-    return () => window.removeEventListener('storage', onStorage)
+    setIds(readCookie())
   }, [])
 
   const toggle = useCallback((id: string) => {
     setIds(prev => {
       const next = prev.includes(id) ? prev.filter(x => x !== id) : [...prev, id]
-      localStorage.setItem(KEY, JSON.stringify(next))
+      writeCookie(next)
       return next
     })
   }, [])

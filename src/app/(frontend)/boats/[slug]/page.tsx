@@ -4,6 +4,7 @@ import config from '@payload-config'
 import Link from 'next/link'
 import { EnquiryForm } from '@/components/forms/EnquiryForm'
 import { BoatCard } from '@/components/boats/BoatCard'
+import { FavouriteTextButton } from '@/components/boats/FavouriteButton'
 import { GalleryGrid } from '@/components/boats/GalleryGrid'
 import { RichText } from '@/components/ui/RichText'
 import { getLocale } from '@/lib/locale'
@@ -289,6 +290,8 @@ export default async function BoatPage({ params }: { params: Promise<{ slug: str
               {boat.location && (
                 <p className={styles.location}>📍 {boat.location}</p>
               )}
+
+              <FavouriteTextButton boatId={String(boat.id)} />
 
               {boat.brochure && typeof boat.brochure === 'object' && (
                 <a

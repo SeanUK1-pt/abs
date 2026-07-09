@@ -1,4 +1,5 @@
 import { Suspense } from 'react'
+import { cookies } from 'next/headers'
 import { getPayload } from 'payload'
 import config from '@payload-config'
 import { BoatCard } from '@/components/boats/BoatCard'
@@ -30,25 +31,32 @@ interface SearchParams {
   hull_material?: string
   sort?: string
   page?: string
-  ids?: string
+  favourites?: string
 }
 
 async function getBoats(searchParams: SearchParams) {
   const payload = await getPayload({ config })
   const locale = (searchParams as any)._locale || 'en'
 
-  // Favourites view: fetch exactly those boats by ID using explicit or conditions
-  if (searchParams.ids) {
-    const idList = searchParams.ids.split(',').filter(Boolean)
-    if (idList.length > 0) {
-      return payload.find({
-        collection: 'boats',
-        where: { or: idList.map(id => ({ id: { equals: id } })) },
-        limit: 100,
-        depth: 2,
-        locale: locale as any,
-      })
+  // Favourites view: read IDs from cookie, fetch each boat individually
+  if (searchParams.favourites === '1') {
+    const cookieStore = await cookies()
+    const raw = cookieStore.get('abs_favourites')?.value
+    let idList: string[] = []
+    if (raw) {
+      try {
+        const parsed = JSON.parse(decodeURIComponent(raw))
+        if (Array.isArray(parsed)) idList = parsed
+      } catch { /* malformed cookie */ }
     }
+    const empty = { docs: [], totalDocs: 0, totalPages: 1, page: 1, pagingCounter: 1, hasPrevPage: false, hasNextPage: false, prevPage: null, nextPage: null, limit: 0 }
+    if (idList.length === 0) return empty as any
+    const docs = (await Promise.all(
+      idList.map(id =>
+        payload.findByID({ collection: 'boats', id, depth: 2, locale: locale as any }).catch(() => null)
+      )
+    )).filter(Boolean)
+    return { docs, totalDocs: docs.length, totalPages: 1, page: 1, pagingCounter: 1, hasPrevPage: false, hasNextPage: false, prevPage: null, nextPage: null, limit: docs.length } as any
   }
 
   const where: Record<string, any> = { status: { not_equals: 'sold' } }
@@ -147,7 +155,7 @@ export default async function BoatsPage({
         {/* ── Results ──────────────────────── */}
         <main className={styles.results}>
           <Suspense fallback={null}>
-            <FavouritesBar active={Boolean(params.ids)} />
+            <FavouritesBar active={params.favourites === '1'} />
           </Suspense>
 
           <div className={styles.resultsHeader}>

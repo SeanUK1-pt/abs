@@ -20,7 +20,7 @@ const HeartIcon = ({ filled }: { filled: boolean }) => (
 )
 
 export function FavouritesBar({ active }: { active: boolean }) {
-  const { ids, count } = useFavourites()
+  const { count } = useFavourites()
   const router = useRouter()
   const searchParams = useSearchParams()
 
@@ -28,17 +28,15 @@ export function FavouritesBar({ active }: { active: boolean }) {
 
   const handleShow = () => {
     if (count === 0) return
-    const params = new URLSearchParams(searchParams.toString())
-    params.set('ids', ids.join(','))
-    params.delete('page')
-    router.push(`/boats?${params.toString()}`)
+    router.push('/boats?favourites=1')
   }
 
   const handleExit = () => {
     const params = new URLSearchParams(searchParams.toString())
-    params.delete('ids')
+    params.delete('favourites')
     params.delete('page')
-    router.push(`/boats?${params.toString()}`)
+    const qs = params.toString()
+    router.push(qs ? `/boats?${qs}` : '/boats')
   }
 
   if (active) {
