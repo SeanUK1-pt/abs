@@ -1,0 +1,56 @@
+.bar {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  padding: 0.55rem 0.9rem;
+  background: var(--gray-100);
+  border: 1px solid var(--gray-200);
+  border-radius: var(--radius);
+  font-size: 0.84rem;
+  color: var(--gray-600);
+  margin-bottom: 1rem;
+}
+
+.bar svg {
+  flex-shrink: 0;
+  color: var(--gray-400);
+}
+
+.barActive {
+  background: #fff9ef;
+  border-color: var(--gold);
+  color: var(--navy);
+}
+
+.barActive svg {
+  color: var(--gold-dark);
+}
+
+.showBtn,
+.exitBtn {
+  margin-left: auto;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  font-size: 0.82rem;
+  font-weight: 700;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.showBtn {
+  color: var(--gold-dark);
+}
+
+.exitBtn {
+  color: var(--gray-500);
+}
+
+.showBtn:hover {
+  color: var(--navy);
+}
+
+.exitBtn:hover {
+  color: var(--navy);
+}

@@ -1,8 +1,10 @@
+import { Suspense } from 'react'
 import { getPayload } from 'payload'
 import config from '@payload-config'
 import { BoatCard } from '@/components/boats/BoatCard'
 import { FilterSidebar } from '@/components/boats/FilterSidebar'
 import { SortBar } from '@/components/boats/SortBar'
+import { FavouritesBar } from '@/components/boats/FavouritesBar'
 import { getLocale } from '@/lib/locale'
 import { getTranslations } from '@/lib/translations'
 import styles from './boats.module.css'
@@ -28,12 +30,18 @@ interface SearchParams {
   hull_material?: string
   sort?: string
   page?: string
+  ids?: string
 }
 
 async function getBoats(searchParams: SearchParams) {
   const payload = await getPayload({ config })
 
   const where: Record<string, any> = { status: { not_equals: 'sold' } }
+
+  if (searchParams.ids) {
+    const idList = searchParams.ids.split(',').filter(Boolean)
+    if (idList.length > 0) where.id = { in: idList }
+  }
 
   if (searchParams.condition) where.condition = { equals: searchParams.condition }
   if (searchParams.boat_type) where.boat_type = { equals: searchParams.boat_type }
@@ -128,6 +136,10 @@ export default async function BoatsPage({
 
         {/* ── Results ──────────────────────── */}
         <main className={styles.results}>
+          <Suspense fallback={null}>
+            <FavouritesBar active={Boolean(params.ids)} />
+          </Suspense>
+
           <div className={styles.resultsHeader}>
             <p className={styles.count}>
               {result.totalDocs} {result.totalDocs === 1 ? t('boat_found') : t('boats_found')}

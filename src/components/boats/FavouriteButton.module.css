@@ -1,0 +1,40 @@
+.btn {
+  position: absolute;
+  bottom: 0.65rem;
+  right: 0.65rem;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  background: rgba(255, 255, 255, 0.9);
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  color: var(--gray-400);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.18);
+  transition: background 0.18s, color 0.18s, transform 0.18s;
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+}
+
+.btn:hover {
+  background: white;
+  color: var(--gold-dark);
+  transform: scale(1.12);
+}
+
+.saved {
+  color: var(--gold-dark);
+  background: white;
+}
+
+.saved:hover {
+  color: #c0392b;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .btn { transition: none; }
+  .btn:hover { transform: none; }
+}
