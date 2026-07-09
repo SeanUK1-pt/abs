@@ -35,13 +35,23 @@ interface SearchParams {
 
 async function getBoats(searchParams: SearchParams) {
   const payload = await getPayload({ config })
+  const locale = (searchParams as any)._locale || 'en'
 
-  const where: Record<string, any> = { status: { not_equals: 'sold' } }
-
+  // Favourites view: fetch exactly those boats by ID using explicit or conditions
   if (searchParams.ids) {
     const idList = searchParams.ids.split(',').filter(Boolean)
-    if (idList.length > 0) where.id = { in: idList }
+    if (idList.length > 0) {
+      return payload.find({
+        collection: 'boats',
+        where: { or: idList.map(id => ({ id: { equals: id } })) },
+        limit: 100,
+        depth: 2,
+        locale: locale as any,
+      })
+    }
   }
+
+  const where: Record<string, any> = { status: { not_equals: 'sold' } }
 
   if (searchParams.condition) where.condition = { equals: searchParams.condition }
   if (searchParams.boat_type) where.boat_type = { equals: searchParams.boat_type }
@@ -84,7 +94,7 @@ async function getBoats(searchParams: SearchParams) {
     page: currentPage,
     limit: 12,
     depth: 2,
-    locale: (searchParams as any)._locale || 'en',
+    locale: locale as any,
   })
 
   return result

@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import styles from './BoatCard.module.css'
-import { FavouriteButton } from './FavouriteButton'
+import { FavouriteButton, FavouriteTextButton } from './FavouriteButton'
 
 function formatPrice(price: number, currency = 'EUR') {
   return new Intl.NumberFormat('en-EU', { style: 'currency', currency, maximumFractionDigits: 0 }).format(price)
@@ -88,6 +88,8 @@ export function BoatCard({ boat, locale = 'en' }: { boat: any; locale?: string }
           </div>
           {boat.location && <span className={styles.location}>📍 {boat.location}</span>}
         </div>
+
+        <FavouriteTextButton boatId={String(boat.id)} />
       </div>
     </Link>
   )

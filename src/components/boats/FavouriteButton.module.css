@@ -1,4 +1,5 @@
-.btn {
+/* ── Icon button (floats over card image) ── */
+.iconBtn {
   position: absolute;
   bottom: 0.65rem;
   right: 0.65rem;
@@ -19,7 +20,7 @@
   -webkit-backdrop-filter: blur(4px);
 }
 
-.btn:hover {
+.iconBtn:hover {
   background: white;
   color: var(--gold-dark);
   transform: scale(1.12);
@@ -34,7 +35,38 @@
   color: #c0392b;
 }
 
+/* ── Text button (inside card body) ── */
+.textBtn {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  width: 100%;
+  padding: 0.5rem 0;
+  border: none;
+  border-top: 1px solid var(--gray-200);
+  background: none;
+  cursor: pointer;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--gray-500);
+  transition: color 0.18s;
+  margin-top: 0.5rem;
+}
+
+.textBtn:hover {
+  color: var(--gold-dark);
+}
+
+.textSaved {
+  color: var(--gold-dark);
+}
+
+.textSaved:hover {
+  color: #c0392b;
+}
+
 @media (prefers-reduced-motion: reduce) {
-  .btn { transition: none; }
-  .btn:hover { transform: none; }
+  .iconBtn { transition: none; }
+  .iconBtn:hover { transform: none; }
+  .textBtn { transition: none; }
 }

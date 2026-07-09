@@ -4,8 +4,8 @@ import styles from './FavouriteButton.module.css'
 
 const HeartIcon = ({ filled }: { filled: boolean }) => (
   <svg
-    width="18"
-    height="18"
+    width="15"
+    height="15"
     viewBox="0 0 24 24"
     fill={filled ? 'currentColor' : 'none'}
     stroke="currentColor"
@@ -18,6 +18,7 @@ const HeartIcon = ({ filled }: { filled: boolean }) => (
   </svg>
 )
 
+/** Icon-only button — floats over the card image */
 export function FavouriteButton({ boatId }: { boatId: string }) {
   const { has, toggle } = useFavourites()
   const saved = has(boatId)
@@ -25,12 +26,29 @@ export function FavouriteButton({ boatId }: { boatId: string }) {
   return (
     <button
       type="button"
-      className={`${styles.btn} ${saved ? styles.saved : ''}`}
+      className={`${styles.iconBtn} ${saved ? styles.saved : ''}`}
       onClick={e => { e.preventDefault(); e.stopPropagation(); toggle(boatId) }}
       aria-label={saved ? 'Remove from favourites' : 'Save to favourites'}
       title={saved ? 'Remove from favourites' : 'Save to favourites'}
     >
       <HeartIcon filled={saved} />
+    </button>
+  )
+}
+
+/** Text button — sits inside the card body */
+export function FavouriteTextButton({ boatId }: { boatId: string }) {
+  const { has, toggle } = useFavourites()
+  const saved = has(boatId)
+
+  return (
+    <button
+      type="button"
+      className={`${styles.textBtn} ${saved ? styles.textSaved : ''}`}
+      onClick={e => { e.preventDefault(); e.stopPropagation(); toggle(boatId) }}
+    >
+      <HeartIcon filled={saved} />
+      {saved ? 'Saved to favourites' : 'Add to favourites'}
     </button>
   )
 }
