@@ -20,7 +20,6 @@ type Brand = {
   category: string
   website: string
   heroImg: string | null
-  tileImages?: { src: string; alt: string }[]
   description: string
   highlight: string
   models?: BrandModel[]
@@ -31,36 +30,39 @@ type Brand = {
 
 const BRAND_KEYS = ['grand', 'yamarin', 'spx', 'vanclaes']
 
-async function getBrandImages(locale: string): Promise<Record<string, { src: string; alt: string }[]>> {
+async function getBrandImages(): Promise<Record<string, { src: string; alt: string }[]>> {
   const payload = await getPayload({ config })
-  const { docs } = await payload.find({
-    collection: 'boats',
-    where: { status: { equals: 'available' } },
-    limit: 80,
-    sort: '-createdAt',
-    locale: locale as any,
-    depth: 2,
-  })
 
+  // For each brand, try tile images first (e.g. grand-tile-1.jpg), then brand-named images (e.g. grand-*.jpg)
   const map: Record<string, { src: string; alt: string }[]> = {}
-  for (const b of docs as any[]) {
-    const makeName = (typeof b.make === 'object' ? b.make?.name : '') || ''
-    const key = BRAND_KEYS.find((k) => makeName.toLowerCase().includes(k))
-    if (!key) continue
-    const bucket = (map[key] ||= [])
-    const candidates: any[] = [
-      typeof b.main_image === 'object' ? b.main_image : null,
-      ...(Array.isArray(b.gallery)
-        ? b.gallery.map((g: any) => (typeof g?.image === 'object' ? g.image : null))
-        : []),
-    ]
-    for (const img of candidates) {
-      if (bucket.length >= 6) break
-      if (img?.url && !bucket.some((x) => x.src === img.url)) {
-        bucket.push({ src: img.url, alt: img.alt || b.title })
+
+  await Promise.all(
+    BRAND_KEYS.map(async (key) => {
+      // 1. Look for tile images: filename contains '{brand}-tile'
+      const tileRes = await payload.find({
+        collection: 'media',
+        where: { filename: { contains: `${key}-tile` } },
+        limit: 8,
+        sort: 'filename',
+      })
+      if (tileRes.docs.length > 0) {
+        map[key] = tileRes.docs.map((doc: any) => ({ src: doc.url, alt: doc.alt || key }))
+        return
       }
-    }
-  }
+
+      // 2. Fall back to any media with the brand name in the filename
+      const fallbackRes = await payload.find({
+        collection: 'media',
+        where: { filename: { contains: key } },
+        limit: 6,
+        sort: 'filename',
+      })
+      if (fallbackRes.docs.length > 0) {
+        map[key] = fallbackRes.docs.map((doc: any) => ({ src: doc.url, alt: doc.alt || key }))
+      }
+    }),
+  )
+
   return map
 }
 
@@ -68,12 +70,10 @@ function pickBrandImages(
   name: string,
   heroImg: string | null,
   map: Record<string, { src: string; alt: string }[]>,
-  tileImages?: { src: string; alt: string }[],
 ) {
-  if (tileImages && tileImages.length > 0) return tileImages
   const key = BRAND_KEYS.find((k) => name.toLowerCase().includes(k))
-  const real = (key && map[key]) || []
-  if (real.length > 0) return real
+  const images = (key && map[key]) || []
+  if (images.length > 0) return images
   return heroImg ? [{ src: heroImg, alt: name }] : []
 }
 
@@ -90,7 +90,7 @@ export async function generateMetadata() {
 export default async function BrandsPage() {
   const locale = await getLocale()
   const page = await getPageData('brands', locale)
-  const imagesByBrand = await getBrandImages(locale)
+  const imagesByBrand = await getBrandImages()
   const t = getTranslations(locale)
 
   const BRANDS: Brand[] = [
@@ -104,12 +104,6 @@ export default async function BrandsPage() {
       category: 'RIB / Inflatable',
       website: 'https://grandboats.com',
       heroImg: '/media/hero-grand.png',
-      tileImages: [
-        { src: '/media/grand-tile-1.jpg', alt: 'GRAND RIB' },
-        { src: '/media/grand-tile-2.jpg', alt: 'GRAND RIB' },
-        { src: '/media/grand-tile-3.jpg', alt: 'GRAND RIB' },
-        { src: '/media/grand-tile-4.jpg', alt: 'GRAND RIB' },
-      ],
       description: t('brand_grand_desc'),
       highlight: t('brand_grand_highlight'),
       feature: {
@@ -156,12 +150,6 @@ export default async function BrandsPage() {
       category: 'Luxury RIB',
       website: 'https://www.spxrib.com',
       heroImg: '/media/hero-spx.png',
-      tileImages: [
-        { src: '/media/spx-tile-1.webp', alt: 'SPX RIB' },
-        { src: '/media/spx-tile-3.webp', alt: 'SPX RIB' },
-        { src: '/media/spx-tile-4.webp', alt: 'SPX RIB' },
-        { src: '/media/spx-tile-5.jpg', alt: 'SPX RIB' },
-      ],
       description: t('brand_spx_desc'),
       highlight: t('brand_spx_highlight'),
       models: [
@@ -204,10 +192,10 @@ export default async function BrandsPage() {
         </section>
 
         <div className={styles.brands}>
-          {BRANDS.map(({ name, short, slug, logo, origin, category, description, models, ranges, feature, highlight, heroImg, tileImages, website, yamahaPowered }) => (
+          {BRANDS.map(({ name, short, slug, logo, origin, category, description, models, ranges, feature, highlight, heroImg, website, yamahaPowered }) => (
             <article key={name} id={slug} className={styles.brand}>
               <div className={styles.media}>
-                <BrandCarousel images={pickBrandImages(name, heroImg, imagesByBrand, tileImages)} name={name} fill />
+                <BrandCarousel images={pickBrandImages(name, heroImg, imagesByBrand)} name={name} fill />
                 {yamahaPowered && (
                   <span className={styles.yamahaBadge}>
                     {/* eslint-disable-next-line @next/next/no-img-element */}
