@@ -17,6 +17,7 @@ function readCookie(): string[] {
 
 function writeCookie(ids: string[]) {
   document.cookie = `${KEY}=${encodeURIComponent(JSON.stringify(ids))}; path=/; max-age=${MAX_AGE}; SameSite=Lax`
+  window.dispatchEvent(new CustomEvent('abs-favourites-changed'))
 }
 
 export function useFavourites() {
@@ -24,6 +25,9 @@ export function useFavourites() {
 
   useEffect(() => {
     setIds(readCookie())
+    const sync = () => setIds(readCookie())
+    window.addEventListener('abs-favourites-changed', sync)
+    return () => window.removeEventListener('abs-favourites-changed', sync)
   }, [])
 
   const toggle = useCallback((id: string) => {
