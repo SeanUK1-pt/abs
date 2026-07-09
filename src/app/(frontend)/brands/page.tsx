@@ -20,6 +20,7 @@ type Brand = {
   category: string
   website: string
   heroImg: string | null
+  tileImages?: { src: string; alt: string }[]
   description: string
   highlight: string
   models?: BrandModel[]
@@ -67,10 +68,12 @@ function pickBrandImages(
   name: string,
   heroImg: string | null,
   map: Record<string, { src: string; alt: string }[]>,
+  tileImages?: { src: string; alt: string }[],
 ) {
   const key = BRAND_KEYS.find((k) => name.toLowerCase().includes(k))
   const real = (key && map[key]) || []
   if (real.length > 0) return real
+  if (tileImages && tileImages.length > 0) return tileImages
   return heroImg ? [{ src: heroImg, alt: name }] : []
 }
 
@@ -101,6 +104,12 @@ export default async function BrandsPage() {
       category: 'RIB / Inflatable',
       website: 'https://grandboats.com',
       heroImg: '/media/hero-grand.png',
+      tileImages: [
+        { src: '/media/grand-tile-1.jpg', alt: 'GRAND RIB' },
+        { src: '/media/grand-tile-2.jpg', alt: 'GRAND RIB' },
+        { src: '/media/grand-tile-3.jpg', alt: 'GRAND RIB' },
+        { src: '/media/grand-tile-4.jpg', alt: 'GRAND RIB' },
+      ],
       description: t('brand_grand_desc'),
       highlight: t('brand_grand_highlight'),
       feature: {
@@ -147,6 +156,12 @@ export default async function BrandsPage() {
       category: 'Luxury RIB',
       website: 'https://www.spxrib.com',
       heroImg: '/media/hero-spx.png',
+      tileImages: [
+        { src: '/media/spx-tile-1.webp', alt: 'SPX RIB' },
+        { src: '/media/spx-tile-3.webp', alt: 'SPX RIB' },
+        { src: '/media/spx-tile-4.webp', alt: 'SPX RIB' },
+        { src: '/media/spx-tile-5.jpg', alt: 'SPX RIB' },
+      ],
       description: t('brand_spx_desc'),
       highlight: t('brand_spx_highlight'),
       models: [
@@ -189,10 +204,10 @@ export default async function BrandsPage() {
         </section>
 
         <div className={styles.brands}>
-          {BRANDS.map(({ name, short, slug, logo, origin, category, description, models, ranges, feature, highlight, heroImg, website, yamahaPowered }) => (
+          {BRANDS.map(({ name, short, slug, logo, origin, category, description, models, ranges, feature, highlight, heroImg, tileImages, website, yamahaPowered }) => (
             <article key={name} id={slug} className={styles.brand}>
               <div className={styles.media}>
-                <BrandCarousel images={pickBrandImages(name, heroImg, imagesByBrand)} name={name} fill />
+                <BrandCarousel images={pickBrandImages(name, heroImg, imagesByBrand, tileImages)} name={name} fill />
                 {yamahaPowered && (
                   <span className={styles.yamahaBadge}>
                     {/* eslint-disable-next-line @next/next/no-img-element */}
