@@ -70,10 +70,10 @@ function pickBrandImages(
   map: Record<string, { src: string; alt: string }[]>,
   tileImages?: { src: string; alt: string }[],
 ) {
+  if (tileImages && tileImages.length > 0) return tileImages
   const key = BRAND_KEYS.find((k) => name.toLowerCase().includes(k))
   const real = (key && map[key]) || []
   if (real.length > 0) return real
-  if (tileImages && tileImages.length > 0) return tileImages
   return heroImg ? [{ src: heroImg, alt: name }] : []
 }
 
