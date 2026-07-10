@@ -26,7 +26,7 @@ type Brand = {
   highlight: string
   models?: BrandModel[]
   ranges?: ModelRange[]
-  feature?: { name: string; tagline: string; href: string }
+  feature?: { name: string; tagline: string; href: string; noImg?: boolean }
   yamahaPowered?: boolean
   primaryHref?: string
 }
@@ -132,6 +132,7 @@ export default async function BrandsPage() {
         name: t('brand_yamarin_feature_name'),
         tagline: t('brand_yamarin_feature_tagline'),
         href: 'https://yamarin.com/fi/yamarin-aura-cabin',
+        noImg: true,
       },
       ranges: [
         { name: t('brand_yamarin_r0_name'), blurb: t('brand_yamarin_r0_blurb'), href: 'https://yamarin.com/fi/day-cruiser-retkiveneet' },
@@ -231,7 +232,7 @@ export default async function BrandsPage() {
                     const fImg = pickFeatureImg(name, imagesByBrand)
                     return (
                       <a href={feature.href} target="_blank" rel="noopener noreferrer" className={styles.featureTile}>
-                        {fImg && (
+                        {fImg && !feature.noImg && (
                           // eslint-disable-next-line @next/next/no-img-element
                           <img src={fImg.src} alt={fImg.alt} className={styles.featureTileImg} aria-hidden="true" />
                         )}
