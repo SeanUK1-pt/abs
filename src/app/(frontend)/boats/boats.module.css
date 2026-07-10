@@ -8,6 +8,14 @@
 .sidebar {
   position: sticky;
   top: 90px;
+  /* Never let a tall filter panel run past the viewport: cap its height to
+     the space below the sticky header and scroll internally instead, so the
+     bottom filters + Search button stay reachable regardless of result count. */
+  max-height: calc(100vh - 90px - 1.5rem);
+  overflow-y: auto;
+  /* Room so the card's rounded corners / shadow aren't hard-clipped. */
+  padding: 2px;
+  margin: -2px;
 }
 
 .results { min-width: 0; }
@@ -67,5 +75,13 @@
 
 @media (max-width: 900px) {
   .page { grid-template-columns: 1fr; }
-  .sidebar { position: static; }
+  /* On mobile the filters live in a collapsible panel — let them size
+     naturally instead of the desktop internal-scroll behaviour. */
+  .sidebar {
+    position: static;
+    max-height: none;
+    overflow: visible;
+    padding: 0;
+    margin: 0;
+  }
 }
