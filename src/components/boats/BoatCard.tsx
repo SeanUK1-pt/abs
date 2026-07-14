@@ -2,6 +2,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import styles from './BoatCard.module.css'
 import { FavouriteButton, FavouriteTextButton } from './FavouriteButton'
+import { localePath } from '@/lib/localePath'
 
 function formatPrice(price: number, currency = 'EUR') {
   return new Intl.NumberFormat('en-EU', { style: 'currency', currency, maximumFractionDigits: 0 }).format(price)
@@ -24,7 +25,7 @@ export function BoatCard({ boat, locale = 'en' }: { boat: any; locale?: string }
   const statusLabel = labels
 
   return (
-    <Link href={`/boats/${boat.slug}`} className={styles.card}>
+    <Link href={localePath(locale, `/boats/${boat.slug}`)} className={styles.card}>
       <div className={styles.imageWrap}>
         {mainImage?.url ? (
           <Image
@@ -60,7 +61,7 @@ export function BoatCard({ boat, locale = 'en' }: { boat: any; locale?: string }
           {boat.condition === 'new' ? labels.new : labels.used}
         </span>
 
-        <FavouriteButton boatId={String(boat.id)} />
+        <FavouriteButton boatId={String(boat.id)} locale={locale} />
       </div>
 
       <div className={styles.body}>
@@ -89,7 +90,7 @@ export function BoatCard({ boat, locale = 'en' }: { boat: any; locale?: string }
           {boat.location && <span className={styles.location}>📍 {boat.location}</span>}
         </div>
 
-        <FavouriteTextButton boatId={String(boat.id)} />
+        <FavouriteTextButton boatId={String(boat.id)} locale={locale} />
       </div>
     </Link>
   )

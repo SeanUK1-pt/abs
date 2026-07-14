@@ -1,7 +1,23 @@
 'use client'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { useFavourites } from '@/hooks/useFavourites'
+import { localePath } from '@/lib/localePath'
 import styles from './FavouritesBar.module.css'
+
+const LABELS = {
+  en: {
+    viewing: 'Viewing your saved boats',
+    showAll: 'Show all boats',
+    saved: (n: number) => `${n} saved ${n === 1 ? 'boat' : 'boats'}`,
+    viewFavs: 'View favourites',
+  },
+  pt: {
+    viewing: 'A ver os seus barcos guardados',
+    showAll: 'Ver todos os barcos',
+    saved: (n: number) => `${n} ${n === 1 ? 'barco guardado' : 'barcos guardados'}`,
+    viewFavs: 'Ver favoritos',
+  },
+}
 
 const HeartIcon = ({ filled }: { filled: boolean }) => (
   <svg
@@ -19,16 +35,17 @@ const HeartIcon = ({ filled }: { filled: boolean }) => (
   </svg>
 )
 
-export function FavouritesBar({ active }: { active: boolean }) {
+export function FavouritesBar({ active, locale = 'en' }: { active: boolean; locale?: string }) {
   const { count } = useFavourites()
   const router = useRouter()
   const searchParams = useSearchParams()
+  const l = LABELS[locale as keyof typeof LABELS] || LABELS.en
 
   if (!active && count === 0) return null
 
   const handleShow = () => {
     if (count === 0) return
-    router.push('/boats?favourites=1')
+    router.push(localePath(locale, '/boats?favourites=1'))
   }
 
   const handleExit = () => {
@@ -36,16 +53,16 @@ export function FavouritesBar({ active }: { active: boolean }) {
     params.delete('favourites')
     params.delete('page')
     const qs = params.toString()
-    router.push(qs ? `/boats?${qs}` : '/boats')
+    router.push(localePath(locale, qs ? `/boats?${qs}` : '/boats'))
   }
 
   if (active) {
     return (
       <div className={`${styles.bar} ${styles.barActive}`}>
         <HeartIcon filled />
-        <span>Viewing your saved boats</span>
+        <span>{l.viewing}</span>
         <button className={styles.exitBtn} onClick={handleExit}>
-          Show all boats
+          {l.showAll}
         </button>
       </div>
     )
@@ -54,11 +71,9 @@ export function FavouritesBar({ active }: { active: boolean }) {
   return (
     <div className={styles.bar}>
       <HeartIcon filled={false} />
-      <span>
-        {count} saved {count === 1 ? 'boat' : 'boats'}
-      </span>
+      <span>{l.saved(count)}</span>
       <button className={styles.showBtn} onClick={handleShow}>
-        View favourites
+        {l.viewFavs}
       </button>
     </div>
   )

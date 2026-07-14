@@ -2,6 +2,21 @@
 import { useFavourites } from '@/hooks/useFavourites'
 import styles from './FavouriteButton.module.css'
 
+const LABELS = {
+  en: {
+    remove: 'Remove from favourites',
+    save: 'Save to favourites',
+    saved: 'Saved to favourites',
+    add: 'Add to favourites',
+  },
+  pt: {
+    remove: 'Remover dos favoritos',
+    save: 'Guardar nos favoritos',
+    saved: 'Guardado nos favoritos',
+    add: 'Adicionar aos favoritos',
+  },
+}
+
 const HeartIcon = ({ filled }: { filled: boolean }) => (
   <svg
     width="15"
@@ -19,17 +34,18 @@ const HeartIcon = ({ filled }: { filled: boolean }) => (
 )
 
 /** Icon-only button — floats over the card image */
-export function FavouriteButton({ boatId }: { boatId: string }) {
+export function FavouriteButton({ boatId, locale = 'en' }: { boatId: string; locale?: string }) {
   const { has, toggle } = useFavourites()
   const saved = has(boatId)
+  const l = LABELS[locale as keyof typeof LABELS] || LABELS.en
 
   return (
     <button
       type="button"
       className={`${styles.iconBtn} ${saved ? styles.saved : ''}`}
       onClick={e => { e.preventDefault(); e.stopPropagation(); toggle(boatId) }}
-      aria-label={saved ? 'Remove from favourites' : 'Save to favourites'}
-      title={saved ? 'Remove from favourites' : 'Save to favourites'}
+      aria-label={saved ? l.remove : l.save}
+      title={saved ? l.remove : l.save}
     >
       <HeartIcon filled={saved} />
     </button>
@@ -37,9 +53,10 @@ export function FavouriteButton({ boatId }: { boatId: string }) {
 }
 
 /** Text button — sits inside the card body */
-export function FavouriteTextButton({ boatId }: { boatId: string }) {
+export function FavouriteTextButton({ boatId, locale = 'en' }: { boatId: string; locale?: string }) {
   const { has, toggle } = useFavourites()
   const saved = has(boatId)
+  const l = LABELS[locale as keyof typeof LABELS] || LABELS.en
 
   return (
     <button
@@ -48,7 +65,7 @@ export function FavouriteTextButton({ boatId }: { boatId: string }) {
       onClick={e => { e.preventDefault(); e.stopPropagation(); toggle(boatId) }}
     >
       <HeartIcon filled={saved} />
-      {saved ? 'Saved to favourites' : 'Add to favourites'}
+      {saved ? l.saved : l.add}
     </button>
   )
 }

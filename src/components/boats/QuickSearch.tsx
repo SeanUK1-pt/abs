@@ -2,6 +2,7 @@
 
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
+import { localePath } from '@/lib/localePath'
 import styles from './QuickSearch.module.css'
 
 const LABELS: Record<string, Record<string, string>> = {
@@ -24,7 +25,7 @@ export function QuickSearch({ locale = 'en' }: { locale?: string }) {
     e.preventDefault()
     const params = new URLSearchParams()
     Object.entries(form).forEach(([k, v]) => { if (v) params.set(k, v) })
-    router.push(`/boats?${params.toString()}`)
+    router.push(localePath(locale, `/boats?${params.toString()}`))
   }
 
   return (

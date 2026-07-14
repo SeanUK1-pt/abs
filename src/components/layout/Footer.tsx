@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import type { Locale } from '@/lib/locale'
 import { getTranslations } from '@/lib/translations'
+import { localePath } from '@/lib/localePath'
 import styles from './Footer.module.css'
 
 const FOOTER_TRANSLATIONS: Record<string, string> = {
@@ -60,11 +61,11 @@ export function Footer({ locale, navItems, siteSettings }: FooterProps) {
           <div className={styles.links}>
             <h4>{t('footer_boats')}</h4>
             <ul>
-              <li><Link href="/boats">{t('footer_all')}</Link></li>
-              <li><Link href="/boats?condition=new">{t('footer_new')}</Link></li>
-              <li><Link href="/boats?condition=used">{t('footer_used')}</Link></li>
-              <li><Link href="/trailers">{t('footer_trailers')}</Link></li>
-              <li><Link href="/brands">{t('footer_our_brands')}</Link></li>
+              <li><Link href={localePath(locale, '/boats')}>{t('footer_all')}</Link></li>
+              <li><Link href={localePath(locale, '/boats?condition=new')}>{t('footer_new')}</Link></li>
+              <li><Link href={localePath(locale, '/boats?condition=used')}>{t('footer_used')}</Link></li>
+              <li><Link href={localePath(locale, '/trailers')}>{t('footer_trailers')}</Link></li>
+              <li><Link href={localePath(locale, '/brands')}>{t('footer_our_brands')}</Link></li>
             </ul>
           </div>
 
@@ -75,7 +76,7 @@ export function Footer({ locale, navItems, siteSettings }: FooterProps) {
               <ul>
                 {col1.map(item => (
                   <li key={item.link}>
-                    <Link href={item.link} target={item.open_in_new_tab ? '_blank' : undefined}>
+                    <Link href={localePath(locale, item.link)} target={item.open_in_new_tab ? '_blank' : undefined}>
                       {locale === 'pt' ? (FOOTER_TRANSLATIONS[item.label] || item.label) : item.label}
                     </Link>
                   </li>
@@ -91,7 +92,7 @@ export function Footer({ locale, navItems, siteSettings }: FooterProps) {
               <ul>
                 {col2.map(item => (
                   <li key={item.link}>
-                    <Link href={item.link} target={item.open_in_new_tab ? '_blank' : undefined}>
+                    <Link href={localePath(locale, item.link)} target={item.open_in_new_tab ? '_blank' : undefined}>
                       {locale === 'pt' ? (FOOTER_TRANSLATIONS[item.label] || item.label) : item.label}
                     </Link>
                   </li>

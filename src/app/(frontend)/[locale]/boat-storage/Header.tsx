@@ -1,7 +1,6 @@
 'use client'
 
 import Link from 'next/link'
-import Image from 'next/image'
 import { useState } from 'react'
 import { useRouter, usePathname } from 'next/navigation'
 import { localePath } from '@/lib/localePath'
@@ -76,54 +75,32 @@ export function Header({ locale, navItems, siteSettings }: HeaderProps) {
     <header className={styles.header}>
       <div className={`container ${styles.inner}`}>
         <Link href={localePath(locale, '/')} className={styles.logo} onClick={() => setMobileOpen(false)}>
-          <Image
-            src="/media/ABS-logo-vector_white.png"
-            alt="Algarve Boat Sales"
-            width={946}
-            height={191}
-            className={styles.logoImg}
-            priority
-          />
+          <span className={styles.logoText}>Algarve</span>
+          <span className={styles.logoAccent}> Boat Sales</span>
         </Link>
 
         <nav className={`${styles.nav} ${mobileOpen ? styles.navOpen : ''}`}>
           {navItems.map(item => {
             // Attach dropdown to the Services link
             const isServices = item.link === '/services'
-            const isOpen = openDropdown === 'services'
             return (
               <div
                 key={item.link}
                 className={styles.navItem}
                 onMouseEnter={() => isServices && setOpenDropdown('services')}
-                onMouseLeave={() => isServices && setOpenDropdown(null)}
+                onMouseLeave={() => setOpenDropdown(null)}
               >
-                <div className={styles.navLinkRow}>
-                  <Link
-                    href={localePath(locale, item.link)}
-                    className={styles.navLink}
-                    target={item.open_in_new_tab ? '_blank' : undefined}
-                    onClick={() => setMobileOpen(false)}
-                  >
-                    {locale === 'pt' ? (NAV_TRANSLATIONS[item.label] || item.label) : item.label}
-                  </Link>
-                  {isServices && (
-                    <button
-                      type="button"
-                      className={`${styles.caretBtn} ${isOpen ? styles.caretOpen : ''}`}
-                      aria-label={isOpen ? 'Close services menu' : 'Open services menu'}
-                      aria-expanded={isOpen}
-                      onClick={(e) => {
-                        e.preventDefault()
-                        setOpenDropdown(isOpen ? null : 'services')
-                      }}
-                    >
-                      <span className={styles.caret}>▾</span>
-                    </button>
-                  )}
-                </div>
+                <Link
+                  href={localePath(locale, item.link)}
+                  className={styles.navLink}
+                  target={item.open_in_new_tab ? '_blank' : undefined}
+                  onClick={() => setMobileOpen(false)}
+                >
+                  {locale === 'pt' ? (NAV_TRANSLATIONS[item.label] || item.label) : item.label}
+                  {isServices && <span className={styles.caret}>▾</span>}
+                </Link>
 
-                {isServices && isOpen && (
+                {isServices && openDropdown === 'services' && (
                   <div className={styles.dropdown}>
                     {servicesDropdown.map(child => (
                       <Link
