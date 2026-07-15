@@ -165,6 +165,7 @@ function toSpotlight(boats: any[]): SpotlightBoat[] {
       location: b.location,
       price: formatPrice(b.sale_price || b.price, b.currency),
       oldPrice: b.sale_price ? formatPrice(b.price, b.currency) : null,
+      discountPercent: b.sale_price ? Math.round((1 - b.sale_price / b.price) * 100) : null,
       ivaIncluded: Boolean(b.iva_included),
       condition: b.condition,
       src: img?.url || null,

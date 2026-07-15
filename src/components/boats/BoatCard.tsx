@@ -18,6 +18,7 @@ const IVA_LABEL: Record<string, string> = { en: 'IVA incl.', pt: 'IVA incl.' }
 export function BoatCard({ boat, locale = 'en' }: { boat: any; locale?: string }) {
   const labels = STATUS_LABELS[locale] || STATUS_LABELS.en
   const displayPrice = boat.sale_price || boat.price
+  const discountPercent = boat.sale_price ? Math.round((1 - boat.sale_price / boat.price) * 100) : null
   const mainImage = typeof boat.main_image === 'object' ? boat.main_image : null
   const make = typeof boat.make === 'object' ? boat.make?.name : ''
   const model = typeof boat.model === 'object' ? boat.model?.name : ''
@@ -60,6 +61,10 @@ export function BoatCard({ boat, locale = 'en' }: { boat: any; locale?: string }
         <span className={`${styles.conditionBadge} badge badge-${boat.condition}`}>
           {boat.condition === 'new' ? labels.new : labels.used}
         </span>
+
+        {discountPercent ? (
+          <span className={styles.discountBadge}>-{discountPercent}%</span>
+        ) : null}
 
         <FavouriteButton boatId={String(boat.id)} locale={locale} />
       </div>

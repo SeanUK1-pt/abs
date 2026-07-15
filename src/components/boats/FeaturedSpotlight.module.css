@@ -42,6 +42,20 @@
   border-radius: var(--radius-pill);
 }
 
+.discountBadge {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  z-index: 2;
+  font-size: 0.8rem;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+  color: white;
+  background: #dd3333;
+  padding: 0.4rem 0.9rem;
+  border-radius: var(--radius-pill);
+}
+
 .panel {
   display: flex;
   flex-direction: column;

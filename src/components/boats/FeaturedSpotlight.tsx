@@ -17,6 +17,7 @@ export type SpotlightBoat = {
   location?: string
   price: string
   oldPrice?: string | null
+  discountPercent?: number | null
   ivaIncluded?: boolean
   condition?: string
   src?: string | null
@@ -66,6 +67,9 @@ export function FeaturedSpotlight({
           <div className={styles.imageFallback} aria-hidden="true" />
         )}
         <span className={styles.featuredBadge}>{labels.featured}</span>
+        {boat.discountPercent ? (
+          <span className={styles.discountBadge}>-{boat.discountPercent}%</span>
+        ) : null}
       </div>
 
       <div className={styles.panel}>

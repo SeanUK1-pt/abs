@@ -79,6 +79,20 @@
   letter-spacing: 0.05em;
 }
 
+.discountBadge {
+  position: absolute;
+  bottom: 0.65rem;
+  right: calc(0.65rem + 34px + 0.5rem);
+  z-index: 2;
+  padding: 0.25rem 0.75rem;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 800;
+  color: white;
+  background: #dd3333;
+  letter-spacing: 0.02em;
+}
+
 .body {
   padding: 1.25rem;
   display: flex;

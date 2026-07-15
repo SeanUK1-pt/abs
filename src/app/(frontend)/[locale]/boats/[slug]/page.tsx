@@ -284,6 +284,9 @@ export default async function BoatPage({ params }: { params: Promise<{ locale: s
                   <>
                     <span className={styles.oldPrice}>{formatPrice(boat.price, boat.currency)}</span>
                     <span className={styles.price}>{formatPrice(boat.sale_price, boat.currency)}</span>
+                    <span className={styles.discountBadge}>
+                      -{Math.round((1 - boat.sale_price / boat.price) * 100)}%
+                    </span>
                   </>
                 ) : (
                   <span className={styles.price}>{formatPrice(boat.price, boat.currency)}</span>
