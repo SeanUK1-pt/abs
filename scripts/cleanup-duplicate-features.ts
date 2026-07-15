@@ -54,11 +54,10 @@ async function main() {
       const affected = await boatsCol.find({ features: fromId }).toArray()
       for (const boat of affected) {
         // Replace fromId with toId, removing any resulting duplicates
-        const updated = [...new Set(
-          boat.features.map((id: any) =>
-            id.toString() === from ? toId : id
-          ).map((id: any) => id.toString())
-        )].map((id: string) => new ObjectId(id))
+        const idStrings: string[] = boat.features
+          .map((id: any) => (id.toString() === from ? toId : id))
+          .map((id: any) => id.toString())
+        const updated = [...new Set<string>(idStrings)].map((id) => new ObjectId(id))
 
         await boatsCol.updateOne({ _id: boat._id }, { $set: { features: updated } })
         console.log(`  ↳ updated boat "${boat.title?.en}" (${label})`)
