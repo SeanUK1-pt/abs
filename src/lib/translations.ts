@@ -877,7 +877,7 @@ const translations = {
     // Brands page - UI
     brands_page_title: 'Marcas Exclusivas',
     brands_page_subtitle: 'Concessionário autorizado dos melhores fabricantes de barcos do mundo',
-    brands_page_intro: 'Selecionamos cuidadosamente as marcas que representamos — cada fabricante da nossa carteira foi escolhido pelo seu compromisso com a qualidade, inovação e apoio pós-venda. Como concessionário autorizado no Algarve para cada marca, oferecemos encomendas diretas de fábrica, apoio em garantia e peças genuínas.',
+    brands_page_intro: 'Selecionamos cuidadosamente as marcas que representamos. Cada fabricante da nossa carteira foi escolhido pelo seu compromisso com a qualidade, inovação e apoio pós-venda. Como concessionário autorizado no Algarve para cada marca, oferecemos encomendas diretas de fábrica, apoio em garantia e peças genuínas.',
     brands_model_ranges: 'Gamas de modelos',
     brands_model_range: 'Gama de modelos',
     brands_new_badge: 'Novo',
@@ -890,31 +890,31 @@ const translations = {
     brands_request_info: 'Pedir Informação',
 
     // Brands page - GRAND
-    brand_grand_desc: 'A GRAND é um fabricante de barcos rígidos infláveis especializado em RIBs de fibra de vidro de alta gama. Fundada em 2001 por um grupo de engenheiros apaixonados e entusiastas da vela, os barcos GRAND são desenvolvidos, desenhados e construídos na Ucrânia — garantindo que cada barco é um verdadeiro produto europeu. Através de uma rede de distribuição global, oferecem uma ampla gama de RIBs familiares de alta gama, tenders de iate e RIBs comerciais, criados para proporcionar uma fusão de luxo e funcionalidade.',
+    brand_grand_desc: 'A GRAND é um fabricante de barcos rígidos infláveis especializado em RIBs de fibra de vidro de alta gama. Fundada em 2001 por um grupo de engenheiros apaixonados e entusiastas da vela, os barcos GRAND são desenvolvidos, desenhados e construídos na Ucrânia, garantindo que cada barco é um verdadeiro produto europeu. Através de uma rede de distribuição global, oferecem uma ampla gama de RIBs familiares de alta gama, tenders de iate e RIBs comerciais, criados para proporcionar uma fusão de luxo e funcionalidade.',
     brand_grand_highlight: 'RIBs premium em fibra de vidro com qualidade de construção superior',
     brand_grand_feature_name: 'GRAND G980',
-    brand_grand_feature_tagline: 'O flagship Golden Line RIB — luxo, potência e artesanato europeu no seu auge.',
+    brand_grand_feature_tagline: 'O flagship Golden Line RIB: luxo, potência e artesanato europeu no seu auge.',
     brand_grand_r0_name: 'Golden Line',
-    brand_grand_r0_blurb: 'RIBs premium de topo — conforto de luxo e design refinado.',
+    brand_grand_r0_blurb: 'RIBs premium de topo, com conforto de luxo e design refinado.',
     brand_grand_r1_name: 'Silver Line',
     brand_grand_r1_blurb: 'RIBs familiares versáteis com equilíbrio entre qualidade, espaço e valor.',
     brand_grand_r2_name: 'Drive Line',
     brand_grand_r2_blurb: 'RIBs de alto desempenho para uso comercial e trabalho.',
 
     // Brands page - Yamarin
-    brand_yamarin_desc: 'A Yamarin constrói barcos de lazer de alta qualidade na Finlândia desde 1969. Conhecidos pela sua excecional capacidade de navegar em mar agitado, os barcos Yamarin combinam design escandinavo com durabilidade excecional. A gama abrange desde bow riders ágeis até day cruisers espaçosos e barcos de cabina, todos concebidos para as exigentes águas do norte da Europa — e do Algarve.',
+    brand_yamarin_desc: 'A Yamarin constrói barcos de lazer de alta qualidade na Finlândia desde 1969. Conhecidos pela sua excecional capacidade de navegar em mar agitado, os barcos Yamarin combinam design escandinavo com durabilidade excecional. A gama abrange desde bow riders ágeis até day cruisers espaçosos e barcos de cabina, todos concebidos para as exigentes águas do norte da Europa e do Algarve.',
     brand_yamarin_highlight: 'Qualidade de fabrico finlandês desde 1969',
     brand_yamarin_feature_name: 'Yamarin Aura',
-    brand_yamarin_feature_tagline: 'O novo flagship — design escandinavo no seu melhor.',
+    brand_yamarin_feature_tagline: 'O novo flagship: design escandinavo no seu melhor.',
     brand_yamarin_r0_name: 'Day Cruiser',
     brand_yamarin_r0_blurb: 'Cruzeiros espaçosos construídos para dias longos e confortáveis no mar.',
     brand_yamarin_r1_name: 'Bow Rider',
-    brand_yamarin_r1_blurb: 'Barcos abertos ágeis e desportivos — perfeitos para diversão em família.',
+    brand_yamarin_r1_blurb: 'Barcos abertos ágeis e desportivos, perfeitos para diversão em família.',
     brand_yamarin_r2_name: 'Console',
     brand_yamarin_r2_blurb: 'Barcos de consola práticos para pesca e exploração.',
 
     // Brands page - SPX RIB
-    brand_spx_desc: 'A SPX RIB é uma marca da Sicília, Itália, que redesenhou completamente o espaço de convés dos rígidos infláveis — passando de um aspeto utilitário para um chique italiano, repleto de funcionalidades. A Algarve Boat Sales é o concessionário português autorizado, e temos o orgulho de trazer a SPX RIB para o Algarve. A SPX já goza de grande sucesso a nível global, tendo causado sensação na sua estreia no Miami International Boat Show.',
+    brand_spx_desc: 'A SPX RIB é uma marca da Sicília, Itália, que redesenhou completamente o espaço de convés dos rígidos infláveis, passando de um aspeto utilitário para um chique italiano, repleto de funcionalidades. A Algarve Boat Sales é o concessionário português autorizado, e temos o orgulho de trazer a SPX RIB para o Algarve. A SPX já goza de grande sucesso a nível global, tendo causado sensação na sua estreia no Miami International Boat Show.',
     brand_spx_highlight: 'Design italiano aliado a um desempenho sério',
     brand_spx_m0_name: 'SPX 24 (7.5m)',
     brand_spx_m1_name: 'SPX 28 (8.5m)',
