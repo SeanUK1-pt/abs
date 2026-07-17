@@ -23,19 +23,25 @@
   object-fit: cover;
   object-position: center;
   z-index: 0;
-  /* Rest state matches the animation end-state so deactivation never snaps
-     backward — the transition below eases it forward (1.04→1.14) while the
-     slide fades out, which is invisible against the incoming slide. */
+  /* Rest state matches the animation end-state so deactivation never snaps:
+     once the animation below finishes (well before the slide deactivates),
+     its held end value already equals this static transform, so removing
+     the animation on deactivation is a no-op visually. */
   transform: scale(1.14);
-  transition: transform 1.4s ease;
+  /* Safety net for manual nav (arrows/dots) interrupting the animation
+     before it naturally finishes — smooths the jump instead of snapping. */
+  transition: transform 0.6s ease;
 }
 
 /* Slow cinematic push-in on whichever slide is active. fill-mode:both applies
    the from-keyframe during the delay so the slide is already at 1.04 when it
-   fades in (the snap from 1.14→1.04 happens while opacity is still 0). */
+   fades in (the snap from 1.14→1.04 happens while opacity is still 0).
+   Carousel advances every 6.5s (see HeroCarousel.tsx) — delay + duration
+   must finish comfortably before that, or the animation gets torn down
+   mid-zoom and the image snaps straight to scale(1.14) when deactivated. */
 @media (prefers-reduced-motion: no-preference) {
   .slideActive .img {
-    animation: heroKenBurns 20s ease-out 0.5s both;
+    animation: heroKenBurns 5.7s ease-out 0.3s both;
   }
 }
 
@@ -245,24 +251,24 @@
   .dots { bottom: 4rem; }
   .block { gap: 0.8rem; }
 
-  /* Narrow screens wrap the copy across the full width, so extend the
-     scrim further right and deepen the bottom fade — the tail of each
-     line then stays legible instead of dropping onto bright image. */
+  /* Narrow screens wrap the copy across the full width — cover the full
+     width uniformly so text on any part of the image stays legible. */
   .overlay,
   .overlayIntro {
     background:
       linear-gradient(
-        105deg,
-        rgba(12, 16, 20, 0.84) 0%,
-        rgba(12, 16, 20, 0.66) 45%,
-        rgba(12, 16, 20, 0.42) 74%,
-        rgba(12, 16, 20, 0.24) 100%
-      ),
-      linear-gradient(
-        to top,
+        to bottom,
         rgba(12, 16, 20, 0.72) 0%,
-        rgba(12, 16, 20, 0.22) 34%,
-        rgba(12, 16, 20, 0) 62%
+        rgba(12, 16, 20, 0.65) 60%,
+        rgba(12, 16, 20, 0.78) 100%
       );
   }
+}
+
+@media (max-width: 480px) {
+  .title { font-size: 1.7rem; line-height: 1.08; }
+  .message { font-size: 0.95rem; }
+  .block { gap: 0.65rem; }
+  .content { padding-top: 1.75rem; padding-bottom: 3.5rem; }
+  .dots { bottom: 3.25rem; }
 }
