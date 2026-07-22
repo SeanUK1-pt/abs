@@ -1,12 +1,14 @@
 'use client'
 
 import Image from 'next/image'
+import { getTranslations } from '@/lib/translations'
 import styles from './TrailerConfigurator.module.css'
 
 const CONFIGURATOR_SRC = 'https://vanclaes.com/product-configurator.php?dealer_cid=104804-e0b5b'
 const COOKIE_APPROVE_SRC = 'https://vanclaes.com/safary-cookies-approve.php'
 
-export function TrailerConfigurator() {
+export function TrailerConfigurator({ locale = 'en' }: { locale?: string }) {
+  const t = getTranslations(locale as any)
   function approveCookies() {
     // Safari blocks Vanclaes' third-party cookies, which can stop the
     // configurator loading. This briefly opens their cookie-approval page
@@ -38,12 +40,12 @@ export function TrailerConfigurator() {
             />
           </span>
           <span className={styles.barText}>
-            <span className={styles.barEyebrow}>New Trailers</span>
-            <span className={styles.barTitle}>Vanclaes Trailer Configurator</span>
+            <span className={styles.barEyebrow}>{t('trailers_widget_eyebrow')}</span>
+            <span className={styles.barTitle}>{t('trailers_widget_title')}</span>
           </span>
         </div>
         <button type="button" className={styles.cookieBtn} onClick={approveCookies}>
-          Not loading? Enable cookies
+          {t('trailers_widget_cookie_btn')}
         </button>
       </div>
 

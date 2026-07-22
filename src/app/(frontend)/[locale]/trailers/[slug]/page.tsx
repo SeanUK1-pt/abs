@@ -3,10 +3,14 @@ import { getPayload } from 'payload'
 import config from '@payload-config'
 import { EnquiryForm } from '@/components/forms/EnquiryForm'
 import { GalleryGrid } from '@/components/boats/GalleryGrid'
+import { getLocaleFromParam } from '@/lib/locale'
+import { getTranslations } from '@/lib/translations'
+import { hreflangAlternates } from '@/lib/localePath'
 import styles from './trailer.module.css'
 
-export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
-  const { slug } = await params
+export async function generateMetadata({ params }: { params: Promise<{ locale: string; slug: string }> }) {
+  const { locale: localeParam, slug } = await params
+  const locale = getLocaleFromParam(localeParam)
   const payload = await getPayload({ config })
   const { docs } = await payload.find({
     collection: 'trailers',
@@ -17,14 +21,22 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const trailer = docs[0]
   if (!trailer) return {}
   const title = `${trailer.title} | Algarve Boat Sales`
+  const canonical = locale === 'pt'
+    ? `https://www.algarveboatsales.com/pt/trailers/${slug}`
+    : `https://www.algarveboatsales.com/trailers/${slug}`
   return {
     title,
-    alternates: { canonical: `https://www.algarveboatsales.com/trailers/${slug}` },
+    alternates: {
+      canonical,
+      languages: hreflangAlternates(`/trailers/${slug}`),
+    },
   }
 }
 
-export default async function TrailerPage({ params }: { params: Promise<{ slug: string }> }) {
-  const { slug } = await params
+export default async function TrailerPage({ params }: { params: Promise<{ locale: string; slug: string }> }) {
+  const { locale: localeParam, slug } = await params
+  const locale = getLocaleFromParam(localeParam)
+  const t = getTranslations(locale)
   const payload = await getPayload({ config })
   const { docs } = await payload.find({
     collection: 'trailers',
@@ -42,19 +54,19 @@ export default async function TrailerPage({ params }: { params: Promise<{ slug: 
   const allImages = [mainImage, ...galleryImages].filter(Boolean)
 
   const specs = [
-    { label: 'Make', value: trailer.make },
-    { label: 'Model', value: trailer.model },
-    { label: 'Year', value: trailer.year },
-    { label: 'Condition', value: trailer.condition },
-    { label: 'Length', value: trailer.length_m ? `${trailer.length_m}m` : null },
-    { label: 'Width', value: trailer.width_m ? `${trailer.width_m}m` : null },
-    { label: 'Gross Weight', value: trailer.gross_weight_kg ? `${trailer.gross_weight_kg}kg` : null },
-    { label: 'Payload', value: trailer.payload_kg ? `${trailer.payload_kg}kg` : null },
-    { label: 'Axles', value: trailer.axles },
-    { label: 'Braked', value: trailer.braked ? 'Yes' : 'No' },
-    { label: 'Tyre Size', value: trailer.tire_size },
-    { label: 'Construction', value: trailer.construction },
-    { label: 'Location', value: trailer.location },
+    { label: t('trailers_spec_make'), value: trailer.make },
+    { label: t('trailers_spec_model'), value: trailer.model },
+    { label: t('trailers_spec_year'), value: trailer.year },
+    { label: t('trailers_spec_condition'), value: trailer.condition === 'new' ? t('condition_new') : trailer.condition === 'used' ? t('condition_used') : trailer.condition },
+    { label: t('trailers_spec_length'), value: trailer.length_m ? `${trailer.length_m}m` : null },
+    { label: t('trailers_spec_width'), value: trailer.width_m ? `${trailer.width_m}m` : null },
+    { label: t('trailers_spec_gross_weight'), value: trailer.gross_weight_kg ? `${trailer.gross_weight_kg}kg` : null },
+    { label: t('trailers_spec_payload'), value: trailer.payload_kg ? `${trailer.payload_kg}kg` : null },
+    { label: t('trailers_spec_axles'), value: trailer.axles },
+    { label: t('trailers_spec_braked'), value: trailer.braked ? t('trailers_yes') : t('trailers_no') },
+    { label: t('trailers_spec_tyre_size'), value: trailer.tire_size },
+    { label: t('trailers_spec_construction'), value: trailer.construction },
+    { label: t('trailers_spec_location'), value: trailer.location },
   ].filter(s => s.value != null && s.value !== '')
 
   const price = new Intl.NumberFormat('en-EU', { style: 'currency', currency: 'EUR', maximumFractionDigits: 0 }).format(trailer.price)
@@ -65,7 +77,7 @@ export default async function TrailerPage({ params }: { params: Promise<{ slug: 
         <div className={styles.main}>
           <GalleryGrid images={allImages} title={trailer.title} />
           <section className={styles.specsSection}>
-            <h2>Specifications</h2>
+            <h2>{t('trailers_specifications')}</h2>
             <div className={styles.specs}>
               {specs.map(({ label, value }) => (
                 <div key={label} className={styles.specRow}>
@@ -81,10 +93,10 @@ export default async function TrailerPage({ params }: { params: Promise<{ slug: 
           <div className={styles.priceCard}>
             <h1 className={styles.title}>{trailer.title}</h1>
             <div className={styles.price}>{price}</div>
-            <p className={styles.iva}>{trailer.iva_included ? 'IVA included' : 'Plus IVA'}</p>
+            <p className={styles.iva}>{trailer.iva_included ? t('iva_included') : t('plus_iva')}</p>
           </div>
           <div className={styles.enquiryCard}>
-            <h3>Enquire About This Trailer</h3>
+            <h3>{t('trailers_enquire_about_trailer')}</h3>
             <EnquiryForm listingTitle={trailer.title} listingType="trailer" listingId={String(trailer.id)} />
           </div>
         </aside>

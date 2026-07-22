@@ -1,16 +1,20 @@
 'use client'
 
 import { useRouter, usePathname } from 'next/navigation'
+import { getTranslations } from '@/lib/translations'
 
 export function TrailerFilters({
   currentCondition,
   currentPriceMax,
+  locale = 'en',
 }: {
   currentCondition?: string
   currentPriceMax?: string
+  locale?: string
 }) {
   const router = useRouter()
   const pathname = usePathname()
+  const t = getTranslations(locale as any)
 
   function update(key: string, value: string) {
     const params = new URLSearchParams(window.location.search)
@@ -26,9 +30,9 @@ export function TrailerFilters({
         onChange={e => update('condition', e.target.value)}
         style={{ padding: '0.6rem 1rem', border: '2px solid #dee2e6', borderRadius: '4px', fontSize: '0.9rem' }}
       >
-        <option value="">All Conditions</option>
-        <option value="new">New</option>
-        <option value="used">Used</option>
+        <option value="">{t('all_conditions')}</option>
+        <option value="new">{t('condition_new')}</option>
+        <option value="used">{t('condition_used')}</option>
       </select>
 
       <select
@@ -36,7 +40,7 @@ export function TrailerFilters({
         onChange={e => update('price_max', e.target.value)}
         style={{ padding: '0.6rem 1rem', border: '2px solid #dee2e6', borderRadius: '4px', fontSize: '0.9rem' }}
       >
-        <option value="">Max Price</option>
+        <option value="">{t('max_price')}</option>
         <option value="5000">€5,000</option>
         <option value="10000">€10,000</option>
         <option value="20000">€20,000</option>

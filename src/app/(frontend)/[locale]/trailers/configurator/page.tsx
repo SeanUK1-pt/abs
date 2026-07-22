@@ -3,15 +3,16 @@ import { PageHero } from '@/components/ui/PageHero'
 import { TrailerConfigurator } from '@/components/boats/TrailerConfigurator'
 import styles from './configurator.module.css'
 import { getLocaleFromParam } from '@/lib/locale'
+import { getTranslations } from '@/lib/translations'
 import { localePath, hreflangAlternates } from '@/lib/localePath'
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
   const { locale: localeParam } = await params
   const locale = getLocaleFromParam(localeParam)
+  const t = getTranslations(locale)
   return {
-    title: 'Build a New Trailer | Algarve Boat Sales',
-    description:
-      'Configure a brand-new Vanclaes boat trailer to your exact specification. Choose model, axles, options and finish, with supply, fitting and IVA registration across the Algarve.',
+    title: t('trailers_configurator_title'),
+    description: t('trailers_configurator_description'),
     alternates: {
       canonical: locale === 'pt' ? 'https://www.algarveboatsales.com/pt/trailers/configurator' : 'https://www.algarveboatsales.com/trailers/configurator',
       languages: hreflangAlternates('/trailers/configurator'),
@@ -22,33 +23,30 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
 export default async function TrailerConfiguratorPage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale: localeParam } = await params
   const locale = getLocaleFromParam(localeParam)
+  const t = getTranslations(locale)
   return (
     <>
       <PageHero
-        title="Build a New Trailer"
-        subtitle="Configure a brand-new Vanclaes trailer to your exact specification with our live configurator"
+        title={t('trailers_configurator_hero_title')}
+        subtitle={t('trailers_configurator_hero_subtitle')}
         imageSrc="/services/trailer.jpg"
-        imageAlt="A stainless steel Vanclaes boat trailer"
+        imageAlt={t('trailers_configurator_hero_alt')}
       />
 
       <div className="container py-8">
         <div className={styles.top}>
           <Link href={localePath(locale, '/trailers')} className={styles.back}>
-            &larr; Back to trailers
+            &larr; {t('trailers_back_link')}
           </Link>
         </div>
 
-        <TrailerConfigurator />
+        <TrailerConfigurator locale={locale} />
 
         <section className={styles.help}>
-          <h2>Not sure which trailer you need?</h2>
-          <p>
-            Our team will match a Vanclaes trailer to your boat&apos;s weight and dimensions, then
-            handle supply, fitting and IVA registration throughout Portugal. Send us your build and
-            we&apos;ll take care of the rest.
-          </p>
+          <h2>{t('trailers_help_title')}</h2>
+          <p>{t('trailers_help_body')}</p>
           <Link href={localePath(locale, '/contact')} className="btn btn-gold">
-            Talk to our team
+            {t('trailers_talk_to_team')}
           </Link>
         </section>
       </div>

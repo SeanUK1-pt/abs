@@ -36,6 +36,7 @@ export default async function TrailersPage({
 }) {
   const { locale: localeParam } = await routeParams
   const locale = getLocaleFromParam(localeParam)
+  const t = getTranslations(locale)
   const params = await searchParams
   const payload = await getPayload({ config })
 
@@ -54,35 +55,31 @@ export default async function TrailersPage({
   return (
     <>
       <PageHero
-        title="Boat Trailers"
-        subtitle="Vanclaes trailers — one of Europe's leading manufacturers — sized precisely for your vessel"
+        title={t('trailers_hero_title')}
+        subtitle={t('trailers_hero_subtitle')}
         imageSrc="/services/trailer.jpg"
-        imageAlt="A stainless steel boat trailer with a RIB loaded on it"
+        imageAlt={t('trailers_hero_alt')}
       />
 
       <section className={styles.configBanner}>
         <div className={`container ${styles.configInner}`}>
           <div className={styles.configText}>
-            <span className={styles.configEyebrow}>New Trailers &middot; Vanclaes</span>
-            <h2 className={styles.configTitle}>Build a new trailer, made to measure</h2>
-            <p className={styles.configLede}>
-              Design a brand-new Vanclaes trailer around your exact boat &mdash; model, axles, options
-              and finish &mdash; with our live configurator. We supply, fit and register it for you
-              across the Algarve.
-            </p>
+            <span className={styles.configEyebrow}>{t('trailers_promo_eyebrow')}</span>
+            <h2 className={styles.configTitle}>{t('trailers_promo_title')}</h2>
+            <p className={styles.configLede}>{t('trailers_promo_lede')}</p>
             <div className={styles.configActions}>
               <Link href={localePath(locale, '/trailers/configurator')} className="btn btn-gold">
-                Start Configuring
+                {t('trailers_start_configuring')}
               </Link>
               <Link href={localePath(locale, '/contact')} className="btn btn-outline-white">
-                Ask for advice
+                {t('trailers_ask_for_advice')}
               </Link>
             </div>
           </div>
           <div className={styles.configMedia}>
             <Image
               src="/services/trailer.jpg"
-              alt="A new Vanclaes boat trailer"
+              alt={t('trailers_promo_img_alt')}
               fill
               className={styles.configImg}
               sizes="(max-width: 900px) 100vw, 420px"
@@ -94,15 +91,15 @@ export default async function TrailersPage({
       <div className="container py-8">
         <div className={styles.toolbar}>
           <p className={styles.count}>
-            <strong>{totalDocs}</strong> used trailer{totalDocs === 1 ? '' : 's'} available
+            <strong>{totalDocs}</strong> {totalDocs === 1 ? t('trailers_count_singular') : t('trailers_count_plural')}
           </p>
-          <TrailerFilters currentCondition={params.condition} currentPriceMax={params.price_max} />
+          <TrailerFilters currentCondition={params.condition} currentPriceMax={params.price_max} locale={locale} />
         </div>
 
         {trailers.length === 0 ? (
           <div className={styles.empty}>
-            <p>No trailers currently available.</p>
-            <Link href={localePath(locale, '/contact')} className="btn btn-outline">Enquire about trailers</Link>
+            <p>{t('trailers_empty')}</p>
+            <Link href={localePath(locale, '/contact')} className="btn btn-outline">{t('trailers_enquire_about')}</Link>
           </div>
         ) : (
           <div className={styles.grid}>
@@ -117,7 +114,7 @@ export default async function TrailersPage({
                       <div className={styles.noImg}>No Image</div>
                     )}
                     <span className={`badge badge-${trailer.condition}`}>
-                      {trailer.condition === 'new' ? 'New' : 'Used'}
+                      {trailer.condition === 'new' ? t('condition_new') : t('condition_used')}
                     </span>
                   </div>
                   <div className={styles.cardBody}>
@@ -126,7 +123,7 @@ export default async function TrailersPage({
                       {trailer.make && <span>{trailer.make}</span>}
                       {trailer.length_m && <span>{trailer.length_m}m</span>}
                       {trailer.axles && <span>{trailer.axles} axle{trailer.axles > 1 ? 's' : ''}</span>}
-                      {trailer.braked && <span>Braked</span>}
+                      {trailer.braked && <span>{t('trailers_braked')}</span>}
                     </div>
                     <p className={styles.cardPrice}>{formatPrice(trailer.price)}</p>
                   </div>
@@ -137,9 +134,9 @@ export default async function TrailersPage({
         )}
 
         <section className={styles.cta}>
-          <h2>Looking for a specific trailer?</h2>
-          <p>We supply and fit Vanclaes trailers sized precisely for your boat, with IVA registration assistance and delivery throughout Portugal.</p>
-          <Link href={localePath(locale, '/contact')} className="btn btn-gold">Enquire Now</Link>
+          <h2>{t('trailers_cta_title')}</h2>
+          <p>{t('trailers_cta_body')}</p>
+          <Link href={localePath(locale, '/contact')} className="btn btn-gold">{t('trailers_enquire_now')}</Link>
         </section>
       </div>
     </>
