@@ -30,6 +30,8 @@ type Brand = {
   feature?: { name: string; tagline: string; href: string; noImg?: boolean }
   yamahaPowered?: boolean
   primaryHref?: string
+  ctaLabel?: string
+  hideModelRange?: boolean
 }
 
 const BRAND_KEYS = ['grand', 'yamarin', 'spx', 'vanclaes']
@@ -175,14 +177,11 @@ export default async function BrandsPage({ params }: { params: Promise<{ locale:
       category: 'Boat Trailers',
       website: 'https://vanclaes.com',
       primaryHref: '/trailers',
+      ctaLabel: t('brands_view_trailers'),
+      hideModelRange: true,
       heroImg: '/media/brands-vanclaes.png',
       description: t('brand_vanclaes_desc'),
       highlight: t('brand_vanclaes_highlight'),
-      models: [
-        { name: t('brand_vanclaes_m0_name'), href: 'https://vanclaes.com/rib-marine-wave-1350-13-550-geremd-1-as/p-2110.html' },
-        { name: t('brand_vanclaes_m1_name'), href: 'https://vanclaes.com/rib-marine-wave-1800-14-600-geremd-1-as/p-1646.html' },
-        { name: t('brand_vanclaes_m2_name'), href: 'https://vanclaes.com/rib-marine-wave-2750-13-650-geremd-2-as/p-2145.html' },
-      ],
     },
   ]
 
@@ -201,7 +200,7 @@ export default async function BrandsPage({ params }: { params: Promise<{ locale:
         </section>
 
         <div className={styles.brands}>
-          {BRANDS.map(({ name, short, slug, logo, origin, category, description, models, ranges, feature, highlight, heroImg, website, yamahaPowered, primaryHref }) => (
+          {BRANDS.map(({ name, short, slug, logo, origin, category, description, models, ranges, feature, highlight, heroImg, website, yamahaPowered, primaryHref, ctaLabel, hideModelRange }) => (
             <article key={name} id={slug} className={styles.brand}>
               <div className={styles.media}>
                 <BrandCarousel images={pickBrandImages(name, heroImg, imagesByBrand)} name={name} fill />
@@ -231,53 +230,55 @@ export default async function BrandsPage({ params }: { params: Promise<{ locale:
                 <p className={styles.highlight}>{highlight}</p>
                 <p className={styles.desc}>{description}</p>
 
-                <div className={styles.rangeBlock}>
-                  <span className={styles.rangeLabel}>{ranges ? t('brands_model_ranges') : t('brands_model_range')}</span>
+                {!hideModelRange && (
+                  <div className={styles.rangeBlock}>
+                    <span className={styles.rangeLabel}>{ranges ? t('brands_model_ranges') : t('brands_model_range')}</span>
 
-                  {feature && (() => {
-                    const fImg = pickFeatureImg(name, imagesByBrand)
-                    return (
-                      <a href={feature.href} target="_blank" rel="noopener noreferrer" className={styles.featureTile}>
-                        {fImg && !feature.noImg && (
-                          // eslint-disable-next-line @next/next/no-img-element
-                          <img src={fImg.src} alt={fImg.alt} className={styles.featureTileImg} aria-hidden="true" />
-                        )}
-                        <span className={styles.featureBadge}>{t('brands_new_badge')}</span>
-                        <span className={styles.featureName}>{feature.name}</span>
-                        <span className={styles.featureTagline}>{feature.tagline}</span>
-                        <svg className={styles.featureArrow} width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6" /></svg>
-                      </a>
-                    )
-                  })()}
+                    {feature && (() => {
+                      const fImg = pickFeatureImg(name, imagesByBrand)
+                      return (
+                        <a href={feature.href} target="_blank" rel="noopener noreferrer" className={styles.featureTile}>
+                          {fImg && !feature.noImg && (
+                            // eslint-disable-next-line @next/next/no-img-element
+                            <img src={fImg.src} alt={fImg.alt} className={styles.featureTileImg} aria-hidden="true" />
+                          )}
+                          <span className={styles.featureBadge}>{t('brands_new_badge')}</span>
+                          <span className={styles.featureName}>{feature.name}</span>
+                          <span className={styles.featureTagline}>{feature.tagline}</span>
+                          <svg className={styles.featureArrow} width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6" /></svg>
+                        </a>
+                      )
+                    })()}
 
-                  {ranges ? (
-                    <div className={styles.rangeGrid}>
-                      {ranges.map((r) => (
-                        <a key={r.name} href={r.href} target="_blank" rel="noopener noreferrer" className={styles.rangeTile}>
-                          <span className={styles.rangeName}>{r.name}</span>
-                          <span className={styles.rangeBlurb}>{r.blurb}</span>
-                          <span className={styles.rangeMore}>
-                            {t('brands_view_range')}
-                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6" /></svg>
-                          </span>
-                        </a>
-                      ))}
-                    </div>
-                  ) : (
-                    <div className={styles.modelGrid}>
-                      {models?.map((m) => (
-                        <a key={m.name} href={m.href} target="_blank" rel="noopener noreferrer" className={styles.modelPanel}>
-                          <span>{m.name}</span>
-                          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6" /></svg>
-                        </a>
-                      ))}
-                    </div>
-                  )}
-                </div>
+                    {ranges ? (
+                      <div className={styles.rangeGrid}>
+                        {ranges.map((r) => (
+                          <a key={r.name} href={r.href} target="_blank" rel="noopener noreferrer" className={styles.rangeTile}>
+                            <span className={styles.rangeName}>{r.name}</span>
+                            <span className={styles.rangeBlurb}>{r.blurb}</span>
+                            <span className={styles.rangeMore}>
+                              {t('brands_view_range')}
+                              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6" /></svg>
+                            </span>
+                          </a>
+                        ))}
+                      </div>
+                    ) : (
+                      <div className={styles.modelGrid}>
+                        {models?.map((m) => (
+                          <a key={m.name} href={m.href} target="_blank" rel="noopener noreferrer" className={styles.modelPanel}>
+                            <span>{m.name}</span>
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6" /></svg>
+                          </a>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                )}
 
                 <div className={styles.actions}>
                   <Link href={localePath(locale, primaryHref || `/boats?make=${slug}`)} className="btn btn-gold">
-                    {t('brands_view_boats').replace('{brand}', short)}
+                    {ctaLabel || t('brands_view_boats').replace('{brand}', short)}
                   </Link>
                   {website && (
                     <a href={website} target="_blank" rel="noopener noreferrer" className="btn btn-outline">
