@@ -1,5 +1,6 @@
 import type { CollectionConfig } from 'payload'
 import { lexicalEditor } from '@payloadcms/richtext-lexical'
+import { SlateToLexicalFeature } from '@payloadcms/richtext-lexical/migrate'
 
 export const Boats: CollectionConfig = {
   slug: 'boats',
@@ -244,13 +245,20 @@ export const Boats: CollectionConfig = {
           name: 'description',
           type: 'richText',
           localized: true,
-          editor: lexicalEditor({}),
+          // SlateToLexicalFeature auto-converts legacy Slate-format data (from the
+          // WordPress import) to Lexical on read, so old boat records open without
+          // error. Safe to remove once every boat has been re-saved at least once.
+          editor: lexicalEditor({
+            features: ({ defaultFeatures }) => [...defaultFeatures, SlateToLexicalFeature()],
+          }),
         },
         {
           name: 'additional_notes',
           type: 'richText',
           localized: true,
-          editor: lexicalEditor({}),
+          editor: lexicalEditor({
+            features: ({ defaultFeatures }) => [...defaultFeatures, SlateToLexicalFeature()],
+          }),
         },
       ],
     },
