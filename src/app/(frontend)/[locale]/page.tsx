@@ -17,10 +17,11 @@ const BASE = 'https://www.algarveboatsales.com'
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
   const { locale: localeParam } = await params
   const locale = getLocaleFromParam(localeParam)
+  const t = getTranslations(locale)
   const canonical = locale === 'pt' ? `${BASE}/pt` : BASE
   return {
-    title: 'Algarve Boat Sales | Premium Boat Dealer in Lagos, Portugal',
-    description: 'Authorised dealer for GRAND, Yamarin, SPX RIB and Vanclaes in the Algarve. Browse new and used boats for sale, plus maintenance, storage and trailer services in Lagos.',
+    title: t('meta_home_title'),
+    description: t('meta_home_description'),
     alternates: {
       canonical,
       languages: hreflangAlternates(''),
@@ -229,6 +230,8 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
 
   return (
     <>
+      <h1 className="sr-only">{t('home_h1')}</h1>
+
       <section className={styles.hero}>
         <HeroCarousel slides={heroSlides} />
       </section>

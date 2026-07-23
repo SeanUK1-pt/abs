@@ -11,6 +11,7 @@ const inter = Inter({ subsets: ['latin'], variable: '--font-inter' })
 const sora = Sora({ subsets: ['latin'], weight: ['600', '700', '800'], variable: '--font-sora' })
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://www.algarveboatsales.com'),
   title: 'Algarve Boat Sales',
   description: 'Premium boat sales in the Algarve, Portugal',
 }

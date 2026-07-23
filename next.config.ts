@@ -20,6 +20,16 @@ const nextConfig: NextConfig = {
       { source: '/docks_trailers', destination: '/trailers', statusCode: 301 },
       { source: '/docks_trailers/', destination: '/trailers', statusCode: 301 },
 
+      // ─── Old listing index pages (individual /listings/<slug> entries below
+      //      already redirect to their specific /boats/<slug> equivalents —
+      //      these cover the bare index pages themselves) ─────────────────────
+      { source: '/listings', destination: '/boats', statusCode: 301 },
+      { source: '/listings/', destination: '/boats', statusCode: 301 },
+      { source: '/trailer-listings', destination: '/trailers', statusCode: 301 },
+      { source: '/trailer-listings/', destination: '/trailers', statusCode: 301 },
+      { source: '/vanclaes-trailer-configurator', destination: '/trailers/configurator', statusCode: 301 },
+      { source: '/vanclaes-trailer-configurator/', destination: '/trailers/configurator', statusCode: 301 },
+
       // ─── Old WooCommerce shop & category pages ───────────────────────────────
       { source: '/shop', destination: '/boats', statusCode: 301 },
       { source: '/shop/', destination: '/boats', statusCode: 301 },

@@ -18,6 +18,10 @@ const translations = {
     // Homepage
     hero_title: 'Your Boat,',
     hero_subtitle: 'Found in the Algarve',
+    home_h1: 'Boats for Sale in the Algarve',
+    boats_h1: 'New and Used Boats for Sale in the Algarve',
+    meta_home_title: 'Algarve Boat Sales | Premium Boat Dealer in Lagos, Portugal',
+    meta_home_description: 'Authorised dealer for GRAND, Yamarin, SPX RIB and Vanclaes in the Algarve. Browse new and used boats for sale, plus maintenance, storage and trailer services in Lagos.',
     hero_body: 'Authorised dealer for GRAND, Yamarin, and SPX RIB — backed by full servicing, storage, and brokerage from our marina office in Lagos.',
     hero_browse: 'Browse All Boats',
     hero_contact: 'Contact Us',
@@ -572,6 +576,10 @@ const translations = {
     // Homepage
     hero_title: 'Descubra o seu barco',
     hero_subtitle: 'no Algarve',
+    home_h1: 'Barcos à Venda no Algarve',
+    boats_h1: 'Barcos Novos e Usados à Venda no Algarve',
+    meta_home_title: 'Barcos à Venda no Algarve | Algarve Boat Sales',
+    meta_home_description: 'Concessionário autorizado GRAND, Yamarin, SPX RIB e Vanclaes no Algarve. Descubra barcos novos e usados, manutenção, armazenamento e reboques em Lagos.',
     hero_body: 'Concessionário autorizado GRAND, Yamarin e SPX RIB. Com serviços de manutenção completa, armazenamento e mediação a partir da nossa sede na marina de Lagos.',
     hero_browse: 'Ver Todos os Barcos',
     hero_contact: 'Contacte-nos',
