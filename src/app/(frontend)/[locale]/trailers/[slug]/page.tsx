@@ -8,6 +8,8 @@ import { getTranslations } from '@/lib/translations'
 import { hreflangAlternates } from '@/lib/localePath'
 import styles from './trailer.module.css'
 
+export const revalidate = 300
+
 export async function generateMetadata({ params }: { params: Promise<{ locale: string; slug: string }> }) {
   const { locale: localeParam, slug } = await params
   const locale = getLocaleFromParam(localeParam)
@@ -16,7 +18,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
     collection: 'trailers',
     where: { slug: { equals: slug } },
     limit: 1,
-    depth: 0,
+    depth: 1,
   })
   const trailer = docs[0]
   if (!trailer) return {}
@@ -24,11 +26,20 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   const canonical = locale === 'pt'
     ? `https://www.algarveboatsales.com/pt/trailers/${slug}`
     : `https://www.algarveboatsales.com/trailers/${slug}`
+  const mainImage = typeof trailer.main_image === 'object' ? trailer.main_image : null
+  const ogImage = mainImage?.url
+    ? (mainImage.url.startsWith('http') ? mainImage.url : `https://www.algarveboatsales.com${mainImage.url}`)
+    : undefined
   return {
     title,
     alternates: {
       canonical,
       languages: hreflangAlternates(`/trailers/${slug}`),
+    },
+    openGraph: {
+      title,
+      url: canonical,
+      images: ogImage ? [ogImage] : undefined,
     },
   }
 }

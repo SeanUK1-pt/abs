@@ -139,6 +139,8 @@ function buildJsonLd(boat: any, make: string, model: string, slug: string) {
   }
 }
 
+export const revalidate = 300
+
 export async function generateMetadata({ params }: { params: Promise<{ locale: string; slug: string }> }) {
   const { locale: localeParam, slug } = await params
   const locale = getLocaleFromParam(localeParam)
@@ -167,6 +169,9 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
     ? `https://www.algarveboatsales.com/pt/boats/${slug}`
     : `https://www.algarveboatsales.com/boats/${slug}`
 
+  const mainImage = typeof boat.main_image === 'object' ? boat.main_image : null
+  const ogImage = absoluteUrl(mainImage?.url)
+
   return {
     title,
     description,
@@ -174,7 +179,12 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
       canonical,
       languages: hreflangAlternates(`/boats/${slug}`),
     },
-    openGraph: { title, description, url: canonical },
+    openGraph: {
+      title,
+      description,
+      url: canonical,
+      images: ogImage ? [ogImage] : undefined,
+    },
   }
 }
 

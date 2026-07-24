@@ -34,6 +34,8 @@ const GENERAL_PRICING = [
   { size: 'Large', range: '> 7.50m / 24ft', indoorMonth: '315€', indoorAnnual: '2995€', outdoorMonth: '240€', outdoorAnnual: '2247€' },
 ]
 
+export const revalidate = 300
+
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
   const { locale: localeParam } = await params
   const locale = getLocaleFromParam(localeParam)

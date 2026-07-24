@@ -10,9 +10,12 @@ import { UpdateCard } from '@/components/ui/UpdateCard'
 import { getLocaleFromParam } from '@/lib/locale'
 import { getTranslations } from '@/lib/translations'
 import { localePath, hreflangAlternates } from '@/lib/localePath'
+import { getSiteSettings } from '@/lib/navigation'
 import styles from './home.module.css'
 
 const BASE = 'https://www.algarveboatsales.com'
+
+export const revalidate = 300
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
   const { locale: localeParam } = await params
@@ -220,16 +223,62 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
   const { locale: localeParam } = await params
   const locale = getLocaleFromParam(localeParam)
   const t = getTranslations(locale)
-  const [featured, latest, heroSlides, updates] = await Promise.all([
+  const [featured, latest, heroSlides, updates, siteSettings] = await Promise.all([
     getFeaturedBoats(locale),
     getLatestBoats(locale),
     getHeroSlides(locale, t),
     getUpdates(locale),
+    getSiteSettings(),
   ])
   const spotlight = toSpotlight(featured)
 
+  const sameAs = [
+    siteSettings?.facebook_url,
+    siteSettings?.instagram_url,
+    siteSettings?.youtube_url,
+  ].filter(Boolean)
+
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'LocalBusiness',
+    '@id': `${BASE}/#business`,
+    name: siteSettings?.site_name || 'Algarve Boat Sales',
+    url: BASE,
+    image: `${BASE}/media/general-hero-2.png`,
+    telephone: siteSettings?.contact_phone || '+351282045109',
+    email: siteSettings?.contact_email || 'info@algarveboatsales.com',
+    priceRange: '€€€',
+    address: {
+      '@type': 'PostalAddress',
+      streetAddress: 'Marina de Lagos, Loja 11',
+      addressLocality: 'Lagos',
+      postalCode: '8600-780',
+      addressRegion: 'Faro',
+      addressCountry: 'PT',
+    },
+    geo: {
+      '@type': 'GeoCoordinates',
+      latitude: 37.1024,
+      longitude: -8.6742,
+    },
+    // Matches the hours shown on /contact (contact_hours_value translation key)
+    openingHoursSpecification: {
+      '@type': 'OpeningHoursSpecification',
+      dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
+      opens: '09:00',
+      closes: '17:00',
+    },
+    areaServed: 'Algarve, Portugal',
+    ...(sameAs.length > 0 ? { sameAs } : {}),
+  }
+
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+
       <h1 className="sr-only">{t('home_h1')}</h1>
 
       <section className={styles.hero}>

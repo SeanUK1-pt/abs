@@ -157,6 +157,7 @@ const translations = {
 
     // Contact page
     contact_title: 'Get in Touch',
+    meta_contact_description: 'Contact Algarve Boat Sales at Marina de Lagos for new and used boat sales, servicing, storage and trailers. Call, WhatsApp or send an enquiry — we reply within hours.',
     contact_hero_sub: 'Visit us at Marina de Lagos or drop us a message',
     contact_details: 'Contact Details',
     contact_intro: "Our team is available Monday to Friday, 9am–5pm. We'll always do our best to get back to you quickly.",
@@ -715,6 +716,7 @@ const translations = {
 
     // Contact page
     contact_title: 'Entre em Contacto',
+    meta_contact_description: 'Contacte a Algarve Boat Sales na Marina de Lagos para venda de barcos novos e usados, manutenção, armazenamento e atrelados. Ligue, envie WhatsApp ou uma mensagem — respondemos em poucas horas.',
     contact_hero_sub: 'Visite-nos na Marina de Lagos ou envie-nos uma mensagem',
     contact_details: 'Contactos',
     contact_intro: 'A nossa equipa está disponível de segunda a sexta, das 9h às 17h. Faremos sempre o possível para responder rapidamente.',

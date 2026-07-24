@@ -79,6 +79,8 @@ function pickFeatureImg(name: string, map: Record<string, BrandImageData>) {
   return (key && map[key]?.featureImg) || null
 }
 
+export const revalidate = 300
+
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
   const { locale: localeParam } = await params
   const locale = getLocaleFromParam(localeParam)

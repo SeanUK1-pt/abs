@@ -5,12 +5,15 @@ import { getTranslations } from '@/lib/translations'
 import { hreflangAlternates } from '@/lib/localePath'
 import styles from './contact.module.css'
 
+export const revalidate = 300
+
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
   const { locale: localeParam } = await params
   const locale = getLocaleFromParam(localeParam)
   const t = getTranslations(locale)
   return {
     title: `${t('contact_title')} | Algarve Boat Sales`,
+    description: t('meta_contact_description'),
     alternates: {
       canonical: locale === 'pt' ? 'https://www.algarveboatsales.com/pt/contact' : 'https://www.algarveboatsales.com/contact',
       languages: hreflangAlternates('/contact'),

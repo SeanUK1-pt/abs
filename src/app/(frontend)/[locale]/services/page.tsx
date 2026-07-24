@@ -7,6 +7,8 @@ import { getTranslations } from '@/lib/translations'
 import { PageHero } from '@/components/ui/PageHero'
 import { localePath, hreflangAlternates } from '@/lib/localePath'
 
+export const revalidate = 300
+
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
   const { locale: localeParam } = await params
   const locale = getLocaleFromParam(localeParam)

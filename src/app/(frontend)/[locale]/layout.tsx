@@ -14,6 +14,13 @@ export const metadata: Metadata = {
   metadataBase: new URL('https://www.algarveboatsales.com'),
   title: 'Algarve Boat Sales',
   description: 'Premium boat sales in the Algarve, Portugal',
+  openGraph: {
+    // Default sitewide social-share image — inherited by any page that
+    // doesn't set its own openGraph.images (boat detail pages and
+    // boat-storage already override this with a more specific image).
+    images: ['/media/general-hero-2.png'],
+    siteName: 'Algarve Boat Sales',
+  },
 }
 
 export default async function RootLayout({
