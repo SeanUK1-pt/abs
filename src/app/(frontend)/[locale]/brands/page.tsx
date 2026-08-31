@@ -136,7 +136,7 @@ export default async function BrandsPage({ params }: { params: Promise<{ locale:
       origin: 'USA',
       category: 'Wakesurf / Wakeboard / Ski',
       website: 'https://mastercraft.com',
-      primaryHref: '/contact',
+      primaryHref: '/contact?subject=mastercraft',
       ctaLabel: t('brands_enquire_mastercraft'),
       dark: true,
       detailHref: '/brands/mastercraft',

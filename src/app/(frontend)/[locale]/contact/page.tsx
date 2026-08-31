@@ -21,10 +21,25 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   }
 }
 
-export default async function ContactPage({ params }: { params: Promise<{ locale: string }> }) {
+export default async function ContactPage({
+  params,
+  searchParams,
+}: {
+  params: Promise<{ locale: string }>
+  searchParams: Promise<{ subject?: string }>
+}) {
   const { locale: localeParam } = await params
   const locale = getLocaleFromParam(localeParam)
+  const { subject } = await searchParams
   const t = getTranslations(locale)
+
+  const isMastercraft = subject === 'mastercraft'
+  const enquiryTitle = isMastercraft
+    ? 'MasterCraft'
+    : (locale === 'pt' ? 'Consulta Geral' : 'General Enquiry')
+  const formTitle = isMastercraft
+    ? (locale === 'pt' ? 'Pedido de Informação — MasterCraft' : 'MasterCraft Enquiry')
+    : t('contact_form_title')
 
   return (
     <>
@@ -103,10 +118,10 @@ export default async function ContactPage({ params }: { params: Promise<{ locale
 
           <div className={styles.formWrap}>
             <div className={styles.formCard}>
-              <h2>{t('contact_form_title')}</h2>
+              <h2>{formTitle}</h2>
               <p>{t('contact_form_sub')}</p>
               <EnquiryForm
-                listingTitle={locale === 'pt' ? 'Consulta Geral' : 'General Enquiry'}
+                listingTitle={enquiryTitle}
                 listingType="general"
                 locale={locale}
               />

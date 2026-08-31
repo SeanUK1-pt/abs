@@ -113,7 +113,7 @@ export default async function MastercraftPage({ params }: { params: Promise<{ lo
             </div>
 
             <div className={styles.actions}>
-              <Link href={localePath(locale, '/contact')} className="btn btn-gold">
+              <Link href={localePath(locale, '/contact?subject=mastercraft')} className="btn btn-gold">
                 {t('brands_enquire_mastercraft')}
               </Link>
               <a href="https://mastercraft.com" target="_blank" rel="noopener noreferrer" className="btn btn-outline-white">
