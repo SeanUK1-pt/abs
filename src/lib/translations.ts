@@ -50,10 +50,12 @@ const translations = {
     hero_brand_grand_title: 'GRAND BOATS',
     hero_brand_yamarin_title: 'YAMARIN BOATS',
     hero_brand_vanclaes_title: 'VANCLAES TRAILERS',
+    hero_brand_mastercraft_title: 'MASTERCRAFT',
     hero_brand_grand_msg: 'Premium fibreglass RIBs with superior build quality, crafted in Europe.',
     hero_brand_yamarin_msg: 'Finnish-built bowriders and day cruisers, engineered for real seas since 1969.',
     hero_brand_spx_msg: 'Sicilian-designed luxury RIBs where Italian style meets serious performance.',
     hero_brand_vanclaes_msg: "Europe's premier stainless-steel boat trailers, built to last a lifetime.",
+    hero_brand_mastercraft_msg: 'Your Algarve MasterCraft dealer — the benchmark in performance wakesurf and wakeboard boats.',
     hero_brokerage_eyebrow: 'More Than Sales',
     hero_brokerage_title: 'Brokerage, Service & Storage',
     hero_brokerage_msg: "We don't just sell boats. Our Lagos team also handles brokerage, full servicing, and secure indoor winter storage.",
@@ -382,8 +384,8 @@ const translations = {
     svc4_f3: 'Insurance referrals',
 
     // Brands page - UI
-    brands_page_title: 'Exclusive Brands',
-    brands_page_subtitle: "Authorised dealer for the world's finest boat manufacturers",
+    brands_page_title: 'Our Brands',
+    brands_page_subtitle: "Authorised dealer for some of the world's best boat manufacturers",
     brands_page_intro: 'We handpick the brands we represent — every manufacturer in our portfolio has been chosen for their commitment to quality, innovation, and after-sales support. As the authorised Algarve dealer for each brand, we offer factory-direct ordering, warranty support, and genuine parts.',
     brands_model_ranges: 'Model ranges',
     brands_model_range: 'Model range',
@@ -436,6 +438,22 @@ const translations = {
     brand_vanclaes_m0_name: 'Rib Marine Wave 1350',
     brand_vanclaes_m1_name: 'Rib Marine Wave 1800',
     brand_vanclaes_m2_name: 'Rib Marine Wave 2750',
+
+    // Brands page - MasterCraft
+    brand_mastercraft_desc: "MasterCraft is the benchmark in performance wakesurf, wakeboard and ski boats, built on a legacy of industry firsts and its own SurfStar wave technology. Algarve Boat Sales is proud to be an authorised MasterCraft dealer in Portugal for the Algarve. The current line-up spans three families — X, XT and NXT — from flagship performance to easy, approachable ownership.",
+    brand_mastercraft_highlight: 'The American benchmark in wakesurf, wakeboard and ski boats',
+    brand_mastercraft_x_name: 'X Family',
+    brand_mastercraft_x_blurb: 'Flagship towboats built for serious surf, with refined style and power.',
+    brand_mastercraft_xt_name: 'XT Family',
+    brand_mastercraft_xt_blurb: 'Athletic, versatile towboats from 20–24ft, with class-leading surf performance.',
+    brand_mastercraft_nxt_name: 'NXT Family',
+    brand_mastercraft_nxt_blurb: 'Effortless ownership and best-in-class waves, built for easy summer fun.',
+    brands_enquire_mastercraft: 'Enquire About MasterCraft',
+    mastercraft_page_h1: 'MasterCraft Portugal',
+    mastercraft_page_subtitle: 'Your Algarve MasterCraft Dealer',
+    meta_mastercraft_title: 'MasterCraft Portugal | Algarve MasterCraft Dealer | Algarve Boat Sales',
+    meta_mastercraft_description: 'Algarve Boat Sales is your authorised MasterCraft dealer in the Algarve, Portugal. Explore the X, XT and NXT families and enquire with our Lagos-based team.',
+    mastercraft_back_to_brands: '← Back to all brands',
 
     // Yamaha partnership section
     yamaha_eyebrow: 'Our Engine Partner',
@@ -609,10 +627,12 @@ const translations = {
     hero_brand_grand_title: 'Barcos GRAND',
     hero_brand_yamarin_title: 'Barcos Yamarin',
     hero_brand_vanclaes_title: 'Atrelados Vanclaes',
+    hero_brand_mastercraft_title: 'MASTERCRAFT',
     hero_brand_grand_msg: 'Semirrígidos de luxos provenientes da Ucrânia, fabricados com matérias de alta qualidade.',
     hero_brand_yamarin_msg: 'Embarcações em fibra de origem Finlandesa, construídos para aguentar as condições traiçoeiras do mar e, ao mesmo tempo, proporcionar uma sensação de luxo a bordo.',
     hero_brand_spx_msg: 'Semirrígidos luxuosos de fabrico na Siciliano. Com a promessa de combinar o desempenho, o conforto e o luxo num só barco.',
     hero_brand_vanclaes_msg: 'Os melhores atrelados em aço inoxidável da Europa, construídos à medida do seu barco. Considerados um investimento que durará uma vida.',
+    hero_brand_mastercraft_msg: 'O seu concessionário MasterCraft no Algarve — a referência em barcos de desempenho de wakesurf e wakeboard.',
     hero_brokerage_eyebrow: 'Mais do que Vendas',
     hero_brokerage_title: 'Mediação, Manutenção e Armazenamento',
     hero_brokerage_msg: 'Não vendemos apenas barcos. A nossa equipa trata também da mediação, manutenção e armazenamento da sua embarcação.',
@@ -941,8 +961,8 @@ const translations = {
     svc4_f3: 'Referências para seguros',
 
     // Brands page - UI
-    brands_page_title: 'Marcas Exclusivas',
-    brands_page_subtitle: 'Concessionário autorizado dos melhores fabricantes de barcos do mundo',
+    brands_page_title: 'As Nossas Marcas',
+    brands_page_subtitle: 'Concessionário autorizado de alguns dos melhores fabricantes de barcos do mundo',
     brands_page_intro: 'Selecionamos cuidadosamente as marcas que representamos. Cada fabricante da nossa carteira foi escolhido pelo seu compromisso com a qualidade, inovação e apoio pós-venda. Como concessionário autorizado no Algarve para cada marca, oferecemos encomendas diretas de fábrica, apoio em garantia e peças genuínas.',
     brands_model_ranges: 'Gamas de modelos',
     brands_model_range: 'Gama de modelos',
@@ -995,6 +1015,22 @@ const translations = {
     brand_vanclaes_m0_name: 'Rib Marine Wave 1350',
     brand_vanclaes_m1_name: 'Rib Marine Wave 1800',
     brand_vanclaes_m2_name: 'Rib Marine Wave 2750',
+
+    // Brands page - MasterCraft
+    brand_mastercraft_desc: 'A MasterCraft é a referência em barcos de desempenho de wakesurf, wakeboard e ski, construída sobre uma herança de inovações pioneiras e a sua tecnologia própria de ondas, a SurfStar. A Algarve Boat Sales orgulha-se de ser concessionário autorizado MasterCraft em Portugal, para o Algarve. A gama atual abrange três famílias — X, XT e NXT — desde desempenho topo de gama até uma propriedade simples e acessível.',
+    brand_mastercraft_highlight: 'A referência americana em barcos de wakesurf, wakeboard e ski',
+    brand_mastercraft_x_name: 'Família X',
+    brand_mastercraft_x_blurb: 'Barcos topo de gama para surf a sério, com estilo e potência refinados.',
+    brand_mastercraft_xt_name: 'Família XT',
+    brand_mastercraft_xt_blurb: 'Barcos versáteis e desportivos de 20 a 24 pés, com um desempenho de surf de topo.',
+    brand_mastercraft_nxt_name: 'Família NXT',
+    brand_mastercraft_nxt_blurb: 'Propriedade sem complicações e ondas de topo, feitos para o verão.',
+    brands_enquire_mastercraft: 'Pedir Informações sobre a MasterCraft',
+    mastercraft_page_h1: 'MasterCraft Portugal',
+    mastercraft_page_subtitle: 'O Seu Concessionário MasterCraft no Algarve',
+    meta_mastercraft_title: 'MasterCraft Portugal | Concessionário MasterCraft no Algarve | Algarve Boat Sales',
+    meta_mastercraft_description: 'A Algarve Boat Sales é o seu concessionário autorizado MasterCraft no Algarve, Portugal. Descubra as famílias X, XT e NXT e contacte a nossa equipa em Lagos.',
+    mastercraft_back_to_brands: '← Voltar a todas as marcas',
 
     // Yamaha partnership section
     yamaha_eyebrow: 'O Nosso Parceiro de Motores',

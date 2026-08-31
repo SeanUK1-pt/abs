@@ -32,6 +32,8 @@ type Brand = {
   primaryHref?: string
   ctaLabel?: string
   hideModelRange?: boolean
+  dark?: boolean
+  detailHref?: string
 }
 
 const BRAND_KEYS = ['grand', 'yamarin', 'spx', 'vanclaes']
@@ -86,7 +88,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   const locale = getLocaleFromParam(localeParam)
   const page = await getPageData('brands', locale)
   return {
-    title: page?.title ? `${page.title} | Algarve Boat Sales` : 'Exclusive Brands | Algarve Boat Sales',
+    title: page?.title ? `${page.title} | Algarve Boat Sales` : 'Our Brands | Algarve Boat Sales',
     description: page?.meta_description || 'Authorised Algarve dealer for GRAND, Yamarin, SPX RIB and Vanclaes.',
     alternates: {
       canonical: locale === 'pt' ? 'https://www.algarveboatsales.com/pt/brands' : 'https://www.algarveboatsales.com/brands',
@@ -124,6 +126,27 @@ export default async function BrandsPage({ params }: { params: Promise<{ locale:
         { name: t('brand_grand_r0_name'), blurb: t('brand_grand_r0_blurb'), href: 'https://grandboats.com/en/golden-line-3' },
         { name: t('brand_grand_r1_name'), blurb: t('brand_grand_r1_blurb'), href: 'https://grandboats.com/en/silver-line-4' },
         { name: t('brand_grand_r2_name'), blurb: t('brand_grand_r2_blurb'), href: 'https://grandboats.com/en/drive-line-5' },
+      ],
+    },
+    {
+      name: 'MasterCraft',
+      short: 'MasterCraft',
+      slug: 'mastercraft',
+      logo: '/media/mastercraft-logo.png',
+      origin: 'USA',
+      category: 'Wakesurf / Wakeboard / Ski',
+      website: 'https://mastercraft.com',
+      primaryHref: '/contact',
+      ctaLabel: t('brands_enquire_mastercraft'),
+      dark: true,
+      detailHref: '/brands/mastercraft',
+      heroImg: '/media/mastercraft-x-hero.webp',
+      description: t('brand_mastercraft_desc'),
+      highlight: t('brand_mastercraft_highlight'),
+      ranges: [
+        { name: t('brand_mastercraft_x_name'), blurb: t('brand_mastercraft_x_blurb'), href: 'https://mastercraft.com/boats/x/' },
+        { name: t('brand_mastercraft_xt_name'), blurb: t('brand_mastercraft_xt_blurb'), href: 'https://mastercraft.com/boats/xt/' },
+        { name: t('brand_mastercraft_nxt_name'), blurb: t('brand_mastercraft_nxt_blurb'), href: 'https://mastercraft.com/boats/nxt/' },
       ],
     },
     {
@@ -202,8 +225,8 @@ export default async function BrandsPage({ params }: { params: Promise<{ locale:
         </section>
 
         <div className={styles.brands}>
-          {BRANDS.map(({ name, short, slug, logo, origin, category, description, models, ranges, feature, highlight, heroImg, website, yamahaPowered, primaryHref, ctaLabel, hideModelRange }) => (
-            <article key={name} id={slug} className={styles.brand}>
+          {BRANDS.map(({ name, short, slug, logo, origin, category, description, models, ranges, feature, highlight, heroImg, website, yamahaPowered, primaryHref, ctaLabel, hideModelRange, dark, detailHref }) => (
+            <article key={name} id={slug} className={`${styles.brand} ${dark ? styles.brandDark : ''}`}>
               <div className={styles.media}>
                 <BrandCarousel images={pickBrandImages(name, heroImg, imagesByBrand)} name={name} fill />
                 {yamahaPowered && (
@@ -228,7 +251,11 @@ export default async function BrandsPage({ params }: { params: Promise<{ locale:
                   </div>
                 </div>
 
-                <h2 className={styles.name}>{name}</h2>
+                <h2 className={styles.name}>
+                  {detailHref ? (
+                    <Link href={localePath(locale, detailHref)}>{name}</Link>
+                  ) : name}
+                </h2>
                 <p className={styles.highlight}>{highlight}</p>
                 <p className={styles.desc}>{description}</p>
 
@@ -283,7 +310,7 @@ export default async function BrandsPage({ params }: { params: Promise<{ locale:
                     {ctaLabel || t('brands_view_boats').replace('{brand}', short)}
                   </Link>
                   {website && (
-                    <a href={website} target="_blank" rel="noopener noreferrer" className="btn btn-outline">
+                    <a href={website} target="_blank" rel="noopener noreferrer" className={`btn ${dark ? 'btn-outline-white' : 'btn-outline'}`}>
                       {t('brands_visit_website')}
                     </a>
                   )}

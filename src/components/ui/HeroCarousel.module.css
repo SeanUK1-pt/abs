@@ -19,6 +19,20 @@
   visibility: visible;
 }
 
+/* Dedicated clipping boundary around just the zoomed image, separate from
+   .content (the text block). The Ken Burns animation below scales the image
+   14% past its box; without this own overflow:hidden + isolated stacking
+   context, that overflow could bleed into how the browser clips/paints the
+   sibling .content block, visible as the copy being cut off on the left
+   edge (most noticeable on mobile, where the overflow is proportionally
+   larger relative to the viewport). */
+.imgWrap {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  isolation: isolate;
+}
+
 .img {
   object-fit: cover;
   object-position: center;
@@ -31,6 +45,7 @@
   /* Safety net for manual nav (arrows/dots) interrupting the animation
      before it naturally finishes — smooths the jump instead of snapping. */
   transition: transform 0.6s ease;
+  will-change: transform;
 }
 
 /* Slow cinematic push-in on whichever slide is active. fill-mode:both applies

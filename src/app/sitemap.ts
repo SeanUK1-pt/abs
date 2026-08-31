@@ -22,6 +22,7 @@ const STATIC_ENTRIES: StaticEntry[] = [
   { path: '',                     changeFrequency: 'weekly',  priority: 1.0 },
   { path: '/boats',               changeFrequency: 'daily',   priority: 0.9 },
   { path: '/brands',              changeFrequency: 'monthly', priority: 0.8, pageSlug: 'brands' },
+  { path: '/brands/mastercraft',  changeFrequency: 'monthly', priority: 0.7 },
   { path: '/trailers',            changeFrequency: 'weekly',  priority: 0.8 },
   { path: '/trailers/configurator', changeFrequency: 'monthly', priority: 0.6 },
   { path: '/services',            changeFrequency: 'monthly', priority: 0.7, pageSlug: 'services' },

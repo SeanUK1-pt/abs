@@ -46,18 +46,20 @@ export function HeroCarousel({ slides }: { slides: HeroSlide[] }) {
           className={`${styles.slide} ${i === active ? styles.slideActive : ''}`}
           aria-hidden={i !== active}
         >
-          {slide.src ? (
-            <Image
-              src={slide.src}
-              alt={slide.alt || slide.title}
-              fill
-              className={styles.img}
-              priority={i === 0}
-              sizes="100vw"
-            />
-          ) : (
-            <div className={styles.imgFallback} aria-hidden="true" />
-          )}
+          <div className={styles.imgWrap}>
+            {slide.src ? (
+              <Image
+                src={slide.src}
+                alt={slide.alt || slide.title}
+                fill
+                className={styles.img}
+                priority={i === 0}
+                sizes="100vw"
+              />
+            ) : (
+              <div className={styles.imgFallback} aria-hidden="true" />
+            )}
+          </div>
           <div className={`${styles.overlay} ${slide.variant === 'intro' ? styles.overlayIntro : ''}`} />
 
           <div className={`container ${styles.content}`}>

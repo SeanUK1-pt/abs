@@ -100,10 +100,11 @@ async function getHeroSlides(locale: string, t: ReturnType<typeof getTranslation
   }
   const findMake = (key: string) => makes.find((m) => (m.name || '').toLowerCase().includes(key))
 
-  const HERO_BRANDS: { key: string; label: string; displayTitle: string; msgKey: any; fallbackImg: string; cmsFirst?: boolean; trailers?: boolean }[] = [
+  const HERO_BRANDS: { key: string; label: string; displayTitle: string; msgKey: any; fallbackImg: string; cmsFirst?: boolean; trailers?: boolean; hrefOverride?: string }[] = [
     { key: 'grand', label: 'GRAND', displayTitle: t('hero_brand_grand_title'), msgKey: 'hero_brand_grand_msg', fallbackImg: '/media/hero-grand.png' },
-    { key: 'yamarin', label: 'Yamarin', displayTitle: t('hero_brand_yamarin_title'), msgKey: 'hero_brand_yamarin_msg', fallbackImg: '/media/yamarin_hero-scaled.jpg', cmsFirst: true },
+    { key: 'mastercraft', label: 'MasterCraft', displayTitle: t('hero_brand_mastercraft_title'), msgKey: 'hero_brand_mastercraft_msg', fallbackImg: '/media/mastercraft-x-hero.webp', hrefOverride: '/brands#mastercraft' },
     { key: 'spx', label: 'SPX RIB', displayTitle: 'SPX BOATS', msgKey: 'hero_brand_spx_msg', fallbackImg: '/media/hero-spx.png' },
+    { key: 'yamarin', label: 'Yamarin', displayTitle: t('hero_brand_yamarin_title'), msgKey: 'hero_brand_yamarin_msg', fallbackImg: '/media/yamarin_hero-scaled.jpg', cmsFirst: true },
     { key: 'vanclaes', label: 'Vanclaes', displayTitle: t('hero_brand_vanclaes_title'), msgKey: 'hero_brand_vanclaes_msg', fallbackImg: '/media/vanclaes-hero.png', trailers: true },
   ]
 
@@ -111,8 +112,8 @@ async function getHeroSlides(locale: string, t: ReturnType<typeof getTranslation
 
   slides.push({
     variant: 'intro',
-    src: '/media/general-hero-2.png',
-    alt: 'Boats for sale in the Algarve',
+    src: '/media/general-hero-3.jpg',
+    alt: 'A GRAND RIB underway in the Algarve',
     title: t('hero_title'),
     titleAccent: t('hero_subtitle'),
     message: t('hero_body'),
@@ -125,7 +126,7 @@ async function getHeroSlides(locale: string, t: ReturnType<typeof getTranslation
   for (const brand of HERO_BRANDS) {
     const mk = findMake(brand.key)
     const logo = mk && typeof mk.logo === 'object' ? mk.logo?.url : null
-    const rawHref = brand.trailers ? '/trailers' : mk?.slug ? `/boats?make=${mk.slug}` : '/boats'
+    const rawHref = brand.hrefOverride || (brand.trailers ? '/trailers' : mk?.slug ? `/boats?make=${mk.slug}` : '/boats')
     slides.push({
       variant: 'brand',
       src: brand.cmsFirst ? (imageFor(brand.key) || brand.fallbackImg) : brand.fallbackImg,
