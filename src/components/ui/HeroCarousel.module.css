@@ -154,6 +154,13 @@
   filter: drop-shadow(0 2px 14px rgba(0, 0, 0, 0.55));
 }
 
+/* For logos that only ship as solid black on transparent (e.g. MasterCraft's
+   wordmark) — inverts to white so it reads against the hero's dark scrim,
+   same treatment used on the dark brand card on /brands. */
+.logoInvert {
+  filter: invert(1) brightness(1.6) drop-shadow(0 2px 14px rgba(0, 0, 0, 0.35));
+}
+
 .srTitle {
   position: absolute;
   width: 1px;

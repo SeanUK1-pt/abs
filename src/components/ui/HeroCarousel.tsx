@@ -11,6 +11,9 @@ export type HeroSlide = {
   alt?: string
   eyebrow?: string
   logoSrc?: string | null
+  /** Invert a solid-black logo to white — for logos with no light variant
+      of their own, shown over the hero's dark scrim/photo background. */
+  logoInvert?: boolean
   title: string
   titleAccent?: string
   message?: string
@@ -68,7 +71,11 @@ export function HeroCarousel({ slides }: { slides: HeroSlide[] }) {
 
               {slide.logoSrc ? (
                 // eslint-disable-next-line @next/next/no-img-element
-                <img src={slide.logoSrc} alt={slide.title} className={styles.logo} />
+                <img
+                  src={slide.logoSrc}
+                  alt={slide.title}
+                  className={`${styles.logo} ${slide.logoInvert ? styles.logoInvert : ''}`}
+                />
               ) : (
                 <h2 className={styles.title}>
                   {slide.title}
