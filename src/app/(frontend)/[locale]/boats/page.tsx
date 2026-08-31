@@ -153,7 +153,7 @@ export default async function BoatsPage({
 
   return (
     <div className="container py-8">
-      <h1 className="sr-only">{t('boats_h1')}</h1>
+      <h1 className={styles.pageTitle}>{t('boats_h1')}</h1>
       <div className={styles.page}>
         {/* ── Sidebar ──────────────────────── */}
         <aside className={styles.sidebar}>
