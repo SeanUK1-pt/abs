@@ -69,7 +69,7 @@ async function getUpdates(locale: string) {
   const { docs } = await payload.find({
     collection: 'updates',
     where: { published: { equals: true } },
-    limit: 4,
+    limit: 6,
     sort: '-publish_date',
     locale: locale as any,
     depth: 1,
