@@ -2,14 +2,58 @@ import { NextRequest, NextResponse } from 'next/server'
 import { getPayload } from 'payload'
 import config from '@payload-config'
 
+const MIN_FILL_MS = 3000
+const RATE_WINDOW_MS = 10 * 60 * 1000
+const RATE_MAX = 3
+const hits = new Map<string, number[]>()
+
+function rateLimited(ip: string): boolean {
+  const now = Date.now()
+  const recent = (hits.get(ip) || []).filter(t => now - t < RATE_WINDOW_MS)
+  recent.push(now)
+  hits.set(ip, recent)
+  if (hits.size > 5000) {
+    for (const [k, v] of hits) if (v.every(t => now - t >= RATE_WINDOW_MS)) hits.delete(k)
+  }
+  return recent.length > RATE_MAX
+}
+
+function esc(s: string): string {
+  return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;')
+}
+
+function looksLikeSpam(name: string, message: string): boolean {
+  const links = (message.match(/https?:\/\/|www\./gi) || []).length
+  if (links > 3) return true
+  if (/https?:\/\/|www\./i.test(name)) return true
+  return false
+}
+
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json()
-    const { name, email, phone, message, contact_method, listing_title, listing_type, listing_id } = body
+    const { name, email, phone, message, contact_method, listing_title, listing_type, listing_id, website, ts } = body
 
-    if (!name || !email || !message) {
+    // Bots fill the hidden honeypot or submit instantly. Pretend success so they don't adapt.
+    const tooFast = typeof ts === 'number' ? Date.now() - ts < MIN_FILL_MS : true
+    if (website || tooFast) return NextResponse.json({ success: true })
+
+    if (typeof name !== 'string' || typeof email !== 'string' || typeof message !== 'string' || !name || !email || !message) {
       return NextResponse.json({ error: 'Missing required fields' }, { status: 400 })
     }
+    if (name.length > 100 || email.length > 200 || message.length > 3000 || String(phone || '').length > 40) {
+      return NextResponse.json({ error: 'Invalid input' }, { status: 400 })
+    }
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      return NextResponse.json({ error: 'Invalid email' }, { status: 400 })
+    }
+
+    const ip = (req.headers.get('x-forwarded-for') || '').split(',')[0].trim() || 'unknown'
+    if (rateLimited(ip)) {
+      return NextResponse.json({ error: 'Too many requests' }, { status: 429 })
+    }
+
+    if (looksLikeSpam(name, message)) return NextResponse.json({ success: true })
 
     const payload = await getPayload({ config })
 
@@ -39,19 +83,19 @@ export async function POST(req: NextRequest) {
 
         await transporter.sendMail({
           from: `Sales Website <${process.env.SMTP_FROM || process.env.SMTP_USER}>`,
-          replyTo: `${name} <${email}>`,
+          replyTo: `${name.replace(/[\r\n<>"]/g, '')} <${email}>`,
           to: process.env.CONTACT_EMAIL,
-          subject: `New Enquiry: ${listing_title || 'General'}`,
+          subject: `New Enquiry: ${String(listing_title || 'General').replace(/[\r\n]/g, ' ')}`,
           html: `
             <h2>New Boat Enquiry</h2>
-            <p><strong>Listing:</strong> ${listing_title || 'General'}</p>
-            <p><strong>Name:</strong> ${name}</p>
-            <p><strong>Email:</strong> ${email}</p>
-            <p><strong>Phone:</strong> ${phone || 'Not provided'}</p>
-            <p><strong>Preferred Contact:</strong> ${contact_method}</p>
+            <p><strong>Listing:</strong> ${esc(String(listing_title || 'General'))}</p>
+            <p><strong>Name:</strong> ${esc(name)}</p>
+            <p><strong>Email:</strong> ${esc(email)}</p>
+            <p><strong>Phone:</strong> ${esc(String(phone || 'Not provided'))}</p>
+            <p><strong>Preferred Contact:</strong> ${esc(String(contact_method || 'email'))}</p>
             <hr/>
             <p><strong>Message:</strong></p>
-            <p>${message.replace(/\n/g, '<br/>')}</p>
+            <p>${esc(message).replace(/\n/g, '<br/>')}</p>
           `,
         })
       } catch (emailErr) {

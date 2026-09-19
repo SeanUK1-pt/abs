@@ -8,7 +8,7 @@ export const Enquiries: CollectionConfig = {
     description: 'Enquiries submitted via listing pages',
   },
   access: {
-    create: () => true,
+    create: ({ req }) => !!req.user,
     read: ({ req }) => !!req.user,
     update: ({ req }) => !!req.user,
     delete: ({ req }) => !!req.user,

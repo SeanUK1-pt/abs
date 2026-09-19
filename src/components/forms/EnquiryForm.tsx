@@ -25,6 +25,8 @@ export function EnquiryForm({ listingTitle, listingType, listingId, locale = 'en
     contact_method: 'email',
   })
   const [status, setStatus] = useState<'idle' | 'sending' | 'sent' | 'error'>('idle')
+  const [website, setWebsite] = useState('')
+  const [renderedAt] = useState(() => Date.now())
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
@@ -33,7 +35,7 @@ export function EnquiryForm({ listingTitle, listingType, listingId, locale = 'en
       const res = await fetch('/api/enquire', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ ...form, listing_title: listingTitle, listing_type: listingType, listing_id: listingId }),
+        body: JSON.stringify({ ...form, listing_title: listingTitle, listing_type: listingType, listing_id: listingId, website, ts: renderedAt }),
       })
       if (!res.ok) throw new Error('Failed')
       setStatus('sent')
@@ -52,6 +54,10 @@ export function EnquiryForm({ listingTitle, listingType, listingId, locale = 'en
 
   return (
     <form onSubmit={handleSubmit} className={styles.form}>
+      <div aria-hidden="true" style={{ position: 'absolute', left: '-10000px', width: 1, height: 1, overflow: 'hidden' }}>
+        <input type="text" name="website" tabIndex={-1} autoComplete="off" value={website} onChange={e => setWebsite(e.target.value)} />
+      </div>
+
       <div className={styles.field}>
         <input
           type="text"
