@@ -29,10 +29,31 @@ function looksLikeSpam(name: string, message: string): boolean {
   return false
 }
 
+async function verifyTurnstile(token: unknown, ip: string): Promise<boolean> {
+  const secret = process.env.TURNSTILE_SECRET_KEY
+  if (!secret) {
+    console.warn('TURNSTILE_SECRET_KEY not set — skipping CAPTCHA verification')
+    return true
+  }
+  if (typeof token !== 'string' || !token) return false
+  try {
+    const res = await fetch('https://challenges.cloudflare.com/turnstile/v0/siteverify', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: new URLSearchParams({ secret, response: token, ...(ip !== 'unknown' ? { remoteip: ip } : {}) }),
+    })
+    const data = await res.json()
+    return data.success === true
+  } catch (e) {
+    console.error('Turnstile verify failed:', e)
+    return false
+  }
+}
+
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json()
-    const { name, email, phone, message, contact_method, listing_title, listing_type, listing_id, website, ts } = body
+    const { name, email, phone, message, contact_method, listing_title, listing_type, listing_id, website, ts, turnstile_token } = body
 
     // Bots fill the hidden honeypot or submit instantly. Pretend success so they don't adapt.
     const tooFast = typeof ts === 'number' ? Date.now() - ts < MIN_FILL_MS : true
@@ -51,6 +72,10 @@ export async function POST(req: NextRequest) {
     const ip = (req.headers.get('x-forwarded-for') || '').split(',')[0].trim() || 'unknown'
     if (rateLimited(ip)) {
       return NextResponse.json({ error: 'Too many requests' }, { status: 429 })
+    }
+
+    if (!(await verifyTurnstile(turnstile_token, ip))) {
+      return NextResponse.json({ error: 'CAPTCHA failed' }, { status: 400 })
     }
 
     if (looksLikeSpam(name, message)) return NextResponse.json({ success: true })
