@@ -50,6 +50,8 @@ export function EnquiryForm({ listingTitle, listingType, listingId, locale = 'en
       widgetId.current = window.turnstile.render(tsRef.current, {
         sitekey: TURNSTILE_SITE_KEY,
         language: locale === 'pt' ? 'pt' : 'en',
+        theme: 'dark',
+        appearance: 'interaction-only',
         callback: (t: string) => setToken(t),
         'expired-callback': () => setToken(''),
         'error-callback': () => setToken(''),
