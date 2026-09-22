@@ -1,4 +1,8 @@
 import { type NextRequest, NextResponse } from 'next/server'
+import { localePath } from '@/lib/localePath'
+import { LEGACY_REDIRECTS } from '@/lib/legacyRedirects'
+
+const LEGACY_MAP = new Map(LEGACY_REDIRECTS.map(r => [r.from, r.to]))
 
 function isExcluded(pathname: string): boolean {
   return (
@@ -13,10 +17,39 @@ function isExcluded(pathname: string): boolean {
   )
 }
 
+// Strip a /pt-pt, /pt, or /en prefix (if present) so legacy paths can be
+// matched regardless of which locale prefix the old URL was requested under.
+function stripLocalePrefix(pathname: string): { locale: 'en' | 'pt'; bare: string } {
+  if (/^\/pt-pt(\/|$)/i.test(pathname)) {
+    return { locale: 'pt', bare: pathname.replace(/^\/pt-pt/i, '') || '/' }
+  }
+  if (/^\/pt(\/|$)/i.test(pathname)) {
+    return { locale: 'pt', bare: pathname.replace(/^\/pt/i, '') || '/' }
+  }
+  if (/^\/en(\/|$)/i.test(pathname)) {
+    return { locale: 'en', bare: pathname.replace(/^\/en/i, '') || '/' }
+  }
+  return { locale: 'en', bare: pathname }
+}
+
 export function middleware(req: NextRequest) {
   const { pathname } = req.nextUrl
 
   if (isExcluded(pathname)) return NextResponse.next()
+
+  // ── Legacy WordPress/WooCommerce URLs — single-hop redirect straight to the
+  //    locale-appropriate destination, regardless of which prefix (none,
+  //    /pt, /pt-pt, /en) the old URL is requested under. Checked before the
+  //    locale-normalization rules below so a /pt-pt/listings/... URL doesn't
+  //    redirect twice (once to /pt/listings/..., then again to /pt/boats/...).
+  const { locale, bare } = stripLocalePrefix(pathname)
+  const normalizedBare = bare.length > 1 ? bare.replace(/\/+$/, '') : bare
+  const legacyDest = LEGACY_MAP.get(normalizedBare)
+  if (legacyDest) {
+    const destUrl = new URL(localePath(locale, legacyDest), req.url)
+    if (req.nextUrl.search) destUrl.search = req.nextUrl.search
+    return NextResponse.redirect(destUrl, 301)
+  }
 
   // Normalize /pt-pt/* → /pt/*
   if (/^\/pt-pt(\/|$)/i.test(pathname)) {
