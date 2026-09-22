@@ -20,6 +20,7 @@ const translations = {
     hero_subtitle: 'Found in the Algarve',
     home_h1: 'Boats for Sale in the Algarve',
     boats_h1: 'New and Used Boats for Sale in the Algarve',
+    boats_intro: 'Browse our full range of new and used boats for sale in Lagos and throughout the Algarve — RIBs, bowriders, day cruisers and more — with viewings and sea trials available by appointment.',
     meta_home_title: 'Algarve Boat Sales | Premium Boat Dealer in Lagos, Portugal',
     meta_home_description: 'Authorised dealer for GRAND, Yamarin, SPX RIB, MasterCraft and Vanclaes in the Algarve. Browse new and used boats for sale, plus maintenance, storage and trailer services in Lagos.',
     hero_body: 'Authorised dealer for GRAND, Yamarin, SPX RIB and MasterCraft. Backed by full servicing, storage, and brokerage from our base in Lagos, Algarve.',
@@ -514,7 +515,7 @@ const translations = {
     about_cta_browse: 'Browse Boats',
     about_cta_contact: 'Contact Us',
     // Page meta titles
-    meta_boats_title: 'Boats for Sale | Algarve Boat Sales',
+    meta_boats_title: 'New and Used Boats for Sale in the Algarve | Algarve Boat Sales',
     meta_boats_description: 'Browse new and used boats for sale in the Algarve, Portugal. RIBs, bowriders, day cruisers and more from authorised dealer Algarve Boat Sales in Lagos.',
     meta_trailers_title: 'Boat Trailers | Algarve Boat Sales',
     meta_trailers_description: 'Vanclaes boat trailers — quality stainless-steel trailers sized for your vessel, available from Algarve Boat Sales in Lagos.',
@@ -597,6 +598,7 @@ const translations = {
     hero_subtitle: 'no Algarve',
     home_h1: 'Barcos à Venda no Algarve',
     boats_h1: 'Barcos Novos e Usados à Venda no Algarve',
+    boats_intro: 'Explore a nossa gama completa de barcos novos e usados à venda em Lagos e em todo o Algarve — RIBs, bowriders, day cruisers e muito mais — com visitas e ensaios no mar disponíveis mediante marcação.',
     meta_home_title: 'Barcos à Venda no Algarve | Algarve Boat Sales',
     meta_home_description: 'Concessionário autorizado GRAND, Yamarin, SPX RIB, MasterCraft e Vanclaes no Algarve. Descubra barcos novos e usados, manutenção, armazenamento e reboques em Lagos.',
     hero_body: 'Concessionário autorizado GRAND, Yamarin, SPX RIB e MasterCraft. Com serviços de manutenção completa, armazenamento e mediação a partir da nossa base em Lagos, Algarve.',
@@ -1091,7 +1093,7 @@ const translations = {
     about_cta_browse: 'Ver Barcos',
     about_cta_contact: 'Contacte-nos',
     // Page meta titles
-    meta_boats_title: 'Barcos à Venda | Algarve Boat Sales',
+    meta_boats_title: 'Barcos Novos e Usados à Venda no Algarve | Algarve Boat Sales',
     meta_boats_description: 'Descubra barcos novos e usados à venda no Algarve, Portugal. RIBs, bowriders, day cruisers e mais, do concessionário autorizado Algarve Boat Sales em Lagos.',
     meta_trailers_title: 'Atrelados de Barco | Algarve Boat Sales',
     meta_trailers_description: 'Atrelados Vanclaes em aço inoxidável, dimensionados para a sua embarcação, disponíveis na Algarve Boat Sales em Lagos.',

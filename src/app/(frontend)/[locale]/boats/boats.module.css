@@ -4,7 +4,14 @@
   font-weight: 800;
   letter-spacing: -0.02em;
   color: var(--navy);
-  margin: 0 0 1.25rem;
+  margin: 0 0 0.75rem;
+}
+
+.intro {
+  color: var(--gray-600);
+  max-width: 68ch;
+  margin: 0 0 1.75rem;
+  line-height: 1.5;
 }
 
 .page {

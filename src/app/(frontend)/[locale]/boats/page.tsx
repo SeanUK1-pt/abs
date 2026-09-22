@@ -154,6 +154,7 @@ export default async function BoatsPage({
   return (
     <div className="container py-8">
       <h1 className={styles.pageTitle}>{t('boats_h1')}</h1>
+      <p className={styles.intro}>{t('boats_intro')}</p>
       <div className={styles.page}>
         {/* ── Sidebar ──────────────────────── */}
         <aside className={styles.sidebar}>
