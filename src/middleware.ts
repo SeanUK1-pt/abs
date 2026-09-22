@@ -46,7 +46,11 @@ export function middleware(req: NextRequest) {
   const normalizedBare = bare.length > 1 ? bare.replace(/\/+$/, '') : bare
   const legacyDest = LEGACY_MAP.get(normalizedBare)
   if (legacyDest) {
-    const destUrl = new URL(localePath(locale, legacyDest), req.url)
+    // localePath('pt', '/') naively concatenates to '/pt/', which would take
+    // an extra trailing-slash hop of its own — collapse that one case.
+    let destPath = localePath(locale, legacyDest)
+    if (destPath.length > 1 && destPath.endsWith('/')) destPath = destPath.slice(0, -1)
+    const destUrl = new URL(destPath, req.url)
     if (req.nextUrl.search) destUrl.search = req.nextUrl.search
     return NextResponse.redirect(destUrl, 301)
   }

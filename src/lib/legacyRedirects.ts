@@ -35,11 +35,10 @@ export const LEGACY_REDIRECTS: LegacyRedirect[] = [
   { from: '/yamarin-boats', to: '/brands#yamarin' },
   { from: '/spx-rib', to: '/brands#spx-rib' },
 
-  // ─── Old VersaDock product page — no direct live equivalent. VersaDock was
-  //      a dock/mooring product, closest live section is Trailers (same
-  //      grouping as the old /docks_trailers page, which also points here).
-  //      Flagged for review — see redirect audit report.
-  { from: '/versadock-drive-on-docks', to: '/trailers' },
+  // ─── Old VersaDock product page — no live equivalent, confirmed no longer
+  //      sold/offered. Sent home rather than to a section that implies we
+  //      still carry it.
+  { from: '/versadock-drive-on-docks', to: '/' },
 
   // ─── Confirmed active listings (/listings/ → /boats/slug) ───────────────
   { from: '/listings/williams-turbojet-325', to: '/boats/williams-turbojet-325' },
@@ -81,10 +80,8 @@ export const LEGACY_REDIRECTS: LegacyRedirect[] = [
   { from: '/product/grand-golden-line-850-inflatable', to: '/boats' },
   { from: '/product/rio-yachts-daytona-34', to: '/boats' },
   { from: '/product/grand-silverline-300', to: '/boats' },
-  // ⚠ UNVERIFIED: may be the same boat as /boats/brig-eagle-6-7-2021 (WP may have
-  //   truncated "6.7" to "6"), or may be a genuinely different hull size. Left
-  //   pointing at the generic index rather than guessing — confirm and update.
-  { from: '/product/brig-eagle-6-inflatable', to: '/boats' },
+  // No longer sold under this listing — confirmed no current use.
+  { from: '/product/brig-eagle-6-inflatable', to: '/' },
   { from: '/product/yamarin-80dc', to: '/boats' },
   { from: '/product/yamarin-67-dc-premium', to: '/boats' },
   { from: '/product/yamarin-88-dc-premium', to: '/boats' },

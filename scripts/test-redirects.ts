@@ -20,7 +20,10 @@ interface Case {
 }
 
 function localePath(locale: 'en' | 'pt', path: string): string {
-  return locale === 'pt' ? `/pt${path}` : path
+  let result = locale === 'pt' ? `/pt${path}` : path
+  // Mirror middleware.ts's own collapse of the naive '/pt' + '/' -> '/pt/'.
+  if (result.length > 1 && result.endsWith('/')) result = result.slice(0, -1)
+  return result
 }
 
 const cases: Case[] = []
