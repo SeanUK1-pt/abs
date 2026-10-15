@@ -72,6 +72,7 @@ async function getBoats(searchParams: SearchParams) {
 
   if (searchParams.condition) where.condition = { equals: searchParams.condition }
   if (searchParams.boat_type) where.boat_type = { equals: searchParams.boat_type }
+  if (searchParams.make) where.make = { equals: searchParams.make }
   if (searchParams.fuel_type) where.fuel_type = { equals: searchParams.fuel_type }
   if (searchParams.drive_type) where.drive_type = { equals: searchParams.drive_type }
   if (searchParams.hull_material) where.hull_material = { equals: searchParams.hull_material }

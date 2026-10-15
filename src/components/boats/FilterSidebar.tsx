@@ -2,6 +2,7 @@
 
 import { useRouter, usePathname } from 'next/navigation'
 import { useState, useCallback } from 'react'
+import { BOAT_TYPES, HULL_MATERIALS } from '@/lib/boatTypes'
 import styles from './FilterSidebar.module.css'
 
 const L: Record<string, Record<string, string>> = {
@@ -108,13 +109,18 @@ export function FilterSidebar({ searchParams, makes, filterableFeatures, locale 
       <FilterGroup title={l.type}>
         <select value={filters.boat_type} onChange={e => set('boat_type', e.target.value)} className={styles.select}>
           <option value="">{l.all_types}</option>
-          <option value="rib">RIB</option>
-          <option value="bow_rider">Bow Rider</option>
-          <option value="sports_cruiser">Sports Cruiser</option>
-          <option value="power_boat">Power Boat</option>
-          <option value="sailboat">Sailboat</option>
-          <option value="pwc">Personal Watercraft</option>
-          <option value="aluminium_hull">Aluminium Hull</option>
+          {BOAT_TYPES.map(o => (
+            <option key={o.value} value={o.value}>{locale === 'pt' ? o.pt : o.en}</option>
+          ))}
+        </select>
+      </FilterGroup>
+
+      <FilterGroup title={l.hull}>
+        <select value={filters.hull_material} onChange={e => set('hull_material', e.target.value)} className={styles.select}>
+          <option value="">{l.all}</option>
+          {HULL_MATERIALS.map(o => (
+            <option key={o.value} value={o.value}>{locale === 'pt' ? o.pt : o.en}</option>
+          ))}
         </select>
       </FilterGroup>
 
@@ -215,17 +221,6 @@ export function FilterSidebar({ searchParams, makes, filterableFeatures, locale 
         </select>
       </FilterGroup>
 
-      <FilterGroup title={l.hull}>
-        <select value={filters.hull_material} onChange={e => set('hull_material', e.target.value)} className={styles.select}>
-          <option value="">{l.all}</option>
-          <option value="grp">GRP / Fibreglass</option>
-          <option value="rib">RIB</option>
-          <option value="aluminium">Aluminium</option>
-          <option value="steel">Steel</option>
-          <option value="wood">Wood</option>
-          <option value="carbon">Carbon Fibre</option>
-        </select>
-      </FilterGroup>
       </div>
     </div>
   )

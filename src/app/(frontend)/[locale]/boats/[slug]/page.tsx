@@ -10,6 +10,7 @@ import { RichText } from '@/components/ui/RichText'
 import { getLocaleFromParam } from '@/lib/locale'
 import { getTranslations } from '@/lib/translations'
 import { localePath, hreflangAlternates } from '@/lib/localePath'
+import { BOAT_TYPES, HULL_MATERIALS, optionLabel } from '@/lib/boatTypes'
 import styles from './boat.module.css'
 
 async function getBoat(slug: string, locale: string) {
@@ -223,10 +224,10 @@ export default async function BoatPage({ params }: { params: Promise<{ locale: s
   ].filter(s => s.value)
 
   const overviewRight = [
-    { label: t('spec_type'), value: boat.boat_type?.replace(/_/g, ' ') },
+    { label: t('spec_type'), value: optionLabel(BOAT_TYPES, boat.boat_type, locale) },
     { label: t('spec_length'), value: boat.length_m ? `${boat.length_m}m` : null },
     { label: t('spec_beam'), value: boat.beam_m ? `${boat.beam_m}m` : null },
-    { label: t('spec_hull'), value: boat.hull_material },
+    { label: t('spec_hull'), value: optionLabel(HULL_MATERIALS, boat.hull_material, locale) },
     { label: t('spec_location'), value: boat.location },
   ].filter(s => s.value)
 

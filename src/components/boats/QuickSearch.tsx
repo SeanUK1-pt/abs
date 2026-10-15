@@ -3,6 +3,7 @@
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 import { localePath } from '@/lib/localePath'
+import { BOAT_TYPES } from '@/lib/boatTypes'
 import styles from './QuickSearch.module.css'
 
 const LABELS: Record<string, Record<string, string>> = {
@@ -73,12 +74,9 @@ export function QuickSearch({ locale = 'en' }: { locale?: string }) {
           aria-label={l.type}
         >
           <option value="">{l.type}</option>
-          <option value="rib">RIB</option>
-          <option value="bow_rider">Bow Rider</option>
-          <option value="sports_cruiser">Sports Cruiser</option>
-          <option value="power_boat">Power Boat</option>
-          <option value="sailboat">Sailboat</option>
-          <option value="pwc">Personal Watercraft</option>
+          {BOAT_TYPES.map(o => (
+            <option key={o.value} value={o.value}>{locale === 'pt' ? o.pt : o.en}</option>
+          ))}
         </select>
 
         <select

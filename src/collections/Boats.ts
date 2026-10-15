@@ -1,6 +1,7 @@
 import type { CollectionConfig } from 'payload'
 import { lexicalEditor } from '@payloadcms/richtext-lexical'
 import { SlateToLexicalFeature } from '@payloadcms/richtext-lexical/migrate'
+import { BOAT_TYPES, HULL_MATERIALS } from '../lib/boatTypes'
 
 export const Boats: CollectionConfig = {
   slug: 'boats',
@@ -102,28 +103,13 @@ export const Boats: CollectionConfig = {
             {
               name: 'boat_type',
               type: 'select',
-              options: [
-                { label: 'RIB', value: 'rib' },
-                { label: 'Bow Rider', value: 'bow_rider' },
-                { label: 'Sports Cruiser', value: 'sports_cruiser' },
-                { label: 'Power Boat', value: 'power_boat' },
-                { label: 'Sailboat', value: 'sailboat' },
-                { label: 'Personal Watercraft', value: 'pwc' },
-                { label: 'Aluminium Hull', value: 'aluminium_hull' },
-              ],
+              options: BOAT_TYPES.map(o => ({ label: o.en, value: o.value })),
               admin: { width: '33%' },
             },
             {
               name: 'hull_material',
               type: 'select',
-              options: [
-                { label: 'GRP / Fibreglass', value: 'grp' },
-                { label: 'RIB', value: 'rib' },
-                { label: 'Aluminium', value: 'aluminium' },
-                { label: 'Steel', value: 'steel' },
-                { label: 'Wood', value: 'wood' },
-                { label: 'Carbon Fibre', value: 'carbon' },
-              ],
+              options: HULL_MATERIALS.map(o => ({ label: o.en, value: o.value })),
               admin: { width: '33%' },
             },
             {
