@@ -2,6 +2,9 @@ import type { CollectionConfig } from 'payload'
 
 export const Makes: CollectionConfig = {
   slug: 'makes',
+  access: {
+    read: () => true,
+  },
   admin: {
     useAsTitle: 'name',
     defaultColumns: ['name', 'slug'],

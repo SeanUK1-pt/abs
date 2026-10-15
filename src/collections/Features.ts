@@ -2,6 +2,9 @@ import type { CollectionConfig } from 'payload'
 
 export const Features: CollectionConfig = {
   slug: 'features',
+  access: {
+    read: () => true,
+  },
   admin: {
     useAsTitle: 'name',
     defaultColumns: ['name', 'category', 'filterable'],

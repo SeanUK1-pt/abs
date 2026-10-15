@@ -23,3 +23,6 @@ public/media/
 # Migration source images and archive (large binaries, not part of codebase)
 migration/images/
 abs-website.zip
+
+# Local PM2 config containing SMTP credentials
+ecosystem.config.cjs

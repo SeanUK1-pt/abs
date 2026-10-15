@@ -5,6 +5,11 @@ import { BOAT_TYPES, HULL_MATERIALS } from '../lib/boatTypes'
 
 export const Boats: CollectionConfig = {
   slug: 'boats',
+  access: {
+    // Public API reads only ever see available listings — under offer and
+    // sold boats stay admin-only. Authenticated CMS users see everything.
+    read: ({ req }) => (req.user ? true : { status: { equals: 'available' } }),
+  },
   admin: {
     useAsTitle: 'title',
     defaultColumns: ['title', 'make', 'status', 'price', 'condition'],
@@ -94,7 +99,12 @@ export const Boats: CollectionConfig = {
             { name: 'year', type: 'number', admin: { width: '25%' } },
             { name: 'length_m', type: 'number', admin: { width: '25%', step: 0.1, description: 'metres' } },
             { name: 'beam_m', type: 'number', admin: { width: '25%', step: 0.01, description: 'metres' } },
-            { name: 'stock_number', type: 'text', admin: { width: '25%' } },
+            {
+              name: 'stock_number',
+              type: 'text',
+              admin: { width: '25%' },
+              access: { read: ({ req }) => !!req.user },
+            },
           ],
         },
         {
@@ -200,7 +210,12 @@ export const Boats: CollectionConfig = {
               defaultValue: true,
               admin: { width: '50%', description: 'IVA/VAT is included in the price' },
             },
-            { name: 'woocommerce_product_id', type: 'number', admin: { width: '50%', description: 'Legacy WooCommerce reference' } },
+            {
+              name: 'woocommerce_product_id',
+              type: 'number',
+              admin: { width: '50%', description: 'Legacy WooCommerce reference' },
+              access: { read: ({ req }) => !!req.user },
+            },
           ],
         },
       ],
@@ -215,8 +230,18 @@ export const Boats: CollectionConfig = {
         {
           type: 'row',
           fields: [
-            { name: 'latitude', type: 'number', admin: { width: '50%', step: 0.000001 } },
-            { name: 'longitude', type: 'number', admin: { width: '50%', step: 0.000001 } },
+            {
+              name: 'latitude',
+              type: 'number',
+              admin: { width: '50%', step: 0.000001 },
+              access: { read: ({ req }) => !!req.user },
+            },
+            {
+              name: 'longitude',
+              type: 'number',
+              admin: { width: '50%', step: 0.000001 },
+              access: { read: ({ req }) => !!req.user },
+            },
           ],
         },
       ],
@@ -245,6 +270,7 @@ export const Boats: CollectionConfig = {
           editor: lexicalEditor({
             features: ({ defaultFeatures }) => [...defaultFeatures, SlateToLexicalFeature()],
           }),
+          access: { read: ({ req }) => !!req.user },
         },
       ],
     },
