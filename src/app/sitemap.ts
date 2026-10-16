@@ -12,15 +12,18 @@ interface StaticEntry {
   priority: number
   /** Slug in the CMS `pages` collection this route is backed by, if any —
    *  used to pull a real lastModified date. Routes with no CMS-backed
-   *  content (home, boats listing, trailers listing/configurator) are left
-   *  undefined and get no lastModified, since we have no accurate signal
-   *  for them and a fabricated date would be actively misleading. */
+   *  content (home, trailers listing/configurator) are left undefined and
+   *  get no lastModified, since we have no accurate signal for them and a
+   *  fabricated date would be actively misleading. */
   pageSlug?: string
+  /** The boats listing is built entirely from boat records, so its real
+   *  last-modified date is the newest update among the boats it lists. */
+  lastModifiedFromBoats?: boolean
 }
 
 const STATIC_ENTRIES: StaticEntry[] = [
   { path: '',                     changeFrequency: 'weekly',  priority: 1.0 },
-  { path: '/boats',               changeFrequency: 'daily',   priority: 0.9 },
+  { path: '/boats',               changeFrequency: 'daily',   priority: 0.9, lastModifiedFromBoats: true },
   { path: '/brands',              changeFrequency: 'monthly', priority: 0.8, pageSlug: 'brands' },
   { path: '/brands/mastercraft',  changeFrequency: 'monthly', priority: 0.7 },
   { path: '/trailers',            changeFrequency: 'weekly',  priority: 0.8 },
@@ -69,9 +72,16 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     pagesRes.docs.map((p: any) => [p.slug, p.updatedAt])
   )
 
-  const staticEntries = STATIC_ENTRIES.flatMap(({ path, changeFrequency, priority, pageSlug }) => {
+  // Newest update among boats that actually appear on the listing (not sold).
+  const listedBoatTimes = boatsRes.docs
+    .filter((b: any) => b.status !== 'sold' && b.updatedAt)
+    .map((b: any) => new Date(b.updatedAt).getTime())
+  const latestBoatUpdate = listedBoatTimes.length ? new Date(Math.max(...listedBoatTimes)) : undefined
+
+  const staticEntries = STATIC_ENTRIES.flatMap(({ path, changeFrequency, priority, pageSlug, lastModifiedFromBoats }) => {
     const updatedAt = pageSlug ? pageUpdatedAt.get(pageSlug) : undefined
-    return makeEntries(path, changeFrequency, priority, updatedAt ? new Date(updatedAt) : undefined)
+    const lastModified = lastModifiedFromBoats ? latestBoatUpdate : updatedAt ? new Date(updatedAt) : undefined
+    return makeEntries(path, changeFrequency, priority, lastModified)
   })
 
   const boatEntries = boatsRes.docs.flatMap((boat: any) =>
