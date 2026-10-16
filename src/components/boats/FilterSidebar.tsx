@@ -6,8 +6,8 @@ import { BOAT_TYPES, HULL_MATERIALS } from '@/lib/boatTypes'
 import styles from './FilterSidebar.module.css'
 
 const L: Record<string, Record<string, string>> = {
-  en: { filters: 'Filters', clear_all: 'Clear all', condition: 'Condition', type: 'Boat Type', make: 'Make', price: 'Price (€)', length: 'Length (m)', year: 'Year', fuel: 'Fuel Type', drive: 'Drive Type', hull: 'Hull Material', new: 'New', used: 'Used', all_types: 'All Types', all_makes: 'All Makes', all: 'All' },
-  pt: { filters: 'Filtros', clear_all: 'Limpar tudo', condition: 'Estado', type: 'Tipo de Barco', make: 'Marca', price: 'Preço (€)', length: 'Comprimento (m)', year: 'Ano', fuel: 'Combustível', drive: 'Propulsão', hull: 'Material do Casco', new: 'Novo', used: 'Usado', all_types: 'Todos os Tipos', all_makes: 'Todas as Marcas', all: 'Todos' },
+  en: { filters: 'Filters', clear_all: 'Clear all', condition: 'Condition', type: 'Boat Type', make: 'Make', price: 'Price (€)', length: 'Length (m)', year: 'Year', fuel: 'Fuel Type', drive: 'Drive Type', hull: 'Hull Material', poa: 'Include Price on Application', new: 'New', used: 'Used', all_types: 'All Types', all_makes: 'All Makes', all: 'All' },
+  pt: { filters: 'Filtros', clear_all: 'Limpar tudo', condition: 'Estado', type: 'Tipo de Barco', make: 'Marca', price: 'Preço (€)', length: 'Comprimento (m)', year: 'Ano', fuel: 'Combustível', drive: 'Propulsão', hull: 'Material do Casco', poa: 'Incluir Preço sob consulta', new: 'Novo', used: 'Usado', all_types: 'Todos os Tipos', all_makes: 'Todas as Marcas', all: 'Todos' },
 }
 
 export function FilterSidebar({ searchParams, makes, filterableFeatures, locale = 'en' }: any) {
@@ -29,12 +29,15 @@ export function FilterSidebar({ searchParams, makes, filterableFeatures, locale 
     drive_type: searchParams.drive_type || '',
     hull_material: searchParams.hull_material || '',
   })
+  // Ticked by default; only an explicit poa=0 in the URL turns it off.
+  const [includePoa, setIncludePoa] = useState(searchParams.poa !== '0')
 
-  const apply = useCallback((updated: typeof filters) => {
+  const apply = useCallback((updated: typeof filters, poa: boolean = includePoa) => {
     const params = new URLSearchParams()
     Object.entries(updated).forEach(([k, v]) => { if (v) params.set(k, v) })
+    if (!poa) params.set('poa', '0')
     router.push(`${pathname}?${params.toString()}`)
-  }, [pathname, router])
+  }, [pathname, router, includePoa])
 
   const set = (key: string, value: string) => {
     const updated = { ...filters, [key]: value }
@@ -49,11 +52,12 @@ export function FilterSidebar({ searchParams, makes, filterableFeatures, locale 
       year_min: '', year_max: '', fuel_type: '', drive_type: '', hull_material: '',
     }
     setFilters(reset)
+    setIncludePoa(true)
     router.push(pathname)
   }
 
-  const hasFilters = Object.values(filters).some(Boolean)
-  const activeCount = Object.values(filters).filter(Boolean).length
+  const hasFilters = Object.values(filters).some(Boolean) || !includePoa
+  const activeCount = Object.values(filters).filter(Boolean).length + (includePoa ? 0 : 1)
   const [open, setOpen] = useState(false)
 
   return (
@@ -153,6 +157,14 @@ export function FilterSidebar({ searchParams, makes, filterableFeatures, locale 
             className={styles.rangeInput}
           />
         </div>
+        <label className={styles.checkLabel}>
+          <input
+            type="checkbox"
+            checked={includePoa}
+            onChange={e => { setIncludePoa(e.target.checked); apply(filters, e.target.checked) }}
+          />
+          <span>{l.poa}</span>
+        </label>
       </FilterGroup>
 
       <FilterGroup title={l.length}>

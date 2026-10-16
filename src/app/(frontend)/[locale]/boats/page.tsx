@@ -41,6 +41,7 @@ interface SearchParams {
   sort?: string
   page?: string
   favourites?: string
+  poa?: string
 }
 
 async function getBoats(searchParams: SearchParams) {
@@ -77,12 +78,21 @@ async function getBoats(searchParams: SearchParams) {
   if (searchParams.drive_type) where.drive_type = { equals: searchParams.drive_type }
   if (searchParams.hull_material) where.hull_material = { equals: searchParams.hull_material }
 
-  if (searchParams.price_min || searchParams.price_max) {
-    // Price-on-application boats (price 0/blank) must not match a price range.
-    where.price = { greater_than: 0 }
+  // Price-on-application boats are included unless poa=0. A price range never
+  // matches them by price, so with a range set they are added alongside the
+  // priced matches instead (and sorted after them, below).
+  const includePoa = searchParams.poa !== '0'
+  const hasPriceRange = Boolean(searchParams.price_min || searchParams.price_max)
+
+  if (hasPriceRange) {
+    const price: Record<string, number> = { greater_than: 0 }
+    if (searchParams.price_min) price.greater_than_equal = Number(searchParams.price_min)
+    if (searchParams.price_max) price.less_than_equal = Number(searchParams.price_max)
+    const pricedMatch = { and: [{ price: price }, { price_on_application: { not_equals: true } }] }
+    if (includePoa) where.or = [pricedMatch, { price_on_application: { equals: true } }]
+    else Object.assign(where, pricedMatch)
+  } else if (!includePoa) {
     where.price_on_application = { not_equals: true }
-    if (searchParams.price_min) where.price.greater_than_equal = Number(searchParams.price_min)
-    if (searchParams.price_max) where.price.less_than_equal = Number(searchParams.price_max)
   }
 
   if (searchParams.length_min || searchParams.length_max) {
@@ -104,7 +114,11 @@ async function getBoats(searchParams: SearchParams) {
     newest: '-createdAt',
     length: 'length_m',
   }
-  const sort = sortMap[searchParams.sort || 'newest'] || '-createdAt'
+  const chosenSort = sortMap[searchParams.sort || 'newest'] || '-createdAt'
+  // With a price range and POA included, keep POA boats after the priced ones.
+  const sort = hasPriceRange && includePoa && !Array.isArray(chosenSort)
+    ? ['price_on_application', chosenSort]
+    : chosenSort
 
   const currentPage = Number(searchParams.page) || 1
 

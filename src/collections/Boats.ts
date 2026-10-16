@@ -10,6 +10,16 @@ export const Boats: CollectionConfig = {
     // sold boats stay admin-only. Authenticated CMS users see everything.
     read: ({ req }) => (req.user ? true : { status: { equals: 'available' } }),
   },
+  hooks: {
+    // A blank/0 price is price-on-application; keep the flag in step so
+    // filtering and sorting (which read the flag) match what is displayed.
+    beforeChange: [
+      ({ data }) => {
+        if (!data.price) data.price_on_application = true
+        return data
+      },
+    ],
+  },
   admin: {
     useAsTitle: 'title',
     defaultColumns: ['title', 'make', 'status', 'price', 'condition'],
