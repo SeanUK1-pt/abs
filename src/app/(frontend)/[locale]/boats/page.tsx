@@ -11,10 +11,37 @@ import { getTranslations } from '@/lib/translations'
 import { localePath, hreflangAlternates } from '@/lib/localePath'
 import styles from './boats.module.css'
 
-export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
+// Query params that make a filtered/sorted/paginated view of the listing.
+// Tracking params (utm_*, gclid...) are deliberately not in this list.
+const VIEW_PARAMS = [
+  'condition', 'boat_type', 'make', 'price_min', 'price_max', 'length_min', 'length_max',
+  'year_min', 'year_max', 'fuel_type', 'drive_type', 'hull_material', 'sort', 'page', 'favourites', 'poa',
+]
+
+export async function generateMetadata({
+  params,
+  searchParams,
+}: {
+  params: Promise<{ locale: string }>
+  searchParams: Promise<Record<string, string | string[] | undefined>>
+}) {
   const { locale: localeParam } = await params
   const locale = getLocaleFromParam(localeParam)
   const t = getTranslations(locale)
+  const query = await searchParams
+
+  // Only the clean listing should be indexed. Filtered views stay crawlable
+  // (follow) so Google still reaches the individual boats, but are kept out of
+  // the index. No canonical/hreflang here: noindex plus a canonical pointing
+  // elsewhere is a mixed signal.
+  if (VIEW_PARAMS.some(k => query[k] !== undefined && query[k] !== '')) {
+    return {
+      title: t('meta_boats_title'),
+      description: t('meta_boats_description'),
+      robots: { index: false, follow: true },
+    }
+  }
+
   return {
     title: t('meta_boats_title'),
     description: t('meta_boats_description'),
