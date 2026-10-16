@@ -78,7 +78,9 @@ async function getBoats(searchParams: SearchParams) {
   if (searchParams.hull_material) where.hull_material = { equals: searchParams.hull_material }
 
   if (searchParams.price_min || searchParams.price_max) {
-    where.price = {}
+    // Price-on-application boats (price 0/blank) must not match a price range.
+    where.price = { greater_than: 0 }
+    where.price_on_application = { not_equals: true }
     if (searchParams.price_min) where.price.greater_than_equal = Number(searchParams.price_min)
     if (searchParams.price_max) where.price.less_than_equal = Number(searchParams.price_max)
   }
@@ -95,9 +97,10 @@ async function getBoats(searchParams: SearchParams) {
     if (searchParams.year_max) where.year.less_than_equal = Number(searchParams.year_max)
   }
 
-  const sortMap: Record<string, string> = {
-    price_asc: 'price',
-    price_desc: '-price',
+  // Price sorts group by the POA flag first so POA boats always come last.
+  const sortMap: Record<string, string | string[]> = {
+    price_asc: ['price_on_application', 'price'],
+    price_desc: ['price_on_application', '-price'],
     newest: '-createdAt',
     length: 'length_m',
   }

@@ -193,6 +193,10 @@
   color: var(--navy);
 }
 
+.poa {
+  font-size: 1.05rem;
+}
+
 .ivaTag {
   font-size: 0.7rem;
   color: var(--gray-500);

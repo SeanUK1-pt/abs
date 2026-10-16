@@ -11,6 +11,7 @@ import { getLocaleFromParam } from '@/lib/locale'
 import { getTranslations } from '@/lib/translations'
 import { localePath, hreflangAlternates } from '@/lib/localePath'
 import { getSiteSettings } from '@/lib/navigation'
+import { isPriceOnApplication, POA_LABEL } from '@/lib/price'
 import styles from './home.module.css'
 
 const BASE = 'https://www.algarveboatsales.com'
@@ -156,9 +157,10 @@ async function getHeroSlides(locale: string, t: ReturnType<typeof getTranslation
   return slides
 }
 
-function toSpotlight(boats: any[]): SpotlightBoat[] {
+function toSpotlight(boats: any[], locale: string): SpotlightBoat[] {
   return boats.map((b) => {
     const img = typeof b.main_image === 'object' ? b.main_image : null
+    const poa = isPriceOnApplication(b)
     return {
       id: b.id,
       slug: b.slug,
@@ -169,10 +171,10 @@ function toSpotlight(boats: any[]): SpotlightBoat[] {
       length_m: b.length_m,
       fuel_type: b.fuel_type,
       location: b.location,
-      price: formatPrice(b.sale_price || b.price, b.currency),
-      oldPrice: b.sale_price ? formatPrice(b.price, b.currency) : null,
-      discountPercent: b.sale_price ? Math.round((1 - b.sale_price / b.price) * 100) : null,
-      ivaIncluded: Boolean(b.iva_included),
+      price: poa ? (POA_LABEL[locale] || POA_LABEL.en) : formatPrice(b.sale_price || b.price, b.currency),
+      oldPrice: !poa && b.sale_price ? formatPrice(b.price, b.currency) : null,
+      discountPercent: !poa && b.sale_price ? Math.round((1 - b.sale_price / b.price) * 100) : null,
+      ivaIncluded: !poa && Boolean(b.iva_included),
       condition: b.condition,
       src: img?.url || null,
       alt: img?.alt || b.title,
@@ -232,7 +234,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
     getUpdates(locale),
     getSiteSettings(),
   ])
-  const spotlight = toSpotlight(featured)
+  const spotlight = toSpotlight(featured, locale)
 
   const sameAs = [
     siteSettings?.facebook_url,

@@ -3,6 +3,7 @@ import Image from 'next/image'
 import styles from './BoatCard.module.css'
 import { FavouriteButton, FavouriteTextButton } from './FavouriteButton'
 import { localePath } from '@/lib/localePath'
+import { isPriceOnApplication, POA_LABEL } from '@/lib/price'
 
 function formatPrice(price: number, currency = 'EUR') {
   return new Intl.NumberFormat('en-EU', { style: 'currency', currency, maximumFractionDigits: 0 }).format(price)
@@ -17,8 +18,9 @@ const IVA_LABEL: Record<string, string> = { en: 'IVA incl.', pt: 'IVA incl.' }
 
 export function BoatCard({ boat, locale = 'en' }: { boat: any; locale?: string }) {
   const labels = STATUS_LABELS[locale] || STATUS_LABELS.en
+  const poa = isPriceOnApplication(boat)
   const displayPrice = boat.sale_price || boat.price
-  const discountPercent = boat.sale_price ? Math.round((1 - boat.sale_price / boat.price) * 100) : null
+  const discountPercent = !poa && boat.sale_price ? Math.round((1 - boat.sale_price / boat.price) * 100) : null
   const mainImage = typeof boat.main_image === 'object' ? boat.main_image : null
   const make = typeof boat.make === 'object' ? boat.make?.name : ''
   const model = typeof boat.model === 'object' ? boat.model?.name : ''
@@ -86,11 +88,17 @@ export function BoatCard({ boat, locale = 'en' }: { boat: any; locale?: string }
 
         <div className={styles.footer}>
           <div className={styles.price}>
-            {boat.sale_price && <span className={styles.oldPrice}>{formatPrice(boat.price, boat.currency)}</span>}
-            <span className={styles.currentPrice}>
-              {formatPrice(displayPrice, boat.currency)}
-            </span>
-            {boat.iva_included && <span className={styles.ivaTag}>{IVA_LABEL[locale] || 'IVA incl.'}</span>}
+            {poa ? (
+              <span className={`${styles.currentPrice} ${styles.poa}`}>{POA_LABEL[locale] || POA_LABEL.en}</span>
+            ) : (
+              <>
+                {boat.sale_price && <span className={styles.oldPrice}>{formatPrice(boat.price, boat.currency)}</span>}
+                <span className={styles.currentPrice}>
+                  {formatPrice(displayPrice, boat.currency)}
+                </span>
+                {boat.iva_included && <span className={styles.ivaTag}>{IVA_LABEL[locale] || 'IVA incl.'}</span>}
+              </>
+            )}
           </div>
           {boat.location && <span className={styles.location}>📍 {boat.location}</span>}
         </div>

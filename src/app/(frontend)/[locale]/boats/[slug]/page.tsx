@@ -11,6 +11,7 @@ import { getLocaleFromParam } from '@/lib/locale'
 import { getTranslations } from '@/lib/translations'
 import { localePath, hreflangAlternates } from '@/lib/localePath'
 import { BOAT_TYPES, HULL_MATERIALS, optionLabel } from '@/lib/boatTypes'
+import { isPriceOnApplication, POA_LABEL } from '@/lib/price'
 import styles from './boat.module.css'
 
 async function getBoat(slug: string, locale: string) {
@@ -124,19 +125,22 @@ function buildJsonLd(boat: any, make: string, model: string, slug: string) {
     ...(model && { model }),
     ...(boat.year && { productionDate: String(boat.year) }),
     ...(boat.length_m && { depth: `${boat.length_m}m` }),
-    offers: {
-      '@type': 'Offer',
-      url,
-      price: price,
-      priceCurrency: currency,
-      availability: availabilityMap[boat.status] || 'https://schema.org/InStock',
-      itemCondition: conditionMap[boat.condition] || 'https://schema.org/UsedCondition',
-      seller: {
-        '@type': 'Organization',
-        name: 'Algarve Boat Sales',
-        url: CANONICAL_ORIGIN,
+    // No Offer for price-on-application boats: a price of 0 would be false markup.
+    ...(!isPriceOnApplication(boat) && {
+      offers: {
+        '@type': 'Offer',
+        url,
+        price: price,
+        priceCurrency: currency,
+        availability: availabilityMap[boat.status] || 'https://schema.org/InStock',
+        itemCondition: conditionMap[boat.condition] || 'https://schema.org/UsedCondition',
+        seller: {
+          '@type': 'Organization',
+          name: 'Algarve Boat Sales',
+          url: CANONICAL_ORIGIN,
+        },
       },
-    },
+    }),
   }
 }
 
@@ -162,7 +166,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   if (year) descParts.push(year)
   if (boat.length_m) descParts.push(`${boat.length_m}m`)
   const price = boat.sale_price || boat.price
-  if (price) descParts.push(new Intl.NumberFormat('en-EU', { style: 'currency', currency: boat.currency || 'EUR', maximumFractionDigits: 0 }).format(price))
+  if (price && !isPriceOnApplication(boat)) descParts.push(new Intl.NumberFormat('en-EU', { style: 'currency', currency: boat.currency || 'EUR', maximumFractionDigits: 0 }).format(price))
   const base = descParts.join(' · ')
   const description = (base + ' ' + t('meta_boat_available')).trim().slice(0, 160)
 
@@ -291,7 +295,9 @@ export default async function BoatPage({ params }: { params: Promise<{ locale: s
           <aside className={styles.sidebar}>
             <div className={styles.priceCard}>
               <div className={styles.priceRow}>
-                {boat.sale_price ? (
+                {isPriceOnApplication(boat) ? (
+                  <span className={styles.price}>{POA_LABEL[locale] || POA_LABEL.en}</span>
+                ) : boat.sale_price ? (
                   <>
                     <span className={styles.oldPrice}>{formatPrice(boat.price, boat.currency)}</span>
                     <span className={styles.price}>{formatPrice(boat.sale_price, boat.currency)}</span>
@@ -304,9 +310,11 @@ export default async function BoatPage({ params }: { params: Promise<{ locale: s
                 )}
               </div>
 
-              <p className={styles.ivaNote}>
-                {boat.iva_included ? t('iva_included') : t('plus_iva')}
-              </p>
+              {!isPriceOnApplication(boat) && (
+                <p className={styles.ivaNote}>
+                  {boat.iva_included ? t('iva_included') : t('plus_iva')}
+                </p>
+              )}
 
               {boat.location && (
                 <p className={styles.location}>📍 {boat.location}</p>

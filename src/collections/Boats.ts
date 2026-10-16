@@ -186,7 +186,15 @@ export const Boats: CollectionConfig = {
         {
           type: 'row',
           fields: [
-            { name: 'price', type: 'number', required: true, admin: { width: '33%' } },
+            {
+              name: 'price',
+              type: 'number',
+              admin: { width: '33%', description: 'Leave blank if Price on Application is ticked' },
+              validate: (value: unknown, { siblingData }: { siblingData?: Record<string, unknown> }) =>
+                siblingData?.price_on_application || (value !== undefined && value !== null)
+                  ? true
+                  : 'Enter a price, or tick "Price on Application"',
+            },
             { name: 'sale_price', type: 'number', admin: { width: '33%', description: 'Optional reduced price' } },
             {
               name: 'currency',
@@ -200,6 +208,13 @@ export const Boats: CollectionConfig = {
               admin: { width: '33%' },
             },
           ],
+        },
+        {
+          name: 'price_on_application',
+          type: 'checkbox',
+          defaultValue: false,
+          label: 'Price on Application',
+          admin: { description: 'Show "Price on Application" instead of a price. Also applies automatically if the price is 0 or blank.' },
         },
         {
           type: 'row',
