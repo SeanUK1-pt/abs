@@ -1,3 +1,4 @@
+import { draftMode } from 'next/headers'
 import Link from 'next/link'
 import { getPayload } from 'payload'
 import config from '@payload-config'
@@ -10,8 +11,9 @@ import { UpdateCard } from '@/components/ui/UpdateCard'
 import { getLocaleFromParam } from '@/lib/locale'
 import { getTranslations } from '@/lib/translations'
 import { localePath, hreflangAlternates } from '@/lib/localePath'
-import { getSiteSettings } from '@/lib/navigation'
+import { getSiteSettings, getPromoPanel } from '@/lib/navigation'
 import { isPriceOnApplication, POA_LABEL } from '@/lib/price'
+import { PromoPanel } from '@/components/ui/PromoPanel'
 import styles from './home.module.css'
 
 const BASE = 'https://www.algarveboatsales.com'
@@ -227,13 +229,16 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
   const { locale: localeParam } = await params
   const locale = getLocaleFromParam(localeParam)
   const t = getTranslations(locale)
-  const [featured, latest, heroSlides, updates, siteSettings] = await Promise.all([
+  const preview = (await draftMode()).isEnabled
+  const [featured, latest, heroSlides, updates, siteSettings, promoPanel] = await Promise.all([
     getFeaturedBoats(locale),
     getLatestBoats(locale),
     getHeroSlides(locale, t),
     getUpdates(locale),
     getSiteSettings(),
+    getPromoPanel(locale, preview),
   ])
+  const replaceHero = promoPanel?.placement === 'replace_hero'
   const spotlight = toSpotlight(featured, locale)
 
   const sameAs = [
@@ -285,15 +290,21 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
 
       <h1 className="sr-only">{t('home_h1')}</h1>
 
-      <section className={styles.hero}>
-        <HeroCarousel slides={heroSlides} />
-      </section>
+      {replaceHero && promoPanel ? (
+        <PromoPanel panel={promoPanel} locale={locale} replacesHero />
+      ) : (
+        <section className={styles.hero}>
+          <HeroCarousel slides={heroSlides} />
+        </section>
+      )}
 
       <section className={styles.searchBar}>
         <div className="container">
           <QuickSearch locale={locale} />
         </div>
       </section>
+
+      {!replaceHero && promoPanel && <PromoPanel panel={promoPanel} locale={locale} />}
 
       <section className={styles.showcase}>
         <div className="container">

@@ -1,0 +1,101 @@
+.panel {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  background: var(--ocean-gradient);
+  color: var(--white);
+  padding: 3.5rem 0;
+}
+
+/* The search card floats up 3.5rem over the bottom of whatever sits above it,
+   so a panel standing in for the hero needs room below its boats. */
+.replacesHero {
+  padding: 4rem 0 6.5rem;
+}
+
+.bgImage {
+  object-fit: cover;
+  z-index: -2;
+}
+
+.scrim {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(180deg, rgba(5, 15, 26, 0.78) 0%, rgba(5, 15, 26, 0.9) 100%);
+}
+
+.inner {
+  position: relative;
+}
+
+.head {
+  max-width: 46rem;
+  margin: 0 auto 2.25rem;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.9rem;
+}
+
+.badge {
+  display: inline-block;
+  padding: 0.3rem 0.9rem;
+  border-radius: 999px;
+  background: var(--gold);
+  color: var(--navy-deep);
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.headline {
+  font-family: var(--font-heading);
+  font-size: clamp(2rem, 1.4rem + 2.6vw, 3.4rem);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1.08;
+  margin: 0;
+  color: var(--white);
+}
+
+.text {
+  margin: 0;
+  max-width: 40rem;
+  font-size: 1.08rem;
+  line-height: 1.55;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.boats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 17.5rem), 22rem));
+  justify-content: center;
+  gap: 1.5rem;
+}
+
+.boatCol {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  min-width: 0;
+}
+
+.note {
+  margin: 0;
+  text-align: center;
+  color: var(--gold-light);
+  font-weight: 700;
+  font-size: 0.95rem;
+}
+
+@media (max-width: 600px) {
+  .panel {
+    padding: 2.5rem 0;
+  }
+  .replacesHero {
+    padding: 2.75rem 0 5.5rem;
+  }
+}

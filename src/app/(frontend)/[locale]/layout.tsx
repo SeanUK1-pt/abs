@@ -1,9 +1,11 @@
 import type { Metadata } from 'next'
+import { draftMode } from 'next/headers'
 import { Inter, Sora } from 'next/font/google'
 import '../../globals.css'
 import { Header } from '@/components/layout/Header'
 import { Footer } from '@/components/layout/Footer'
 import { PromoBanner } from '@/components/layout/PromoBanner'
+import { PreviewNotice } from '@/components/layout/PreviewNotice'
 import { PremiumEffects } from '@/components/ui/PremiumEffects'
 import { getLocaleFromParam } from '@/lib/locale'
 import { getMainNav, getFooterNav, getSiteSettings, getPromoBanner } from '@/lib/navigation'
@@ -33,11 +35,12 @@ export default async function RootLayout({
 }) {
   const { locale: localeParam } = await params
   const locale = getLocaleFromParam(localeParam)
+  const preview = (await draftMode()).isEnabled
   const [mainNav, footerNav, siteSettings, promoBanner] = await Promise.all([
     getMainNav(locale),
     getFooterNav(locale),
     getSiteSettings(),
-    getPromoBanner(locale),
+    getPromoBanner(locale, preview),
   ])
 
   return (
@@ -48,6 +51,7 @@ export default async function RootLayout({
         <main>{children}</main>
         <Footer locale={locale} navItems={footerNav} siteSettings={siteSettings} />
         <PremiumEffects />
+        {preview && <PreviewNotice locale={locale} />}
       </body>
     </html>
   )
