@@ -19,6 +19,7 @@ import { Users } from './collections/Users'
 import { MainNavigation } from './globals/MainNavigation'
 import { FooterNavigation } from './globals/FooterNavigation'
 import { SiteSettings } from './globals/SiteSettings'
+import { PromoBanner } from './globals/PromoBanner'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -44,7 +45,7 @@ export default buildConfig({
     Enquiries,
     Users,
   ],
-  globals: [MainNavigation, FooterNavigation, SiteSettings],
+  globals: [MainNavigation, FooterNavigation, SiteSettings, PromoBanner],
   editor: lexicalEditor(),
   db: mongooseAdapter({
     url: process.env.DATABASE_URI as string,
