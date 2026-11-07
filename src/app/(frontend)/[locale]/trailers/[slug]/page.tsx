@@ -108,7 +108,7 @@ export default async function TrailerPage({ params }: { params: Promise<{ locale
           </div>
           <div className={styles.enquiryCard}>
             <h3>{t('trailers_enquire_about_trailer')}</h3>
-            <EnquiryForm listingTitle={trailer.title} listingType="trailer" listingId={String(trailer.id)} />
+            <EnquiryForm listingTitle={trailer.title} listingType="trailer" listingId={String(trailer.id)} locale={locale} />
           </div>
         </aside>
       </div>

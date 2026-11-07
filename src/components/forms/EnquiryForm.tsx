@@ -1,11 +1,12 @@
 'use client'
 
 import { useEffect, useRef, useState } from 'react'
+import { localePath } from '@/lib/localePath'
 import styles from './EnquiryForm.module.css'
 
 const L: Record<string, Record<string, string>> = {
-  en: { name: 'Your Name *', email: 'Email Address *', phone: 'Phone Number', message: 'Message *', contact: 'Preferred contact:', send: 'Send Enquiry', sending: 'Sending...', success: "✅ Thank you! We'll be in touch shortly.", error: 'Something went wrong. Please try again.', email_c: '📧 Email', phone_c: '📞 Phone', whatsapp: '💬 WhatsApp' },
-  pt: { name: 'O Seu Nome *', email: 'Email *', phone: 'Telefone', message: 'Mensagem *', contact: 'Contacto preferido:', send: 'Enviar Mensagem', sending: 'A enviar...', success: '✅ Obrigado! Entraremos em contacto brevemente.', error: 'Algo correu mal. Tente novamente.', email_c: '📧 Email', phone_c: '📞 Telefone', whatsapp: '💬 WhatsApp' },
+  en: { name: 'Your Name *', email: 'Email Address *', phone: 'Phone Number', message: 'Message *', contact: 'Preferred contact:', send: 'Send Enquiry', sending: 'Sending...', success: "✅ Thank you! We'll be in touch shortly.", error: 'Something went wrong. Please try again.', email_c: '📧 Email', phone_c: '📞 Phone', whatsapp: '💬 WhatsApp', privacy_pre: "We'll use your details to reply to your enquiry — see our ", privacy_link: 'Privacy Policy', privacy_post: '.' },
+  pt: { name: 'O Seu Nome *', email: 'Email *', phone: 'Telefone', message: 'Mensagem *', contact: 'Contacto preferido:', send: 'Enviar Mensagem', sending: 'A enviar...', success: '✅ Obrigado! Entraremos em contacto brevemente.', error: 'Algo correu mal. Tente novamente.', email_c: '📧 Email', phone_c: '📞 Telefone', whatsapp: '💬 WhatsApp', privacy_pre: 'Utilizaremos os seus dados para responder ao seu pedido — consulte a nossa ', privacy_link: 'Política de Privacidade', privacy_post: '.' },
 }
 
 const TURNSTILE_SITE_KEY = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY || '0x4AAAAAAE9FccSjbjK7_4PD'
@@ -20,20 +21,29 @@ declare global {
   }
 }
 
+// The pre-filled message the visitor can edit. English is unchanged.
+const PREFILL: Record<string, (title: string) => string> = {
+  en: title => `I am interested in the ${title}. Please contact me with more details.`,
+  pt: title => `Tenho interesse em ${title}. Por favor contacte-me com mais detalhes.`,
+}
+
 interface EnquiryFormProps {
   listingTitle: string
   listingType: 'boat' | 'trailer' | 'general'
   listingId?: string
   locale?: string
+  // Overrides the pre-filled message where wrapping a title reads badly
+  // (e.g. a general enquiry). Leave out to use the standard sentence.
+  defaultMessage?: string
 }
 
-export function EnquiryForm({ listingTitle, listingType, listingId, locale = 'en' }: EnquiryFormProps) {
+export function EnquiryForm({ listingTitle, listingType, listingId, locale = 'en', defaultMessage }: EnquiryFormProps) {
   const l = L[locale] || L.en
   const [form, setForm] = useState({
     name: '',
     email: '',
     phone: '',
-    message: `I am interested in the ${listingTitle}. Please contact me with more details.`,
+    message: defaultMessage ?? (PREFILL[locale] || PREFILL.en)(listingTitle),
     contact_method: 'email',
   })
   const [status, setStatus] = useState<'idle' | 'sending' | 'sent' | 'error'>('idle')
@@ -173,6 +183,15 @@ export function EnquiryForm({ listingTitle, listingType, listingId, locale = 'en
       <button type="submit" className={`btn btn-gold ${styles.submitBtn}`} disabled={status === 'sending' || !token}>
         {status === 'sending' ? l.sending : l.send}
       </button>
+
+      <p className={styles.privacyNote}>
+        {l.privacy_pre}
+        {/* New tab, so nobody loses a half-written message by following it. */}
+        <a href={localePath(locale, '/privacy-policy')} target="_blank" rel="noopener noreferrer">
+          {l.privacy_link}
+        </a>
+        {l.privacy_post}
+      </p>
     </form>
   )
 }

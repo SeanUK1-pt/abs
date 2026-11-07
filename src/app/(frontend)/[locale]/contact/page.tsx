@@ -124,6 +124,7 @@ export default async function ContactPage({
                 listingTitle={enquiryTitle}
                 listingType="general"
                 locale={locale}
+                defaultMessage={!isMastercraft && locale === 'pt' ? 'Gostaria de obter mais informações. Por favor contacte-me.' : undefined}
               />
             </div>
           </div>

@@ -82,3 +82,20 @@
   color: #ff8080;
   font-size: 0.85rem;
 }
+
+.form .privacyNote {
+  margin: 0.85rem 0 0;
+  font-size: 0.78rem;
+  line-height: 1.45;
+  color: rgba(255, 255, 255, 0.68);
+}
+
+.form .privacyNote a {
+  color: var(--gold-light);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.form .privacyNote a:hover {
+  color: var(--white);
+}

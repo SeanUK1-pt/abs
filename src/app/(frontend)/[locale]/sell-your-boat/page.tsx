@@ -92,6 +92,8 @@ export default async function SellYourBoatPage({ params }: { params: Promise<{ l
             <EnquiryForm
               listingTitle="Boat Valuation Request"
               listingType="general"
+              locale={locale}
+              defaultMessage={locale === 'pt' ? 'Gostaria de pedir a avaliação do meu barco. Por favor contacte-me com mais detalhes.' : undefined}
             />
           </div>
         </section>
