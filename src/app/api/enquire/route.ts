@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { getPayload } from 'payload'
 import config from '@payload-config'
+import { forwardEnquiryToAbg } from '@/lib/abgLeads'
 
 const MIN_FILL_MS = 3000
 const RATE_WINDOW_MS = 10 * 60 * 1000
@@ -53,7 +54,7 @@ async function verifyTurnstile(token: unknown, ip: string): Promise<boolean> {
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json()
-    const { name, email, phone, message, contact_method, listing_title, listing_type, listing_id, website, ts, turnstile_token } = body
+    const { name, email, phone, message, contact_method, listing_title, listing_type, listing_id, website, ts, turnstile_token, locale: formLocale } = body
 
     // Bots fill the hidden honeypot or submit instantly. Pretend success so they don't adapt.
     const tooFast = typeof ts === 'number' ? Date.now() - ts < MIN_FILL_MS : true
@@ -95,6 +96,22 @@ export async function POST(req: NextRequest) {
         listing_id: listing_id || '',
       },
     })
+
+    // Also pass it to the ABG lead tracker. Only reached for genuinely accepted
+    // enquiries (every spam path above has already returned). Not awaited, so the
+    // visitor never waits on it, and it can never change the response.
+    void forwardEnquiryToAbg({
+      name,
+      email,
+      phone,
+      message,
+      listingTitle: listing_title,
+      listingType: listing_type,
+      listingId: listing_id,
+      contactMethod: contact_method,
+      locale: formLocale,
+      sourceUrl: req.headers.get('referer') ?? undefined,
+    }).catch(e => console.error('ABG lead tracker: unexpected error:', (e as Error)?.name || 'error'))
 
     // Send email notification if SMTP is configured
     if (process.env.SMTP_HOST && process.env.SMTP_USER && process.env.CONTACT_EMAIL) {

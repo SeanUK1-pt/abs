@@ -84,7 +84,7 @@ export function EnquiryForm({ listingTitle, listingType, listingId, locale = 'en
       const res = await fetch('/api/enquire', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ ...form, listing_title: listingTitle, listing_type: listingType, listing_id: listingId, website, ts: renderedAt, turnstile_token: token }),
+        body: JSON.stringify({ ...form, listing_title: listingTitle, listing_type: listingType, listing_id: listingId, website, ts: renderedAt, turnstile_token: token, locale }),
       })
       if (!res.ok) throw new Error('Failed')
       setStatus('sent')
