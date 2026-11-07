@@ -19,6 +19,7 @@ export type SpotlightBoat = {
   oldPrice?: string | null
   discountPercent?: number | null
   ivaIncluded?: boolean
+  brokerage?: boolean
   condition?: string
   src?: string | null
   alt?: string
@@ -29,7 +30,7 @@ export function FeaturedSpotlight({
   labels,
 }: {
   boats: SpotlightBoat[]
-  labels: { viewBoat: string; featured: string; ivaIncl: string; newLabel: string; usedLabel: string }
+  labels: { viewBoat: string; featured: string; ivaIncl: string; newLabel: string; usedLabel: string; brokerageNote: string }
 }) {
   const count = boats.length
   const [active, setActive] = useState(0)
@@ -91,6 +92,7 @@ export function FeaturedSpotlight({
             {boat.fuel_type && <span className={styles.capitalize}>{boat.fuel_type}</span>}
             {boat.location && <span>{boat.location}</span>}
           </div>
+          {boat.brokerage && <p className={styles.brokerage}>{labels.brokerageNote}</p>}
         </div>
 
         <div className={styles.panelBottom}>

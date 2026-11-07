@@ -11,7 +11,7 @@ import { UpdateCard } from '@/components/ui/UpdateCard'
 import { getLocaleFromParam } from '@/lib/locale'
 import { getTranslations } from '@/lib/translations'
 import { localePath, hreflangAlternates } from '@/lib/localePath'
-import { getSiteSettings, getPromoPanel } from '@/lib/navigation'
+import { getSiteSettings, getPromoPanel, getBrokerageText } from '@/lib/navigation'
 import { isPriceOnApplication, POA_LABEL } from '@/lib/price'
 import { PromoPanel } from '@/components/ui/PromoPanel'
 import styles from './home.module.css'
@@ -177,6 +177,7 @@ function toSpotlight(boats: any[], locale: string): SpotlightBoat[] {
       oldPrice: !poa && b.sale_price ? formatPrice(b.price, b.currency) : null,
       discountPercent: !poa && b.sale_price ? Math.round((1 - b.sale_price / b.price) * 100) : null,
       ivaIncluded: !poa && Boolean(b.iva_included),
+      brokerage: Boolean(b.brokerage),
       condition: b.condition,
       src: img?.url || null,
       alt: img?.alt || b.title,
@@ -230,13 +231,14 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
   const locale = getLocaleFromParam(localeParam)
   const t = getTranslations(locale)
   const preview = (await draftMode()).isEnabled
-  const [featured, latest, heroSlides, updates, siteSettings, promoPanel] = await Promise.all([
+  const [featured, latest, heroSlides, updates, siteSettings, promoPanel, brokerageText] = await Promise.all([
     getFeaturedBoats(locale),
     getLatestBoats(locale),
     getHeroSlides(locale, t),
     getUpdates(locale),
     getSiteSettings(),
     getPromoPanel(locale, preview),
+    getBrokerageText(locale),
   ])
   const replaceHero = promoPanel?.placement === 'replace_hero'
   const spotlight = toSpotlight(featured, locale)
@@ -325,6 +327,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
                     ivaIncl: t('iva_incl'),
                     newLabel: t('condition_new'),
                     usedLabel: t('condition_used'),
+                    brokerageNote: `${t('brokerage_label')} · ${brokerageText.short}`,
                   }}
                 />
               </div>

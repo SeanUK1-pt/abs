@@ -4,6 +4,7 @@ import styles from './BoatCard.module.css'
 import { FavouriteButton, FavouriteTextButton } from './FavouriteButton'
 import { localePath } from '@/lib/localePath'
 import { isPriceOnApplication, POA_LABEL } from '@/lib/price'
+import { BrokerageDisclaimer } from './BrokerageDisclaimer'
 
 function formatPrice(price: number, currency = 'EUR') {
   return new Intl.NumberFormat('en-EU', { style: 'currency', currency, maximumFractionDigits: 0 }).format(price)
@@ -85,6 +86,8 @@ export function BoatCard({ boat, locale = 'en' }: { boat: any; locale?: string }
           {boat.engine_hours != null && <span>{boat.engine_hours}h</span>}
           {boat.fuel_type && <span className={styles.capitalize}>{boat.fuel_type}</span>}
         </div>
+
+        {boat.brokerage && <BrokerageDisclaimer locale={locale} variant="card" />}
 
         <div className={styles.footer}>
           <div className={styles.price}>

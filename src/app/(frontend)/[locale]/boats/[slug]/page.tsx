@@ -4,6 +4,7 @@ import config from '@payload-config'
 import Link from 'next/link'
 import { EnquiryForm } from '@/components/forms/EnquiryForm'
 import { BoatCard } from '@/components/boats/BoatCard'
+import { BrokerageDisclaimer } from '@/components/boats/BrokerageDisclaimer'
 import { FavouriteTextButton } from '@/components/boats/FavouriteButton'
 import { GalleryGrid } from '@/components/boats/GalleryGrid'
 import { RichText } from '@/components/ui/RichText'
@@ -279,6 +280,7 @@ export default async function BoatPage({ params }: { params: Promise<{ locale: s
             <span className={`badge badge-${boat.status?.replace('_', '-')}`}>
               {statusLabels[boat.status] || boat.status}
             </span>
+            {boat.brokerage && <span className={styles.brokerageBadge}>{t('brokerage_label')}</span>}
           </div>
           {make && model && (
             <p className={styles.makeModelLine}>{make} · {model}</p>
@@ -315,6 +317,8 @@ export default async function BoatPage({ params }: { params: Promise<{ locale: s
                   {boat.iva_included ? t('iva_included') : t('plus_iva')}
                 </p>
               )}
+
+              {boat.brokerage && <BrokerageDisclaimer locale={locale} variant="short" />}
 
               {boat.location && (
                 <p className={styles.location}>📍 {boat.location}</p>
@@ -407,6 +411,13 @@ export default async function BoatPage({ params }: { params: Promise<{ locale: s
               <section className={styles.section}>
                 <h2 className={styles.sectionTitle}>{t('description')}</h2>
                 <RichText content={boat.description} className={styles.richText} />
+              </section>
+            )}
+
+            {/* Brokerage disclaimer (full) */}
+            {boat.brokerage && (
+              <section className={styles.section}>
+                <BrokerageDisclaimer locale={locale} variant="full" />
               </section>
             )}
 

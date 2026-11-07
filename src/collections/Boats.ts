@@ -22,7 +22,7 @@ export const Boats: CollectionConfig = {
   },
   admin: {
     useAsTitle: 'title',
-    defaultColumns: ['title', 'make', 'status', 'price', 'condition'],
+    defaultColumns: ['title', 'make', 'status', 'price', 'condition', 'brokerage'],
     listSearchableFields: ['title', 'stock_number'],
   },
   fields: [
@@ -71,6 +71,16 @@ export const Boats: CollectionConfig = {
         { label: 'Used', value: 'used' },
       ],
       admin: { position: 'sidebar' },
+    },
+    {
+      name: 'brokerage',
+      label: 'Brokerage listing',
+      type: 'checkbox',
+      defaultValue: false,
+      admin: {
+        position: 'sidebar',
+        description: 'Tick if we are selling this boat on behalf of its owner. A brokerage notice and disclaimer are shown on the listing.',
+      },
     },
     {
       name: 'featured',

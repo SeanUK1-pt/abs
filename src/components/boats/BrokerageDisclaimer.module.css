@@ -1,0 +1,57 @@
+.box {
+  margin: 0;
+  padding: 0.85rem 1rem;
+  border-left: 3px solid var(--gold);
+  border-radius: 0 var(--radius-md, 6px) var(--radius-md, 6px) 0;
+  background: var(--off-white);
+}
+
+.title {
+  margin: 0 0 0.35rem;
+  font-size: 0.8rem;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--navy);
+}
+
+.text {
+  margin: 0;
+  font-size: 0.78rem;
+  line-height: 1.55;
+  color: var(--gray-600);
+}
+
+.strip {
+  margin: 0 0 1rem;
+  padding: 0.5rem 0.75rem;
+  border-left: 3px solid var(--gold);
+  border-radius: 0 var(--radius-md, 6px) var(--radius-md, 6px) 0;
+  background: var(--off-white);
+  font-size: 0.78rem;
+  line-height: 1.45;
+  color: var(--gray-600);
+}
+
+.strip strong {
+  color: var(--navy);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.card {
+  margin: 0;
+  padding: 0.4rem 0.6rem;
+  border-left: 3px solid var(--gold);
+  border-radius: 0 var(--radius-sm, 4px) var(--radius-sm, 4px) 0;
+  background: var(--off-white);
+  font-size: 0.72rem;
+  line-height: 1.35;
+  color: var(--gray-600);
+}
+
+.card strong {
+  color: var(--navy);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}

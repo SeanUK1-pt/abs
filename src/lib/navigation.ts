@@ -3,6 +3,7 @@ import { getPayload } from 'payload'
 import config from '@payload-config'
 import type { Locale } from './locale'
 import { isLive, cleanLink } from './promoLogic'
+import { getTranslations } from './translations'
 
 export async function getMainNav(locale: Locale) {
   try {
@@ -100,3 +101,25 @@ export async function getPromoPanel(locale: Locale, preview = false): Promise<Pr
     boats,
   }
 }
+
+// ── Brokerage wording (edited in the admin: Settings > Site Settings) ─────
+
+// If a field is blank, or the settings cannot be read, the standard wording from
+// translations is used, so a brokerage boat is never left without its notice.
+// fallbackLocale is off so a blank Portuguese field uses the standard
+// Portuguese wording rather than the English text from the admin.
+export const getBrokerageText = cache(async (locale: Locale): Promise<{ short: string; full: string }> => {
+  const t = getTranslations(locale)
+  const standard = { short: t('brokerage_card_note'), full: t('brokerage_disclaimer') }
+  try {
+    const payload = await getPayload({ config })
+    const s = (await payload.findGlobal({ slug: 'site-settings', locale, fallbackLocale: false, depth: 0 })) as any
+    const clean = (v: unknown) => (typeof v === 'string' ? v.trim() : '')
+    return {
+      short: clean(s?.brokerage_short_notice) || standard.short,
+      full: clean(s?.brokerage_disclaimer) || standard.full,
+    }
+  } catch {
+    return standard
+  }
+})

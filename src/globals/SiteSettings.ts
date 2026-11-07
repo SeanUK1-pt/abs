@@ -20,6 +20,34 @@ export const SiteSettings: GlobalConfig = {
     },
     {
       type: 'collapsible',
+      label: 'Brokerage listings',
+      admin: { initCollapsed: true },
+      fields: [
+        {
+          name: 'brokerage_short_notice',
+          label: 'Short notice',
+          type: 'text',
+          localized: true,
+          admin: {
+            description:
+              'One line shown on results cards and beside the price of any boat ticked "Brokerage listing". Fill in English and Portuguese. If left blank, the standard wording is used.',
+          },
+        },
+        {
+          name: 'brokerage_disclaimer',
+          label: 'Full disclaimer',
+          type: 'textarea',
+          localized: true,
+          admin: {
+            rows: 8,
+            description:
+              'Shown in full on the boat page of any boat ticked "Brokerage listing". Fill in English and Portuguese. If left blank, the standard wording is used.',
+          },
+        },
+      ],
+    },
+    {
+      type: 'collapsible',
       label: 'Social Media',
       fields: [
         { name: 'facebook_url', type: 'text' },
