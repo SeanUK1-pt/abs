@@ -3,6 +3,9 @@ node_modules/
 
 # Next.js build output
 .next/
+.next-a/
+.next-b/
+.next-current
 out/
 
 # Environment variables
