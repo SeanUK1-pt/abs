@@ -19,6 +19,12 @@ function buildDir(): string | undefined {
 }
 const dist = buildDir()
 
+// On the server a plain `npm run build` would write into the folder that is serving
+// visitors, which is exactly what the two-folder setup exists to prevent.
+if (!process.env.NEXT_DIST_DIR && process.argv.includes('build') && fs.existsSync('.next-current')) {
+  throw new Error('Do not run a plain build on this server: use scripts/deploy.sh (it builds into the spare folder).')
+}
+
 const nextConfig: NextConfig = {
   ...(dist ? { distDir: dist } : {}),
   images: {
