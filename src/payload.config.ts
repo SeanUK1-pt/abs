@@ -20,6 +20,7 @@ import { MainNavigation } from './globals/MainNavigation'
 import { FooterNavigation } from './globals/FooterNavigation'
 import { SiteSettings } from './globals/SiteSettings'
 import { PromoBanner } from './globals/PromoBanner'
+import { smtpEmailAdapter } from './lib/emailAdapter'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -46,6 +47,7 @@ export default buildConfig({
     Users,
   ],
   globals: [MainNavigation, FooterNavigation, SiteSettings, PromoBanner],
+  email: smtpEmailAdapter(),
   editor: lexicalEditor(),
   db: mongooseAdapter({
     url: process.env.DATABASE_URI as string,
