@@ -294,3 +294,62 @@
   .content { padding-top: 1.75rem; padding-bottom: 3.5rem; }
   .dots { bottom: 3.25rem; }
 }
+
+/* ── Promotion slide (Black Friday): black, big figure, boat on the right ── */
+.promoBg {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at 70% 60%, #1b1b1f 0%, #050505 65%);
+}
+
+.promoImg {
+  position: absolute;
+  right: 2%;
+  bottom: 3.2rem;
+  width: min(52%, 780px);
+  height: 62%;
+  z-index: 1;
+}
+
+.promoImgEl {
+  object-fit: contain;
+  object-position: right bottom;
+  filter: drop-shadow(0 12px 28px rgba(0, 0, 0, 0.6));
+}
+
+.promoContent .block {
+  max-width: 720px;
+  align-items: flex-start;
+  gap: 0.5rem;
+}
+
+.promoContent .eyebrow {
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.figure {
+  margin: 0;
+  font-family: var(--font-heading);
+  font-size: clamp(3rem, 1.5rem + 6vw, 6.5rem);
+  font-weight: 900;
+  line-height: 0.95;
+  letter-spacing: -0.03em;
+  color: var(--white);
+}
+
+.promoContent .message {
+  font-size: 0.95rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+@media (max-width: 700px) {
+  .promoImg {
+    width: 80%;
+    height: 38%;
+    right: 0;
+    bottom: 3rem;
+    opacity: 0.55;
+  }
+}

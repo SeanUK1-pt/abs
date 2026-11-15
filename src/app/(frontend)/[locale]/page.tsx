@@ -11,8 +11,9 @@ import { UpdateCard } from '@/components/ui/UpdateCard'
 import { getLocaleFromParam } from '@/lib/locale'
 import { getTranslations } from '@/lib/translations'
 import { localePath, hreflangAlternates } from '@/lib/localePath'
-import { getSiteSettings, getPromoPanel, getBrokerageText } from '@/lib/navigation'
+import { getSiteSettings, getPromoPanel, getPromoHeroSlide, getBrokerageText } from '@/lib/navigation'
 import { isPriceOnApplication, POA_LABEL } from '@/lib/price'
+import type { PromoHeroData } from '@/lib/navigation'
 import { PromoPanel } from '@/components/ui/PromoPanel'
 import styles from './home.module.css'
 
@@ -80,7 +81,7 @@ async function getUpdates(locale: string) {
   return docs
 }
 
-async function getHeroSlides(locale: string, t: ReturnType<typeof getTranslations>): Promise<HeroSlide[]> {
+async function getHeroSlides(locale: string, t: ReturnType<typeof getTranslations>, promoSlide: PromoHeroData | null): Promise<HeroSlide[]> {
   const payload = await getPayload({ config })
   const [makesRes, boatsRes] = await Promise.all([
     payload.find({ collection: 'makes', limit: 50, depth: 1, locale: locale as any }),
@@ -112,6 +113,21 @@ async function getHeroSlides(locale: string, t: ReturnType<typeof getTranslation
   ]
 
   const slides: HeroSlide[] = []
+
+  // A running promotion goes first.
+  if (promoSlide) {
+    slides.push({
+      variant: 'promo',
+      src: promoSlide.image?.url ?? null,
+      alt: promoSlide.image?.alt || promoSlide.headline,
+      eyebrow: promoSlide.date ?? undefined,
+      title: promoSlide.headline,
+      figure: promoSlide.figure ?? undefined,
+      message: promoSlide.note ?? undefined,
+      primaryLabel: promoSlide.cta?.label,
+      primaryHref: promoSlide.cta ? localePath(locale, promoSlide.cta.url) : undefined,
+    })
+  }
 
   slides.push({
     variant: 'intro',
@@ -234,7 +250,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
   const [featured, latest, heroSlides, updates, siteSettings, promoPanel, brokerageText] = await Promise.all([
     getFeaturedBoats(locale),
     getLatestBoats(locale),
-    getHeroSlides(locale, t),
+    getPromoHeroSlide(locale, preview).then((promoSlide) => getHeroSlides(locale, t, promoSlide)),
     getUpdates(locale),
     getSiteSettings(),
     getPromoPanel(locale, preview),

@@ -6,7 +6,7 @@ import Link from 'next/link'
 import styles from './HeroCarousel.module.css'
 
 export type HeroSlide = {
-  variant: 'intro' | 'brand' | 'brokerage'
+  variant: 'intro' | 'brand' | 'brokerage' | 'promo'
   src?: string | null
   alt?: string
   eyebrow?: string
@@ -16,6 +16,8 @@ export type HeroSlide = {
   logoInvert?: boolean
   title: string
   titleAccent?: string
+  /** promo slide: the big number, e.g. "-35%" */
+  figure?: string
   message?: string
   primaryLabel?: string
   primaryHref?: string
@@ -49,6 +51,9 @@ export function HeroCarousel({ slides }: { slides: HeroSlide[] }) {
           className={`${styles.slide} ${i === active ? styles.slideActive : ''}`}
           aria-hidden={i !== active}
         >
+          {slide.variant === 'promo' ? (
+            <div className={styles.promoBg} aria-hidden="true" />
+          ) : (
           <div className={styles.imgWrap}>
             {slide.src ? (
               <Image
@@ -63,9 +68,15 @@ export function HeroCarousel({ slides }: { slides: HeroSlide[] }) {
               <div className={styles.imgFallback} aria-hidden="true" />
             )}
           </div>
-          <div className={`${styles.overlay} ${slide.variant === 'intro' ? styles.overlayIntro : ''}`} />
+          )}
+          {slide.variant === 'promo' && slide.src && (
+            <div className={styles.promoImg}>
+              <Image src={slide.src} alt={slide.alt || slide.title} fill className={styles.promoImgEl} priority={i === 0} sizes="(max-width: 800px) 90vw, 55vw" />
+            </div>
+          )}
+          {slide.variant !== 'promo' && <div className={`${styles.overlay} ${slide.variant === 'intro' ? styles.overlayIntro : ''}`} />}
 
-          <div className={`container ${styles.content}`}>
+          <div className={`container ${styles.content} ${slide.variant === 'promo' ? styles.promoContent : ''}`}>
             <div className={styles.block}>
               {slide.eyebrow && <span className={styles.eyebrow}>{slide.eyebrow}</span>}
 
@@ -89,6 +100,8 @@ export function HeroCarousel({ slides }: { slides: HeroSlide[] }) {
               )}
 
               {slide.logoSrc && <span className={styles.srTitle}>{slide.title}</span>}
+
+              {slide.figure && <p className={styles.figure}>{slide.figure}</p>}
 
               {slide.message && <p className={styles.message}>{slide.message}</p>}
 

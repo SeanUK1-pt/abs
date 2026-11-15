@@ -1,7 +1,7 @@
 import type { GlobalConfig } from 'payload'
 import { revalidatePath } from 'next/cache'
 
-const needsText = (label: string, flag: 'enabled' | 'show_bar' | 'show_panel') =>
+const needsText = (label: string, flag: 'enabled' | 'show_bar' | 'show_panel' | 'show_hero_slide') =>
   (value: unknown, { data }: { data?: Record<string, any> }) =>
     !data?.[flag] || (typeof value === 'string' && value.trim())
       ? true
@@ -13,7 +13,7 @@ export const PromoBanner: GlobalConfig = {
   admin: {
     group: 'Settings',
     description:
-      'Run a promotion such as Black Friday: a slim bar above the header and/or a larger panel on the homepage featuring specific boats. Build it with "Show promotion" OFF, use Preview to check it, then switch it on when you are ready.',
+      'Run a promotion such as Black Friday: a slim bar above the header, a first hero slide and/or a larger panel on the homepage featuring specific boats. Build it with "Show promotion" OFF, use Preview to check it, then switch it on when you are ready.',
     // Opens the homepage in preview mode (admin login required). Shows the SAVED
     // content even while "Show promotion" is off, so nothing is public yet.
     preview: (_doc, { locale }) =>
@@ -107,6 +107,80 @@ export const PromoBanner: GlobalConfig = {
                 {
                   name: 'link_url',
                   label: 'Link address (optional)',
+                  type: 'text',
+                  admin: { width: '50%', description: 'A page on this site such as /boats, or a full https:// address.' },
+                },
+              ],
+            },
+          ],
+        },
+        {
+          label: 'Hero slide',
+          description: 'A Black Friday slide shown FIRST in the homepage hero carousel, in the style of your Instagram posts.',
+          fields: [
+            {
+              name: 'show_hero_slide',
+              label: 'Include a hero slide',
+              type: 'checkbox',
+              defaultValue: false,
+            },
+            {
+              type: 'row',
+              fields: [
+                {
+                  name: 'hero_date',
+                  label: 'Date line',
+                  type: 'text',
+                  localized: true,
+                  admin: { width: '50%', description: 'Small line at the top, e.g. "27 November 2026". Optional.' },
+                },
+                {
+                  name: 'hero_headline',
+                  label: 'Headline',
+                  type: 'text',
+                  localized: true,
+                  admin: { width: '50%', description: 'e.g. "Black Friday".' },
+                  validate: needsText('Enter a headline, or untick "Include a hero slide"', 'show_hero_slide') as any,
+                },
+              ],
+            },
+            {
+              name: 'hero_figure',
+              label: 'Big figure',
+              type: 'text',
+              localized: true,
+              admin: {
+                description:
+                  'The large number, e.g. "-35%" or "Up to -35%". Optional. Not every boat has the same discount, so say "up to" when they differ.',
+              },
+            },
+            {
+              name: 'hero_note',
+              label: 'Small print under it',
+              type: 'text',
+              localized: true,
+              admin: { description: 'e.g. "On the original list price. VAT included." Optional.' },
+            },
+            {
+              name: 'hero_image',
+              label: 'Boat picture (optional)',
+              type: 'upload',
+              relationTo: 'media',
+              admin: { description: 'Best as a boat cut out on a transparent background (PNG or WebP), shown on the right. Leave empty for text only.' },
+            },
+            {
+              type: 'row',
+              fields: [
+                {
+                  name: 'hero_cta_label',
+                  label: 'Button text (optional)',
+                  type: 'text',
+                  localized: true,
+                  admin: { width: '50%', description: 'e.g. "See the deals".' },
+                },
+                {
+                  name: 'hero_cta_url',
+                  label: 'Button address (optional)',
                   type: 'text',
                   admin: { width: '50%', description: 'A page on this site such as /boats, or a full https:// address.' },
                 },

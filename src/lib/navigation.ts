@@ -64,6 +64,33 @@ export async function getPromoBanner(locale: Locale, preview = false): Promise<P
   return { message, linkLabel: link?.label ?? null, linkUrl: link?.url ?? null }
 }
 
+export interface PromoHeroData {
+  date: string | null
+  headline: string
+  figure: string | null
+  note: string | null
+  image: { url: string; alt: string } | null
+  cta: { label: string; url: string } | null
+}
+
+export async function getPromoHeroSlide(locale: Locale, preview = false): Promise<PromoHeroData | null> {
+  const p = await loadPromo(locale)
+  if (!p?.show_hero_slide) return null
+  if (!preview && !isLive(p)) return null
+  const str = (v: unknown) => (typeof v === 'string' && v.trim() ? v.trim() : null)
+  const headline = str(p.hero_headline)
+  if (!headline) return null
+  const img = p.hero_image && typeof p.hero_image === 'object' ? p.hero_image : null
+  return {
+    date: str(p.hero_date),
+    headline,
+    figure: str(p.hero_figure),
+    note: str(p.hero_note),
+    image: img?.url ? { url: img.url, alt: img.alt || '' } : null,
+    cta: cleanLink(p.hero_cta_url, p.hero_cta_label),
+  }
+}
+
 export interface PromoPanelData {
   placement: 'replace_hero' | 'below_hero'
   badge: string | null
