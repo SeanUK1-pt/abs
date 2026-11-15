@@ -21,6 +21,12 @@
   padding: 0;
 }
 
+/* A dark promotion panel sits right under the search card: let the band around
+   the card be the same black so no cream stripe shows beside it. */
+.searchBarOnPromo {
+  background: #050505;
+}
+
 .searchBar :global(.container) {
   /* Float the card up so it overlaps the base of the hero. */
   margin-top: -3.5rem;

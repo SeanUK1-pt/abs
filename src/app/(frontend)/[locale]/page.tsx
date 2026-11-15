@@ -300,7 +300,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
         </section>
       )}
 
-      <section className={styles.searchBar}>
+      <section className={`${styles.searchBar}${promoPanel ? ` ${styles.searchBarOnPromo}` : ''}`}>
         <div className="container">
           <QuickSearch locale={locale} />
         </div>

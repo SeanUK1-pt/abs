@@ -2,7 +2,7 @@
   position: relative;
   overflow: hidden;
   isolation: isolate;
-  background: var(--ocean-gradient);
+  background: #050505; /* Black Friday black; the search bar above matches it (see home.module.css) */
   color: var(--white);
   padding: 3.5rem 0;
 }
@@ -22,7 +22,7 @@
   position: absolute;
   inset: 0;
   z-index: -1;
-  background: linear-gradient(180deg, rgba(5, 15, 26, 0.78) 0%, rgba(5, 15, 26, 0.9) 100%);
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.78) 0%, rgba(0, 0, 0, 0.9) 100%);
 }
 
 .inner {
