@@ -302,19 +302,16 @@
   background: radial-gradient(ellipse at 70% 60%, #1b1b1f 0%, #050505 65%);
 }
 
-.promoImg {
-  position: absolute;
-  right: 2%;
-  bottom: 3.2rem;
-  width: min(52%, 780px);
-  height: 62%;
-  z-index: 1;
+/* Full-bleed promo artwork: the boat sits on the right of the picture, so keep
+   that side in view when the slide crops, and darken only the text side. */
+.imgPromo {
+  object-position: right center;
+  transform: none;
+  animation: none !important;
 }
 
-.promoImgEl {
-  object-fit: contain;
-  object-position: right bottom;
-  filter: drop-shadow(0 12px 28px rgba(0, 0, 0, 0.6));
+.overlayPromo {
+  background: linear-gradient(100deg, rgba(5, 5, 5, 0.6) 0%, rgba(5, 5, 5, 0.25) 40%, rgba(5, 5, 5, 0) 62%);
 }
 
 .promoContent .block {
@@ -342,14 +339,4 @@
   text-transform: uppercase;
   letter-spacing: 0.08em;
   color: rgba(255, 255, 255, 0.8);
-}
-
-@media (max-width: 700px) {
-  .promoImg {
-    width: 80%;
-    height: 38%;
-    right: 0;
-    bottom: 3rem;
-    opacity: 0.55;
-  }
 }

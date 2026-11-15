@@ -51,7 +51,7 @@ export function HeroCarousel({ slides }: { slides: HeroSlide[] }) {
           className={`${styles.slide} ${i === active ? styles.slideActive : ''}`}
           aria-hidden={i !== active}
         >
-          {slide.variant === 'promo' ? (
+          {slide.variant === 'promo' && !slide.src ? (
             <div className={styles.promoBg} aria-hidden="true" />
           ) : (
           <div className={styles.imgWrap}>
@@ -60,7 +60,7 @@ export function HeroCarousel({ slides }: { slides: HeroSlide[] }) {
                 src={slide.src}
                 alt={slide.alt || slide.title}
                 fill
-                className={styles.img}
+                className={`${styles.img} ${slide.variant === 'promo' ? styles.imgPromo : ''}`}
                 priority={i === 0}
                 sizes="100vw"
               />
@@ -69,12 +69,7 @@ export function HeroCarousel({ slides }: { slides: HeroSlide[] }) {
             )}
           </div>
           )}
-          {slide.variant === 'promo' && slide.src && (
-            <div className={styles.promoImg}>
-              <Image src={slide.src} alt={slide.alt || slide.title} fill className={styles.promoImgEl} priority={i === 0} sizes="(max-width: 800px) 90vw, 55vw" />
-            </div>
-          )}
-          {slide.variant !== 'promo' && <div className={`${styles.overlay} ${slide.variant === 'intro' ? styles.overlayIntro : ''}`} />}
+          {!(slide.variant === 'promo' && !slide.src) && <div className={`${styles.overlay} ${slide.variant === 'intro' ? styles.overlayIntro : ''} ${slide.variant === 'promo' ? styles.overlayPromo : ''}`} />}
 
           <div className={`container ${styles.content} ${slide.variant === 'promo' ? styles.promoContent : ''}`}>
             <div className={styles.block}>
