@@ -24,7 +24,6 @@ export function BoatCard({ boat, locale = 'en' }: { boat: any; locale?: string }
   const discountPercent = !poa && boat.sale_price ? Math.round((1 - boat.sale_price / boat.price) * 100) : null
   const mainImage = typeof boat.main_image === 'object' ? boat.main_image : null
   const make = typeof boat.make === 'object' ? boat.make?.name : ''
-  const model = typeof boat.model === 'object' ? boat.model?.name : ''
 
   const statusLabel = labels
 
@@ -75,7 +74,6 @@ export function BoatCard({ boat, locale = 'en' }: { boat: any; locale?: string }
       <div className={styles.body}>
         <div className={styles.makeModel}>
           {make && <span className={styles.make}>{make}</span>}
-          {model && <span className={styles.model}>{model}</span>}
         </div>
 
         <h3 className={styles.title}>{boat.title}</h3>
